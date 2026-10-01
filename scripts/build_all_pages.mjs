@@ -128,7 +128,7 @@ function buildIndexPage() {
           <div class="founder-card-offset-frame"></div>
           <div class="founder-card">
             <div class="founder-photo-box">
-              <img src="https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg/v1/fill/w_346,h_356,al_c,q_80,enc_avif,quality_auto/abcd.jpg" alt="Dr Aniqa Sohail - Founder and Project Director" class="founder-photo" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80';">
+              <img src="assets/img/dr-aniqa-sohail.jpg" alt="Dr Aniqa Sohail - Founder and Project Director" class="founder-photo" loading="lazy" onerror="this.onerror=null; this.src='https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg';">
               <div class="img-fallback-panel">Dr Aniqa Sohail</div>
             </div>
             <div class="founder-info">
@@ -500,7 +500,7 @@ function buildAboutPage() {
           </div>
           <div class="subpage-hero-media">
             <div class="subpage-featured-card">
-              <img src="https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg/v1/fill/w_600,h_400,al_c,q_80,enc_avif,quality_auto/abcd.jpg" alt="Dr Aniqa Sohail & Center Leadership" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1000&q=80';">
+              <img src="assets/img/dr-aniqa-sohail.jpg" alt="Dr Aniqa Sohail & Center Leadership" class="subpage-featured-img founder-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg';">
               <div class="subpage-banner-badge">
                 <span class="pulse-dot"></span> Clinical Leadership &middot; Dr Aniqa Sohail
               </div>
@@ -517,7 +517,7 @@ function buildAboutPage() {
             <div class="founder-card-offset-frame"></div>
             <div class="founder-card">
               <div class="founder-photo-box">
-                <img src="https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg/v1/fill/w_346,h_356,al_c,q_80,enc_avif,quality_auto/abcd.jpg" alt="Dr Aniqa Sohail" class="founder-photo" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80';">
+                <img src="assets/img/dr-aniqa-sohail.jpg" alt="Dr Aniqa Sohail" class="founder-photo" loading="lazy" onerror="this.onerror=null; this.src='https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg';">
                 <div class="img-fallback-panel">Dr Aniqa Sohail</div>
               </div>
               <div class="founder-info">

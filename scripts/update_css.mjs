@@ -1094,16 +1094,22 @@ button {
 
 .founder-photo-box {
   width: 100%;
-  height: 340px;
+  aspect-ratio: 572 / 638;
+  max-height: 480px;
   position: relative;
-  background: #08243F;
+  background: linear-gradient(180deg, #F0F6FD 0%, #E2EDF8 100%);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .founder-photo {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center top;
+  display: block;
 }
 
 .founder-info {
@@ -1677,6 +1683,12 @@ button {
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
+}
+
+.founder-featured-img {
+  object-fit: contain !important;
+  object-position: center top !important;
+  background: linear-gradient(135deg, #0A3568 0%, #08243F 100%) !important;
 }
 
 .subpage-featured-card:hover .subpage-featured-img {
@@ -2296,17 +2308,14 @@ html.js .reveal.active {
   }
 
   .videos-grid-20 {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
   }
-}
 
-/* Mid Tablet & Small Screens (<= 980px) */
-@media (max-width: 980px) {
   .hero-grid {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 3rem;
+    gap: 2.75rem;
   }
 
   .hero-content {
@@ -2327,20 +2336,20 @@ html.js .reveal.active {
   }
 
   .subpage-featured-card {
-    height: 240px;
+    height: 250px;
     max-width: 560px;
     margin: 0 auto;
   }
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.75rem 1rem;
   }
 
   .stat-item {
     border-right: none;
     border-bottom: 1px solid var(--color-border-subtle);
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
   }
 
   .stat-item:nth-child(3), .stat-item:nth-child(4) {
@@ -2350,7 +2359,7 @@ html.js .reveal.active {
 
   .founder-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.75rem;
   }
 
   .service-detail-grid {
@@ -2386,16 +2395,13 @@ html.js .reveal.active {
     padding-bottom: 3.5rem;
   }
 
-  .videos-grid-20 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .parent-power-banner {
     padding: 2.5rem 1.75rem;
   }
 
   .qual-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .footer-grid {
@@ -2406,106 +2412,315 @@ html.js .reveal.active {
 
 /* Mobile Phones (<= 640px) */
 @media (max-width: 640px) {
-  .services-grid-12, .trainings-grid, .videos-grid-20 {
-    grid-template-columns: 1fr;
+  /* Prevent horizontal edge clipping */
+  .container {
+    padding-left: 1.15rem !important;
+    padding-right: 1.15rem !important;
+    max-width: 100% !important;
   }
 
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  /* Responsive typography */
+  h1, .hero-headline {
+    font-size: clamp(1.75rem, 6.8vw, 2.25rem) !important;
+    line-height: 1.25 !important;
   }
 
-  .stat-item {
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding-bottom: 1.25rem;
+  h2, .section-title {
+    font-size: clamp(1.35rem, 5.2vw, 1.75rem) !important;
+    line-height: 1.3 !important;
   }
 
-  .stat-item:last-child {
-    border-bottom: none;
+  h3 {
+    font-size: clamp(1.15rem, 4.2vw, 1.35rem) !important;
+  }
+
+  .section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .section-badge {
+    font-size: 0.72rem !important;
+    padding: 0.25rem 0.75rem !important;
+  }
+
+  .section-subtitle {
+    font-size: 0.98rem !important;
+  }
+
+  /* Hero adjustments */
+  .hero-section {
+    padding: 2.5rem 0 3rem !important;
+  }
+
+  .hero-intro {
+    font-size: 0.98rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.5rem !important;
   }
 
   .hero-buttons {
-    flex-direction: column;
-    width: 100%;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
   }
 
   .hero-buttons .btn {
-    width: 100%;
+    width: 100% !important;
   }
 
-  .hero-section {
-    padding: 3rem 0 3.5rem;
+  .hero-beliefs {
+    gap: 0.4rem !important;
   }
 
-  .parent-power-banner {
-    padding: 2rem 1.25rem;
+  .belief-tag {
+    font-size: 0.72rem !important;
+    padding: 0.25rem 0.6rem !important;
   }
 
-  .contact-card {
-    padding: 1.75rem 1.25rem;
+  /* 3D Medallion on mobile */
+  .hero-visual-stage {
+    overflow: hidden !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 1.25rem 0 !important;
   }
 
-  .subpage-featured-card {
-    height: 200px;
-  }
-
-  .subpage-hero-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .subpage-hero-actions .btn {
-    width: 100%;
-  }
-
-  /* Prevent medallion overflow on narrow mobile screens */
   .medallion-container {
-    width: 250px;
-    height: 250px;
+    width: 220px !important;
+    height: 220px !important;
+    margin: 0.5rem auto !important;
   }
 
   .medallion-logo {
-    width: 180px;
-    height: 180px;
+    width: 165px !important;
+    height: 165px !important;
   }
 
-  .chip-1 { top: -8px; left: 8px; }
-  .chip-2 { top: 50px; right: -5px; }
-  .chip-3 { bottom: 50px; left: -5px; }
-  .chip-4 { bottom: -8px; right: 8px; }
+  .chip-1 { top: -6px !important; left: 10px !important; }
+  .chip-2 { top: 35px !important; right: 0px !important; }
+  .chip-3 { display: none !important; }
+  .chip-4 { bottom: -6px !important; right: 10px !important; }
 
   .floating-chip {
-    font-size: 0.72rem;
-    padding: 0.35rem 0.65rem;
+    font-size: 0.7rem !important;
+    padding: 0.3rem 0.65rem !important;
   }
 
-  /* Hide header consultation button on small mobile so brand fits clean */
+  /* Stats strip: clean 2-column grid on mobile */
+  .stats-strip {
+    padding: 1.75rem 0 !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem 0.75rem !important;
+  }
+
+  .stat-item {
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-border-subtle) !important;
+    padding: 0.5rem 0.25rem 1rem 0.25rem !important;
+  }
+
+  .stat-item:nth-child(3), .stat-item:nth-child(4) {
+    border-bottom: none !important;
+    padding-bottom: 0.25rem !important;
+  }
+
+  .stat-number {
+    font-size: 1.85rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.85rem !important;
+  }
+
+  .stat-sub {
+    font-size: 0.7rem !important;
+  }
+
+  /* Founder card on mobile: full photo uncropped */
+  .founder-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+  }
+
+  .founder-card-offset-frame {
+    inset: 0 !important;
+    transform: none !important;
+    opacity: 0.35 !important;
+  }
+
+  .founder-photo-box {
+    aspect-ratio: 572 / 638 !important;
+    max-height: 400px !important;
+    width: 100% !important;
+  }
+
+  .founder-photo {
+    object-fit: contain !important;
+    object-position: center top !important;
+  }
+
+  .founder-info {
+    padding: 1.25rem 1.25rem !important;
+  }
+
+  .founder-name {
+    font-size: 1.25rem !important;
+  }
+
+  .founder-qualifications-card {
+    padding: 1.25rem !important;
+  }
+
+  /* Grids: 1 column on mobile */
+  .services-grid-12, .trainings-grid, .videos-grid-20 {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .card-image-box {
+    height: 180px !important;
+  }
+
+  .card-content {
+    padding: 1.35rem !important;
+  }
+
+  .training-card-img-wrap {
+    height: 170px !important;
+  }
+
+  .training-card-body {
+    padding: 1.35rem !important;
+  }
+
+  /* Parent Power Banner */
+  .parent-power-banner {
+    padding: 1.75rem 1.25rem !important;
+    margin-top: 2rem !important;
+    border-radius: var(--radius-lg) !important;
+  }
+
+  .parent-power-title {
+    font-size: 1.4rem !important;
+  }
+
+  .parent-power-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    text-align: left !important;
+  }
+
+  .parent-power-banner .btn {
+    width: 100% !important;
+  }
+
+  /* Forms & inputs (prevents iOS auto-zoom) */
+  .form-control, input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  .contact-card {
+    padding: 1.5rem 1.25rem !important;
+    border-radius: var(--radius-lg) !important;
+  }
+
+  .meta-info-card {
+    padding: 1.25rem 1rem !important;
+  }
+
+  .map-embed-frame-wrap, .map-iframe-container {
+    height: 230px !important;
+  }
+
+  .map-header-bar, .map-footer-bar {
+    padding: 0.75rem 1rem !important;
+  }
+
+  /* Subpages */
+  .subpage-hero {
+    padding: 2.75rem 0 !important;
+  }
+
+  .subpage-featured-card {
+    height: 220px !important;
+  }
+
+  .subpage-hero-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+
+  .subpage-hero-actions .btn {
+    width: 100% !important;
+  }
+
+  .service-info-block {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .service-sidebar-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* Header adjustments */
   .btn-header {
     display: none !important;
   }
 
   .brand-name {
-    font-size: 0.95rem;
+    font-size: 0.92rem !important;
   }
 
   .brand-sub {
-    font-size: 0.62rem;
+    font-size: 0.6rem !important;
   }
 
   .brand-logo {
-    width: 38px;
-    height: 38px;
+    width: 38px !important;
+    height: 38px !important;
   }
 
+  /* Floating WhatsApp and Call buttons on mobile */
   .floating-actions {
-    bottom: 16px;
-    right: 16px;
-    gap: 8px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 14px !important;
+    gap: 8px !important;
+    z-index: 1050 !important;
   }
 
   .fab-btn {
-    width: 48px;
-    height: 48px;
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .mobile-drawer {
+    max-width: 310px !important;
+  }
+}
+
+/* Extra Small Phones (<= 380px) */
+@media (max-width: 380px) {
+  .floating-chip {
+    display: none !important;
+  }
+
+  .medallion-container {
+    width: 190px !important;
+    height: 190px !important;
+  }
+
+  .medallion-logo {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .brand-name {
+    font-size: 0.85rem !important;
   }
 }
 

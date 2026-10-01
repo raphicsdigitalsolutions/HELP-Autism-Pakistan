@@ -205,8 +205,8 @@ const SERVICES = [
     slug: "diagnostic-evaluation",
     title: "Diagnostic Evaluation & Assessment",
     tagline: "Compassionate, standardized clinical assessments by pediatric specialists",
-    heroImage: "https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg/v1/fill/w_346,h_356,al_c,q_80,enc_avif,quality_auto/abcd.jpg",
-    image: "https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg/v1/fill/w_346,h_356,al_c,q_80,enc_avif,quality_auto/abcd.jpg",
+    heroImage: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80",
     description: "Led by Dr. Aniqa Sohail (FCPS Paediatrics, Certified ABA Consultant), our diagnostic evaluations utilize recognized international diagnostic criteria and developmental scales to chart clear intervention roadmaps.",
     whoFor: "Infants, toddlers, and children showing early signs of developmental delays, speech regressions, sensory sensitivities, or behavioral differences.",
     sessionLook: "Detailed clinical history taking, direct child observation across unstructured and structured tasks, standardized screening tools (CARS, ADOS-informed, Vineland), and a compassionate parent feedback session.",
@@ -296,7 +296,7 @@ const VIDEOS = [
 const RESOURCES = [
   { slug: "journals", title: "Research Journals & Clinical Papers", desc: "Peer-reviewed scientific publications on autism prevalence, behavioral interventions, and neurological research.", image: "https://static.wixstatic.com/media/563e77_cf8acaf7ecad470aa37a075f3fc5cd7c~mv2.jpg/v1/fill/w_630,h_354,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/P6.jpg" },
   { slug: "books", title: "Recommended Books & Reading Lists", desc: "Curated literature for parents, clinical therapists, and educators navigating autism and neurodiversity.", image: "https://static.wixstatic.com/media/563e77_972ee7cc1f6b4b1d8a6454d97882f1ed~mv2.jpg/v1/fill/w_525,h_432,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/P13.jpg" },
-  { slug: "free-consultations", title: "Free Consultations & Screening Guides", desc: "Guidance on booking developmental reviews, early red flags checklists, and community assistance programs.", image: "https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg/v1/fill/w_346,h_356,al_c,q_80,enc_avif,quality_auto/abcd.jpg" },
+  { slug: "free-consultations", title: "Free Consultations & Screening Guides", desc: "Guidance on booking developmental reviews, early red flags checklists, and community assistance programs.", image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" },
   { slug: "autism-resource-library", title: "Autism Resource Library", desc: "Free downloadable PDF visual schedules, PECS starter icon packs, token economy charts, and social stories.", image: "https://static.wixstatic.com/media/563e77_02f5ed5587d94fddae1d3085112d5ef0~mv2.jpg/v1/crop/x_0,y_17,w_535,h_519/fill/w_598,h_520,al_c,lg_1,q_80,enc_avif,quality_auto/1-1_edited.jpg" },
   { slug: "photos-library", title: "Photos & Media Gallery", desc: "A photographic journey through our specialized therapy facilities, classrooms, sensory gym, and community events.", image: "https://static.wixstatic.com/media/563e77_5be3968018eb4128a44af02222f8420d~mv2.jpg/v1/fill/w_1023,h_585,al_c,q_85,enc_avif,quality_auto/HELP.jpg" }
 ];
