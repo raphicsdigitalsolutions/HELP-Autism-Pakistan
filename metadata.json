@@ -1,0 +1,6 @@
+{
+  "name": "HELP Autism Pakistan",
+  "description": "HELP Autism Pakistan — A project of A&S Welfare Society. A dedicated therapy, training and awareness centre for children with autism, ADHD and learning differences in Lahore, Pakistan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
