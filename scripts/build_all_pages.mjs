@@ -72,22 +72,22 @@ function buildIndexPage() {
             <!-- 4 Floating Pill Chips -->
             <a href="aba-therapy.html" class="floating-chip chip-1" title="Applied Behavior Analysis &amp; Speech">
               <span class="chip-dot blue"></span>
-              <span>ABA &amp; Speech</span>
+              <span class="chip-text">ABA &amp; Speech</span>
             </a>
 
             <a href="parent-trainings.html" class="floating-chip chip-2" title="Empowering Parents as Co-Therapists">
               <span class="chip-dot green"></span>
-              <span>Parent Power</span>
+              <span class="chip-text">Parent Power</span>
             </a>
 
             <a href="certificate-courses.html" class="floating-chip chip-3" title="Professional Certificate Courses">
               <span class="chip-dot sun"></span>
-              <span>Certifications</span>
+              <span class="chip-text">Certifications</span>
             </a>
 
             <a href="resources.html#video-libraries" class="floating-chip chip-4" title="20 Free Video Libraries">
               <span class="chip-dot red"></span>
-              <span>Free Videos</span>
+              <span class="chip-text">Free Videos</span>
             </a>
           </div>
         </div>
