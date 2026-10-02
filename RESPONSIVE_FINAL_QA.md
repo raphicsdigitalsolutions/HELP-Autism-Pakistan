@@ -183,7 +183,8 @@ Both defects have been permanently resolved at the structural CSS and DOM level 
 
 | Viewport | Header | Hero | 3D Logo | Floating Chips | Buttons | Overflow | Footer | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **320px** | PASS | PASS | PASS | PASS (3 Chips) | PASS | 0px | PASS | **PASS** |
+| **320px** | PASS | PASS | PASS | PASS (4 Chips) | PASS | 0px | PASS | **PASS** |
+| **340px** | PASS | PASS | PASS | PASS (4 Chips) | PASS | 0px | PASS | **PASS** |
 | **360px** | PASS | PASS | PASS | PASS (4 Chips) | PASS | 0px | PASS | **PASS** |
 | **375px** | PASS | PASS | PASS | PASS (4 Chips) | PASS | 0px | PASS | **PASS** |
 | **390px** | PASS | PASS | PASS | PASS (4 Chips) | PASS | 0px | PASS | **PASS** |

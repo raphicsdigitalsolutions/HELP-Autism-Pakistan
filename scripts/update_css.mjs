@@ -3212,28 +3212,58 @@ html.js .reveal.active {
 
 /* Ultra-compact Phones (<= 340px, e.g. 320px) */
 @media (max-width: 340px) {
-  /* Show 3 key high-impact chips cleanly to avoid visual crowding */
-  .chip-3 {
-    display: none !important;
+  /* All 4 chips remain fully visible and preserved around the 180px medallion */
+  .medallion-container {
+    width: 180px !important;
+    height: 180px !important;
+    margin: 0.5rem auto !important;
   }
 
+  .medallion-logo {
+    width: 130px !important;
+    height: 130px !important;
+  }
+
+  .floating-chip {
+    font-size: 0.62rem !important;
+    padding: 0.22rem 0.44rem !important;
+    gap: 0.25rem !important;
+    display: inline-flex !important;
+    z-index: 30 !important;
+    min-height: 28px !important;
+    box-shadow: 0 3px 10px rgba(8, 36, 63, 0.12) !important;
+  }
+
+  .floating-chip .chip-dot {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  /* 4-Corner Orbit: Upper-Left, Upper-Right, Lower-Left, Lower-Right */
   .chip-1 {
-    top: -6px !important;
-    left: 4px !important;
+    top: -8px !important;
+    left: -4px !important;
     display: inline-flex !important;
     z-index: 30 !important;
   }
 
   .chip-2 {
-    top: 22px !important;
-    right: 4px !important;
+    top: 26px !important;
+    right: -8px !important;
+    display: inline-flex !important;
+    z-index: 30 !important;
+  }
+
+  .chip-3 {
+    bottom: 26px !important;
+    left: -8px !important;
     display: inline-flex !important;
     z-index: 30 !important;
   }
 
   .chip-4 {
-    bottom: -6px !important;
-    right: 6px !important;
+    bottom: -8px !important;
+    right: -4px !important;
     display: inline-flex !important;
     z-index: 30 !important;
   }
