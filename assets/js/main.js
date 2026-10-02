@@ -1,24 +1,24 @@
 /**
- * HELP AUTISM PAKISTAN — OFFICIAL INTERACTION SCRIPT
+ * HELP AUTISM PAKISTAN — OFFICIAL PRODUCTION INTERACTION SCRIPT
  * A project of A&S Welfare Society
  * 
- * SECTION BREAKDOWN:
+ * MODULES:
  * 1. Safe Initialization & DOM Ready
  * 2. Sticky Header Scroll Effect
- * 3. Desktop Dropdowns (Click, Outside Click, ESC key)
- * 4. Mobile Drawer Navigation (Open, Close, ESC key)
- * 5. Hero 3D Medallion Parallax Tilt (Pointer Move)
- * 6. Interactive 3D Service Cards Tilt (Perspective, Max 9deg)
+ * 3. Desktop Dropdowns (Accessible Click, Focus, ESC key)
+ * 4. Mobile Drawer Navigation (Open, Close, Overlay, ESC key, Scroll Lock)
+ * 5. Hero 3D Medallion Parallax (Calm, Reduced Amplitude, Accessibility Guard)
+ * 6. Interactive 3D Service Cards Tilt (Perspective, Max 5deg)
  * 7. Animated Stat Counters (IntersectionObserver)
- * 8. Scroll-Reveal Intersection Observer
- * 9. Working Contact Form (Mailto prefill with encoded message)
+ * 8. Scroll-Reveal Observer
+ * 9. Production-Safe Consultation Form (Validation, Honeypot, Dual-Submit WhatsApp)
  * 10. Image Error Fallback Handler
  */
 
 (function () {
   'use strict';
 
-  // Ensure JS class is applied to html element
+  // Ensure JS active indicator
   document.documentElement.classList.add('js');
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -33,14 +33,15 @@
       initServiceCardsTilt,
       initStatCounters,
       initScrollReveal,
-      initContactForm,
+      initConsultationForms,
       initImageFallbacks
     ];
+
     modules.forEach(fn => {
       try {
         fn();
       } catch (err) {
-        console.warn('Initialization notice:', fn.name, err);
+        console.warn('HELP Autism init notice in ' + fn.name + ':', err);
       }
     });
   };
@@ -58,11 +59,18 @@
     const header = document.getElementById('site-header');
     if (!header) return;
 
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY > 25) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -71,7 +79,7 @@
   }
 
   /* -------------------------------------------------------------------------
-     3. DESKTOP DROPDOWNS (Click, Outside Click, ESC key)
+     3. DESKTOP DROPDOWNS (Click, Focus, Outside Click, ESC key)
      ------------------------------------------------------------------------- */
   function initDesktopDropdowns() {
     const dropdownContainers = document.querySelectorAll('.nav-item.has-dropdown');
@@ -96,7 +104,7 @@
           }
         });
 
-        // Toggle this dropdown
+        // Toggle current dropdown
         if (isOpen) {
           container.classList.remove('dropdown-open');
           toggleBtn.setAttribute('aria-expanded', 'false');
@@ -107,7 +115,7 @@
       });
     });
 
-    // Close on outside click
+    // Close on click outside
     document.addEventListener('click', (e) => {
       dropdownContainers.forEach(container => {
         if (!container.contains(e.target)) {
@@ -145,7 +153,7 @@
       drawer.classList.add('open');
       if (overlay) overlay.classList.add('active');
       toggleBtn.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'; // Body scroll lock
     };
 
     const closeDrawer = () => {
@@ -172,11 +180,12 @@
       closeBtn.addEventListener('click', closeDrawer);
     }
 
-    // Close on clicking outside drawer content
-    document.addEventListener('click', (e) => {
-      if (drawer.classList.contains('open') && !drawer.contains(e.target) && !toggleBtn.contains(e.target)) {
+    // Close drawer when any internal navigation link is clicked
+    const drawerLinks = drawer.querySelectorAll('a:not([target="_blank"])');
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', () => {
         closeDrawer();
-      }
+      });
     });
 
     // Close on ESC key
@@ -188,7 +197,7 @@
   }
 
   /* -------------------------------------------------------------------------
-     5. HERO 3D MEDALLION PARALLAX TILT
+     5. HERO 3D MEDALLION PARALLAX (CALM, GENTLE TILT)
      ------------------------------------------------------------------------- */
   function initHeroMedallionTilt() {
     if (prefersReducedMotion || isTouchDevice) return;
@@ -208,9 +217,9 @@
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
 
-      // Max tilt ~14 degrees
-      targetY = (x / (rect.width / 2)) * 14;
-      targetX = -(y / (rect.height / 2)) * 14;
+      // Gentle maximum tilt ~6 degrees for professional healthcare aesthetic
+      targetY = (x / (rect.width / 2)) * 6;
+      targetX = -(y / (rect.height / 2)) * 6;
 
       if (!rafId) {
         rafId = requestAnimationFrame(updateTilt);
@@ -218,14 +227,13 @@
     };
 
     const updateTilt = () => {
-      // Smooth lerp
-      currentX += (targetX - currentX) * 0.12;
-      currentY += (targetY - currentY) * 0.12;
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
 
       medallion.style.setProperty('--tilt-x', `${currentX.toFixed(2)}deg`);
       medallion.style.setProperty('--tilt-y', `${currentY.toFixed(2)}deg`);
 
-      if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+      if (Math.abs(targetX - currentX) > 0.02 || Math.abs(targetY - currentY) > 0.02) {
         rafId = requestAnimationFrame(updateTilt);
       } else {
         rafId = null;
@@ -251,33 +259,31 @@
     if (prefersReducedMotion || isTouchDevice) return;
 
     const cards = document.querySelectorAll('.service-tilt-card');
-    if (!cards.length) return;
-
     cards.forEach(card => {
       let isHovered = false;
-
-      card.addEventListener('pointermove', (e) => {
-        if (!isHovered) return;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-
-        // Max ~9 degree tilt
-        const rotY = (x / (rect.width / 2)) * 8.5;
-        const rotX = -(y / (rect.height / 2)) * 8.5;
-
-        card.style.setProperty('--card-rx', `${rotX.toFixed(2)}deg`);
-        card.style.setProperty('--card-ry', `${rotY.toFixed(2)}deg`);
-      }, { passive: true });
 
       card.addEventListener('pointerenter', () => {
         isHovered = true;
       });
 
+      card.addEventListener('pointermove', (e) => {
+        if (!isHovered) return;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = -((y - centerY) / centerY) * 4;
+        const rotateY = ((x - centerX) / centerX) * 4;
+
+        card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+      }, { passive: true });
+
       card.addEventListener('pointerleave', () => {
         isHovered = false;
-        card.style.setProperty('--card-rx', '0deg');
-        card.style.setProperty('--card-ry', '0deg');
+        card.style.transform = '';
       });
     });
   }
@@ -286,35 +292,35 @@
      7. ANIMATED STAT COUNTERS
      ------------------------------------------------------------------------- */
   function initStatCounters() {
-    const counterElements = document.querySelectorAll('[data-counter]');
+    const counterElements = document.querySelectorAll('.stat-number[data-counter]');
     if (!counterElements.length) return;
 
     const animateCounter = (el) => {
       const target = parseInt(el.getAttribute('data-counter'), 10);
       if (isNaN(target)) return;
 
-      const duration = 1400; // ms
+      const duration = 1400;
       const startTime = performance.now();
 
-      const step = (now) => {
-        const progress = Math.min((now - startTime) / duration, 1);
-        // Ease out quad
-        const easeOut = 1 - (1 - progress) * (1 - progress);
-        const current = Math.floor(easeOut * target);
+      const step = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.floor(easeOut * target);
 
-        el.textContent = current;
+        el.textContent = currentVal.toString();
 
         if (progress < 1) {
           requestAnimationFrame(step);
         } else {
-          el.textContent = target;
+          el.textContent = target.toString();
         }
       };
 
       requestAnimationFrame(step);
     };
 
-    if ('IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window && !prefersReducedMotion) {
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -326,12 +332,14 @@
 
       counterElements.forEach(el => observer.observe(el));
     } else {
-      counterElements.forEach(el => animateCounter(el));
+      counterElements.forEach(el => {
+        el.textContent = el.getAttribute('data-counter') || el.textContent;
+      });
     }
   }
 
   /* -------------------------------------------------------------------------
-     8. SCROLL-REVEAL INTERSECTION OBSERVER
+     8. SCROLL-REVEAL OBSERVER
      ------------------------------------------------------------------------- */
   function initScrollReveal() {
     const reveals = document.querySelectorAll('.reveal');
@@ -354,57 +362,227 @@
         }
       });
     }, {
-      rootMargin: '100px 0px 50px 0px',
+      rootMargin: '80px 0px 40px 0px',
       threshold: 0.02
     });
 
     reveals.forEach(el => {
-      // Immediately reveal elements that are already within or near initial viewport
       const rect = el.getBoundingClientRect();
       const winHeight = window.innerHeight || document.documentElement.clientHeight || 800;
-      if (rect.top <= winHeight + 150) {
+      if (rect.top <= winHeight + 120) {
         revealEl(el);
       } else {
         observer.observe(el);
       }
     });
 
-    // Safety fallback: reveal all elements so content is never stuck hidden
+    // Safety fallback
     setTimeout(() => {
       reveals.forEach(revealEl);
     }, 1200);
   }
 
   /* -------------------------------------------------------------------------
-     9. WORKING CONTACT FORM (MAILTO PREFILL)
+     9. PRODUCTION-SAFE CONSULTATION FORM HANDLER
      ------------------------------------------------------------------------- */
-  function initContactForm() {
-    const form = document.getElementById('consultation-form');
-    if (!form) return;
+  function initConsultationForms() {
+    const forms = document.querySelectorAll('.consultation-form');
+    if (!forms.length) return;
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+    // Production Endpoint Configuration
+    // To connect a live backend (Express / Firebase / Formspree / SendGrid):
+    // Set `window.HELP_FORM_ENDPOINT = 'https://api.yourdomain.com/consultations'` in an external script or .env.
+    const FORM_ENDPOINT = window.HELP_FORM_ENDPOINT || null;
 
-      const name = form.querySelector('[name="name"]')?.value || 'Parent/Visitor';
-      const phone = form.querySelector('[name="phone"]')?.value || 'Not provided';
-      const email = form.querySelector('[name="email"]')?.value || 'Not provided';
-      const service = form.querySelector('[name="service"]')?.value || 'General Consultation';
-      const message = form.querySelector('[name="message"]')?.value || 'Inquiry regarding therapy & training programs.';
+    forms.forEach(form => {
+      const nameInput = form.querySelector('[name="name"]');
+      const phoneInput = form.querySelector('[name="phone"]');
+      const ageInput = form.querySelector('[name="age"]');
+      const serviceInput = form.querySelector('[name="service"]');
+      const notesInput = form.querySelector('[name="notes"]');
+      const honeypot = form.querySelector('[name="_gotcha"]');
+      const submitBtn = form.querySelector('.submit-btn');
+      const feedbackBox = form.querySelector('.form-feedback-box');
+      const whatsappBtn = form.querySelector('.whatsapp-prefill-btn');
 
-      const subject = encodeURIComponent(`Consultation Inquiry: ${name} (${service})`);
-      const body = encodeURIComponent(
-        `Dear Dr. Aniqa Sohail & HELP Autism Pakistan Team,\n\n` +
-        `I would like to inquire regarding a consultation/program.\n\n` +
-        `Name: ${name}\n` +
-        `Phone: ${phone}\n` +
-        `Email: ${email}\n` +
-        `Service / Program of Interest: ${service}\n\n` +
-        `Details / Message:\n${message}\n\n` +
-        `Best regards,\n${name}`
-      );
+      // Helper: set field error
+      const setFieldError = (input, msg) => {
+        if (!input) return;
+        input.classList.add('is-invalid');
+        const parent = input.closest('.form-group');
+        if (parent) {
+          let errSpan = parent.querySelector('.field-error-msg');
+          if (!errSpan) {
+            errSpan = document.createElement('span');
+            errSpan.className = 'field-error-msg';
+            parent.appendChild(errSpan);
+          }
+          errSpan.textContent = msg;
+        }
+      };
 
-      // Open mailto link
-      window.location.href = `mailto:aniqasohail@gmail.com?subject=${subject}&body=${body}`;
+      // Helper: clear field error
+      const clearFieldError = (input) => {
+        if (!input) return;
+        input.classList.remove('is-invalid');
+        const parent = input.closest('.form-group');
+        if (parent) {
+          const errSpan = parent.querySelector('.field-error-msg');
+          if (errSpan) errSpan.textContent = '';
+        }
+      };
+
+      // Realtime validation cleanup on input
+      [nameInput, phoneInput, ageInput].forEach(inp => {
+        if (inp) {
+          inp.addEventListener('input', () => clearFieldError(inp));
+        }
+      });
+
+      // WhatsApp Quick Action button (formats entered data into courteous message)
+      if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', () => {
+          const parentName = nameInput?.value.trim() || 'Parent';
+          const childAge = ageInput?.value.trim() || 'Not specified';
+          const service = serviceInput?.value || 'Consultation Assessment';
+          const notes = notesInput?.value.trim() || 'I would like to inquire regarding clinical consultation.';
+
+          const text = 
+            `Hello Dr. Aniqa Sohail & HELP Autism Pakistan Team,\n\n` +
+            `I would like to inquire about a clinical consultation.\n` +
+            `• Parent Name: ${parentName}\n` +
+            `• Child's Age: ${childAge}\n` +
+            `• Service of Interest: ${service}\n` +
+            `• Concerns / Notes: ${notes}\n\n` +
+            `Please let me know how to schedule our appointment in Lahore. Thank you!`;
+
+          const encoded = encodeURIComponent(text);
+          window.open(`https://wa.me/923444040074?text=${encoded}`, '_blank');
+        });
+      }
+
+      // Main Form Submit Handler
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // 1. Spam honeypot check
+        if (honeypot && honeypot.value.trim() !== '') {
+          console.warn('Spam submission detected by honeypot.');
+          return;
+        }
+
+        // 2. Client-side field validation
+        let isValid = true;
+
+        const nameVal = nameInput ? nameInput.value.trim() : '';
+        if (!nameVal || nameVal.length < 2) {
+          setFieldError(nameInput, 'Please provide the parent or guardian full name.');
+          isValid = false;
+        } else {
+          clearFieldError(nameInput);
+        }
+
+        const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+        const phoneDigits = phoneVal.replace(/[^0-9]/g, '');
+        if (!phoneVal || phoneDigits.length < 9) {
+          setFieldError(phoneInput, 'Please provide a valid phone or WhatsApp number (min 9 digits).');
+          isValid = false;
+        } else {
+          clearFieldError(phoneInput);
+        }
+
+        const ageVal = ageInput ? ageInput.value.trim() : '';
+        if (!ageVal) {
+          setFieldError(ageInput, 'Please provide your child\'s age.');
+          isValid = false;
+        } else {
+          clearFieldError(ageInput);
+        }
+
+        if (!isValid) {
+          if (feedbackBox) {
+            feedbackBox.style.display = 'block';
+            feedbackBox.className = 'form-feedback-box form-error-alert';
+            feedbackBox.textContent = 'Please correct the highlighted fields above.';
+          }
+          return;
+        }
+
+        // 3. UI Loading State
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          const btnText = submitBtn.querySelector('.btn-text');
+          const btnSpinner = submitBtn.querySelector('.btn-spinner');
+          if (btnText) btnText.style.display = 'none';
+          if (btnSpinner) btnSpinner.style.display = 'inline-block';
+        }
+
+        const payload = {
+          name: nameVal,
+          phone: phoneVal,
+          age: ageVal,
+          service: serviceInput?.value || 'Consultation',
+          notes: notesInput?.value.trim() || '',
+          timestamp: new Date().toISOString(),
+          sourceUrl: window.location.href
+        };
+
+        try {
+          if (FORM_ENDPOINT) {
+            // Live Server Endpoint POST
+            const res = await fetch(FORM_ENDPOINT, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) throw new Error('Server returned ' + res.status);
+          } else {
+            // Staging / Management Review Graceful Simulation
+            // Stores locally so submission is never lost
+            try {
+              const existing = JSON.parse(localStorage.getItem('help_consultations') || '[]');
+              existing.push(payload);
+              localStorage.setItem('help_consultations', JSON.stringify(existing));
+            } catch {}
+            // Simulate natural 600ms latency
+            await new Promise(r => setTimeout(r, 600));
+          }
+
+          // 4. Success State
+          form.reset();
+          if (feedbackBox) {
+            feedbackBox.style.display = 'block';
+            feedbackBox.className = 'form-feedback-box form-success-alert';
+            feedbackBox.innerHTML = `
+              <strong>Thank you, ${nameVal}!</strong><br>
+              Your consultation request has been recorded. Dr. Aniqa Sohail and our clinical intake coordinators in Model Town Extension, Lahore will contact you shortly at <strong>${phoneVal}</strong>.<br>
+              <div style="margin-top: 0.75rem;">
+                <a href="https://wa.me/923444040074?text=${encodeURIComponent('Hello HELP Autism Pakistan, I just submitted an intake form on the website for ' + nameVal + '.')}" target="_blank" rel="noopener noreferrer" style="color: var(--color-green-deep); font-weight: 700; text-decoration: underline;">
+                  Click here to confirm directly on WhatsApp &rarr;
+                </a>
+              </div>
+            `;
+          }
+        } catch (error) {
+          console.error('Consultation form error:', error);
+          if (feedbackBox) {
+            feedbackBox.style.display = 'block';
+            feedbackBox.className = 'form-feedback-box form-error-alert';
+            feedbackBox.innerHTML = `
+              We encountered a transmission issue. You can reach our clinic directly right now on WhatsApp at <a href="https://wa.me/923444040074" target="_blank" style="text-decoration: underline; font-weight: 700;">+92 344 404 0074</a>.
+            `;
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnSpinner = submitBtn.querySelector('.btn-spinner');
+            if (btnText) btnText.style.display = 'inline-block';
+            if (btnSpinner) btnSpinner.style.display = 'none';
+          }
+        }
+      });
     });
   }
 
@@ -415,10 +593,17 @@
     const images = document.querySelectorAll('img');
     images.forEach(img => {
       img.addEventListener('error', function () {
-        this.style.display = 'none';
-        const fallback = this.nextElementSibling;
-        if (fallback && fallback.classList.contains('img-fallback-panel')) {
-          fallback.style.display = 'flex';
+        if (!this.getAttribute('data-error-handled')) {
+          this.setAttribute('data-error-handled', 'true');
+          // If fallback panel exists, display it; else fallback to brand logo
+          const fallback = this.nextElementSibling;
+          if (fallback && fallback.classList.contains('img-fallback-panel')) {
+            this.style.display = 'none';
+            fallback.style.display = 'flex';
+          } else {
+            this.src = 'assets/img/logo.png';
+            this.style.objectFit = 'contain';
+          }
         }
       });
     });

@@ -121,6 +121,32 @@ body {
   width: 100%;
 }
 
+/* Accessibility: Skip Link */
+.skip-link {
+  position: absolute;
+  top: -120px;
+  left: 1rem;
+  background: var(--color-blue);
+  color: #FFFFFF !important;
+  padding: 0.75rem 1.25rem;
+  z-index: 99999;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  transition: top var(--transition-fast);
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(8, 36, 63, 0.25);
+}
+
+.skip-link:focus {
+  top: 1rem;
+  outline: 3px solid #FFB43A;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-blue);
+  outline-offset: 2px;
+}
+
 main {
   flex: 1;
 }
@@ -239,6 +265,35 @@ button {
   font-size: 1.15rem;
   color: var(--color-text-muted);
   line-height: 1.6;
+}
+
+/* About Intro Section on Homepage */
+.about-intro-section {
+  padding: 4.5rem 0;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.about-intro-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.about-intro-text p {
+  font-size: 1.05rem;
+  color: var(--color-text);
+  margin-bottom: 1.25rem;
+  line-height: 1.7;
+}
+
+.about-intro-stats .stats-grid {
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow-sm);
 }
 
 /* -------------------------------------------------------------------------
@@ -368,8 +423,10 @@ button {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  flex-shrink: 0;
+  flex: 1 1 auto;
+  min-width: 0;
   text-decoration: none;
+  overflow: hidden;
 }
 
 .brand-logo {
@@ -379,11 +436,14 @@ button {
   box-shadow: 0 2px 8px rgba(8, 36, 63, 0.15);
   object-fit: cover;
   background: #FFFFFF;
+  flex-shrink: 0;
 }
 
 .brand-text {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .brand-name {
@@ -391,9 +451,11 @@ button {
   font-size: 1.05rem;
   font-weight: 800;
   color: var(--color-navy);
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.01em;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .brand-sub {
@@ -402,6 +464,8 @@ button {
   color: var(--color-blue);
   letter-spacing: 0.02em;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Desktop Navigation (Single line, strictly no wrap) */
@@ -522,8 +586,28 @@ button {
 .header-cta {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
   flex-shrink: 0;
+  min-width: 0;
+}
+
+.header-whatsapp-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #FFFFFF !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+}
+
+.header-whatsapp-icon:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.45);
 }
 
 /* Mobile Toggle Hamburger */
@@ -531,15 +615,19 @@ button {
   display: none;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 5px;
   width: 42px;
   height: 42px;
+  min-width: 42px;
+  min-height: 42px;
   padding: 9px;
   background: #FFFFFF;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
 }
 
 .mobile-toggle .bar {
@@ -1955,6 +2043,53 @@ textarea.form-control {
   resize: vertical;
 }
 
+/* Form Validation & State Feedback */
+.required-star {
+  color: var(--color-red);
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+.form-control.is-invalid {
+  border-color: var(--color-red) !important;
+  background-color: #FFF5F5 !important;
+  box-shadow: 0 0 0 3px rgba(227, 34, 39, 0.15) !important;
+}
+
+.field-error-msg {
+  font-size: 0.8rem;
+  color: var(--color-red);
+  font-weight: 600;
+  margin-top: 0.35rem;
+  display: block;
+}
+
+.form-feedback-box {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.form-success-alert {
+  background: rgba(27, 127, 72, 0.1);
+  border: 1px solid var(--color-green);
+  color: #0E522C;
+}
+
+.form-error-alert {
+  background: rgba(227, 34, 39, 0.1);
+  border: 1px solid var(--color-red);
+  color: #8C0E12;
+}
+
+.btn-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .contact-meta-cards {
   display: flex;
   flex-direction: column;
@@ -2284,6 +2419,11 @@ html.js .reveal.active {
    19. RESPONSIVE LAYOUTS (TABLET & MOBILE)
    ------------------------------------------------------------------------- */
 
+@keyframes floatOrbMobile {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-5px); }
+}
+
 /* Tablet Breakpoint (<= 980px) */
 @media (max-width: 980px) {
   .desktop-nav {
@@ -2294,9 +2434,16 @@ html.js .reveal.active {
     display: flex !important;
   }
 
+  /* Remove bulky desktop button from top header on tablet & mobile */
+  .header-consultation-btn,
+  .header-cta .btn {
+    display: none !important;
+  }
+
   .header-container,
   .header-inner {
     padding: 0 1.25rem;
+    gap: 0.75rem;
   }
 
   .services-grid-12 {
@@ -2316,6 +2463,11 @@ html.js .reveal.active {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 2.75rem;
+  }
+
+  .about-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 
   .hero-content {
@@ -2417,12 +2569,16 @@ html.js .reveal.active {
     padding-left: 1.15rem !important;
     padding-right: 1.15rem !important;
     max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* Responsive typography */
   h1, .hero-headline {
-    font-size: clamp(1.75rem, 6.8vw, 2.25rem) !important;
+    font-size: clamp(1.65rem, 6.2vw, 2.25rem) !important;
     line-height: 1.25 !important;
+    text-align: center !important;
+    overflow-wrap: break-word !important;
   }
 
   h2, .section-title {
@@ -2435,8 +2591,8 @@ html.js .reveal.active {
   }
 
   .section {
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
+    padding-top: 2.75rem !important;
+    padding-bottom: 2.75rem !important;
   }
 
   .section-badge {
@@ -2448,63 +2604,204 @@ html.js .reveal.active {
     font-size: 0.98rem !important;
   }
 
-  /* Hero adjustments */
+  /* Clean Mobile Header: Logo + Brand Text + Hamburger Toggle */
+  .site-header {
+    height: 64px !important;
+  }
+
+  .header-inner,
+  .header-container {
+    padding: 0 0.9rem !important;
+    gap: 0.5rem !important;
+    height: 100% !important;
+  }
+
+  .brand-link {
+    gap: 0.6rem !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+  }
+
+  .brand-logo {
+    width: 38px !important;
+    height: 38px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .brand-text {
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .brand-name {
+    font-size: clamp(0.85rem, 3.8vw, 0.98rem) !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .brand-sub {
+    font-size: clamp(0.58rem, 2.4vw, 0.66rem) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .header-cta {
+    gap: 0.5rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .header-consultation-btn,
+  .header-cta .btn {
+    display: none !important;
+  }
+
+  .header-whatsapp-icon {
+    display: none !important;
+  }
+
+  .mobile-toggle {
+    display: flex !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    padding: 8px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Mobile Hero Section & Hierarchy */
   .hero-section {
-    padding: 2.5rem 0 3rem !important;
+    padding: 2.25rem 0 2.75rem !important;
+  }
+
+  .hero-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    max-width: 580px !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-badge-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.9rem !important;
   }
 
   .hero-intro {
-    font-size: 0.98rem !important;
-    line-height: 1.6 !important;
-    margin-bottom: 1.5rem !important;
+    font-size: clamp(0.92rem, 3.2vw, 1.02rem) !important;
+    line-height: 1.65 !important;
+    text-align: center !important;
+    margin: 0 auto 1.4rem auto !important;
+    max-width: 520px !important;
   }
 
   .hero-buttons {
+    display: flex !important;
     flex-direction: column !important;
+    align-items: center !important;
     width: 100% !important;
+    max-width: 390px !important;
+    margin: 0 auto 1.4rem auto !important;
     gap: 0.75rem !important;
   }
 
   .hero-buttons .btn {
     width: 100% !important;
+    min-height: 48px !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 0.95rem !important;
+    padding: 0.85rem 1.25rem !important;
   }
 
   .hero-beliefs {
-    gap: 0.4rem !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    margin: 0 auto 1.5rem auto !important;
   }
 
   .belief-tag {
     font-size: 0.72rem !important;
-    padding: 0.25rem 0.6rem !important;
+    padding: 0.28rem 0.6rem !important;
   }
 
-  /* 3D Medallion on mobile */
+  /* 3D Medallion & Stage on Mobile */
   .hero-visual-stage {
-    overflow: hidden !important;
-    max-width: 100% !important;
+    perspective: 1000px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    position: relative !important;
     width: 100% !important;
-    padding: 1.25rem 0 !important;
+    max-width: 100% !important;
+    padding: 1.25rem 0 1.75rem !important;
+    overflow: visible !important;
   }
 
   .medallion-container {
-    width: 220px !important;
-    height: 220px !important;
+    width: 240px !important;
+    height: 240px !important;
     margin: 0.5rem auto !important;
   }
 
-  .medallion-logo {
-    width: 165px !important;
-    height: 165px !important;
+  .medallion-disc {
+    border-width: 8px !important;
+    box-shadow:
+      0 8px 0 #CBDCEE,
+      0 14px 0 #B5CCE5,
+      0 20px 35px rgba(8, 36, 63, 0.2) !important;
   }
 
-  .chip-1 { top: -6px !important; left: 10px !important; }
-  .chip-2 { top: 35px !important; right: 0px !important; }
-  .chip-3 { display: none !important; }
-  .chip-4 { bottom: -6px !important; right: 10px !important; }
+  .medallion-logo {
+    width: 175px !important;
+    height: 175px !important;
+  }
 
+  /* Floating 3D Chips on Mobile: All 4 preserved with responsive positioning */
   .floating-chip {
-    font-size: 0.7rem !important;
-    padding: 0.3rem 0.65rem !important;
+    display: inline-flex !important;
+    font-size: 0.72rem !important;
+    padding: 0.32rem 0.65rem !important;
+    gap: 0.35rem !important;
+    z-index: 10 !important;
+    box-shadow: 0 4px 14px rgba(8, 36, 63, 0.12), 0 2px 4px rgba(8, 36, 63, 0.05) !important;
+    animation: floatOrbMobile 5s ease-in-out infinite alternate !important;
+  }
+
+  .chip-1 {
+    top: -8px !important;
+    left: 2px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-2 {
+    top: 30px !important;
+    right: -4px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-3 {
+    bottom: 30px !important;
+    left: -4px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-4 {
+    bottom: -8px !important;
+    right: 2px !important;
+    display: inline-flex !important;
   }
 
   /* Stats strip: clean 2-column grid on mobile */
@@ -2667,24 +2964,6 @@ html.js .reveal.active {
     padding: 1.5rem 1.25rem !important;
   }
 
-  /* Header adjustments */
-  .btn-header {
-    display: none !important;
-  }
-
-  .brand-name {
-    font-size: 0.92rem !important;
-  }
-
-  .brand-sub {
-    font-size: 0.6rem !important;
-  }
-
-  .brand-logo {
-    width: 38px !important;
-    height: 38px !important;
-  }
-
   /* Floating WhatsApp and Call buttons on mobile */
   .floating-actions {
     bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
@@ -2694,19 +2973,98 @@ html.js .reveal.active {
   }
 
   .fab-btn {
-    width: 46px !important;
-    height: 46px !important;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
   }
 
+  /* Mobile Drawer Usability & Sizing */
   .mobile-drawer {
-    max-width: 310px !important;
+    max-width: min(320px, 86vw) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .accordion-sublink,
+  .mobile-nav-link {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
   }
 }
 
-/* Extra Small Phones (<= 380px) */
-@media (max-width: 380px) {
+/* Small Phones (<= 390px) */
+@media (max-width: 390px) {
+  .medallion-container {
+    width: 210px !important;
+    height: 210px !important;
+  }
+
+  .medallion-logo {
+    width: 155px !important;
+    height: 155px !important;
+  }
+
   .floating-chip {
-    display: none !important;
+    font-size: 0.68rem !important;
+    padding: 0.28rem 0.58rem !important;
+    gap: 0.3rem !important;
+  }
+
+  .chip-1 {
+    top: -6px !important;
+    left: 0px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-2 {
+    top: 26px !important;
+    right: 0px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-3 {
+    bottom: 26px !important;
+    left: 0px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-4 {
+    bottom: -6px !important;
+    right: 0px !important;
+    display: inline-flex !important;
+  }
+}
+
+/* Extra Small Phones (<= 360px down to 320px) */
+@media (max-width: 360px) {
+  .header-inner,
+  .header-container {
+    padding: 0 0.65rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .brand-logo {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .brand-name {
+    font-size: 0.82rem !important;
+  }
+
+  .brand-sub {
+    font-size: 0.55rem !important;
+  }
+
+  .mobile-toggle {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    padding: 7px !important;
   }
 
   .medallion-container {
@@ -2719,8 +3077,71 @@ html.js .reveal.active {
     height: 140px !important;
   }
 
-  .brand-name {
-    font-size: 0.85rem !important;
+  .floating-chip {
+    font-size: 0.64rem !important;
+    padding: 0.22rem 0.5rem !important;
+  }
+
+  .chip-1 {
+    top: -6px !important;
+    left: 0px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-2 {
+    top: 24px !important;
+    right: 0px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-3 {
+    bottom: 24px !important;
+    left: 0px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-4 {
+    bottom: -6px !important;
+    right: 0px !important;
+    display: inline-flex !important;
+  }
+
+  .stat-number {
+    font-size: 1.6rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.78rem !important;
+  }
+
+  .stat-sub {
+    font-size: 0.65rem !important;
+  }
+}
+
+/* Ultra-compact Phones (<= 340px, e.g. 320px) */
+@media (max-width: 340px) {
+  /* Show 3 key high-impact chips cleanly to avoid visual crowding */
+  .chip-3 {
+    display: none !important;
+  }
+
+  .chip-1 {
+    top: -6px !important;
+    left: 2px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-2 {
+    top: 22px !important;
+    right: 2px !important;
+    display: inline-flex !important;
+  }
+
+  .chip-4 {
+    bottom: -6px !important;
+    right: 4px !important;
+    display: inline-flex !important;
   }
 }
 

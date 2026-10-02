@@ -7,9 +7,8 @@ import {
   VIDEOS,
   RESOURCES,
   renderHtmlEnvelope,
+  ROOT_DIR
 } from './template_engine.mjs';
-
-const ROOT_DIR = process.cwd();
 
 function saveFile(filename, html) {
   const filePath = path.join(ROOT_DIR, filename);
@@ -18,11 +17,14 @@ function saveFile(filename, html) {
 }
 
 // --------------------------------------------------------------------------
-// 1. INDEX.HTML (HOMEPAGE)
+// 1. INDEX.HTML (HOMEPAGE — FOCUSED PRODUCTION HIERARCHY)
 // --------------------------------------------------------------------------
 function buildIndexPage() {
+  // Show 6 core foundational therapies on homepage (ABA, Speech, OT, Sensory, Floortime, TEACCH)
+  const coreServices = SERVICES.slice(0, 6);
+
   const content = `
-    <!-- Hero Section with 3D Medallion -->
+    <!-- 1. Hero Section -->
     <section class="hero-section" id="hero">
       <div class="container hero-grid">
         <!-- Hero Text Column -->
@@ -33,11 +35,11 @@ function buildIndexPage() {
           </div>
 
           <h1 class="hero-headline">
-            Empowering Autistic Children Towards <span class="accent">Independence</span>, Confidence &amp; Joy.
+            Empowering Autistic Children Towards <span class="accent">Independence</span>, Confidence &amp; Communication.
           </h1>
 
           <p class="hero-intro">
-            HELP Autism Pakistan provides evidence-based, multidisciplinary therapy and compassionate parent training led by <strong>Dr. Aniqa Sohail</strong> (Gold Medalist Paediatrician, Certified ABA Consultant, USA). We help every child unlock their fullest potential through individualized clinical care.
+            HELP Autism Pakistan provides evidence-based, multidisciplinary therapy and compassionate parent training led by <strong>Dr. Aniqa Sohail</strong> (Gold Medalist Paediatrician, Certified ABA Consultant). We help every child unlock their fullest potential through individualized clinical care in Lahore.
           </p>
 
           <div class="hero-buttons">
@@ -60,68 +62,124 @@ function buildIndexPage() {
           </div>
         </div>
 
-        <!-- 3D Hero Medallion Column -->
+        <!-- 3D Hero Medallion Column (Calm, Healthcare-Grade) -->
         <div class="hero-visual-stage reveal">
-          <div class="medallion-container" id="medallion-disc">
+          <div class="medallion-container" id="medallion-disc" aria-label="HELP Autism Pakistan Interactive Seal">
             <div class="medallion-disc">
               <img src="assets/img/logo.png" alt="HELP Autism Pakistan Official Logo" class="medallion-logo" loading="eager">
             </div>
 
-            <!-- 4 Floating 3D Pill Chips at Different Depths -->
-            <a href="aba-therapy.html" class="floating-chip chip-1" title="Applied Behavior Analysis">
+            <!-- 4 Floating Pill Chips -->
+            <a href="aba-therapy.html" class="floating-chip chip-1" title="Applied Behavior Analysis &amp; Speech">
               <span class="chip-dot blue"></span>
               <span>ABA &amp; Speech</span>
             </a>
 
             <a href="parent-trainings.html" class="floating-chip chip-2" title="Empowering Parents as Co-Therapists">
               <span class="chip-dot green"></span>
-              <span>Parent power programs</span>
+              <span>Parent Power</span>
             </a>
 
-            <a href="certificate-courses.html" class="floating-chip chip-3" title="Professional Certifications">
+            <a href="certificate-courses.html" class="floating-chip chip-3" title="Professional Certificate Courses">
               <span class="chip-dot sun"></span>
-              <span>Certificate courses</span>
+              <span>Certifications</span>
             </a>
 
             <a href="resources.html#video-libraries" class="floating-chip chip-4" title="20 Free Video Libraries">
               <span class="chip-dot red"></span>
-              <span>Free video libraries</span>
+              <span>Free Videos</span>
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Stats Strip -->
-    <section class="stats-strip">
-      <div class="container stats-grid">
-        <div class="stat-item reveal">
-          <div class="stat-number" data-counter="12">0</div>
-          <div class="stat-label">Therapy Disciplines</div>
-          <div class="stat-sub">Specialized 1:1 Clinical Care</div>
-        </div>
+    <!-- 2. About & Organization Introduction (Concise Overview) -->
+    <section class="section about-intro-section" id="about-intro">
+      <div class="container">
+        <div class="about-intro-grid reveal">
+          <div class="about-intro-text">
+            <span class="section-badge">Who We Are</span>
+            <h2 class="section-title">A Dedicated Therapy &amp; Training Centre in Lahore</h2>
+            <p>
+              Operating under the charitable non-profit charter of <strong>A&amp;S Welfare Society</strong>, <strong>HELP Autism Pakistan</strong> provides comprehensive multidisciplinary care for children with Autism Spectrum Disorder (ASD), ADHD, and developmental delays.
+            </p>
+            <p>
+              Located in Model Town Extension, Lahore, our centre combines international clinical standards with deep parental involvement, ensuring that therapeutic gains made at our facility carry over naturally into home, school, and community life.
+            </p>
+            <div style="margin-top: 1.5rem;">
+              <a href="about.html" class="btn btn-secondary">Learn About Our Story &amp; Mission &rarr;</a>
+            </div>
+          </div>
 
-        <div class="stat-item reveal">
-          <div class="stat-number" data-counter="20">0</div>
-          <div class="stat-label">Free Video Libraries</div>
-          <div class="stat-sub">Open-Access Demos &amp; Lectures</div>
-        </div>
+          <div class="about-intro-stats">
+            <div class="stats-grid">
+              <div class="stat-item reveal">
+                <div class="stat-number" data-counter="12">12</div>
+                <div class="stat-label">Therapy Disciplines</div>
+                <div class="stat-sub">Specialized 1:1 Care</div>
+              </div>
 
-        <div class="stat-item reveal">
-          <div class="stat-number" data-counter="6">0</div>
-          <div class="stat-label">Training Programs</div>
-          <div class="stat-sub">Parents, Interns &amp; Clinicians</div>
-        </div>
+              <div class="stat-item reveal">
+                <div class="stat-number" data-counter="20">20</div>
+                <div class="stat-label">Free Video Libraries</div>
+                <div class="stat-sub">Open-Access Tutorials</div>
+              </div>
 
-        <div class="stat-item reveal">
-          <div class="stat-number">9–5</div>
-          <div class="stat-label">Mon &ndash; Sat Schedule</div>
-          <div class="stat-sub">Model Town Ext, Lahore</div>
+              <div class="stat-item reveal">
+                <div class="stat-number" data-counter="6">6</div>
+                <div class="stat-label">Training Programs</div>
+                <div class="stat-sub">Parents, Interns &amp; Clinicians</div>
+              </div>
+
+              <div class="stat-item reveal">
+                <div class="stat-number">9–5</div>
+                <div class="stat-label">Mon &ndash; Sat Schedule</div>
+                <div class="stat-sub">Model Town Ext, Lahore</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Who We Are + Founder Card Section -->
+    <!-- 3. Services Section (Curated 6 Core Therapies Grid) -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-title-wrap reveal">
+          <span class="section-badge">Evidence-Based Clinical Care</span>
+          <h2 class="section-title">Core Therapy Disciplines</h2>
+          <p class="section-subtitle">
+            Every child receives a personalized, multidisciplinary plan crafted for tangible developmental milestones.
+          </p>
+        </div>
+
+        <div class="services-grid-12">
+          ${coreServices.map(s => `
+            <article class="service-tilt-card reveal">
+              <div class="card-image-box">
+                <img src="${s.image}" alt="${s.title} at HELP Autism Pakistan" class="card-img" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+                <div class="img-fallback-panel">${s.title}</div>
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">${s.title}</h3>
+                <p class="card-text">${s.description.substring(0, 125)}...</p>
+                <a href="${s.slug}.html" class="card-footer-link" aria-label="Learn more about ${s.title}">
+                  Learn More
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;" class="reveal">
+          <a href="programs.html" class="btn btn-primary btn-3d btn-lg">View All 12 Therapy Services &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Founder / Clinical Leadership Section -->
     <section class="section founder-section" id="founder">
       <div class="container founder-grid">
         <div class="founder-card-wrap reveal">
@@ -140,17 +198,17 @@ function buildIndexPage() {
         </div>
 
         <div class="founder-content reveal">
-          <span class="section-badge">Leadership &amp; Clinical Excellence</span>
+          <span class="section-badge">Leadership &amp; Clinical Direction</span>
           <h2 class="section-title">Founded with medical expertise and a mother’s devotion.</h2>
           <p>
-            HELP Autism Pakistan was established by <strong>Dr. Aniqa Sohail</strong>, a distinguished paediatrician, gold medalist from King Edward Medical College, and certified international autism specialist. As the mother of an autistic son, Dr. Aniqa combines gold-standard international clinical protocols with deeply personal empathy, practical parent-first coaching, and unwavering respect for each child’s unique dignity.
+            HELP Autism Pakistan was established by <strong>Dr. Aniqa Sohail</strong>, a paediatrician and gold medalist from King Edward Medical College. As the mother of an autistic son, Dr. Aniqa combines international clinical training with maternal empathy and practical parent-first guidance.
           </p>
           <p>
-            Operating under the non-profit charter of <strong>A&amp;S Welfare Society</strong>, the centre serves as a beacon of hope for families in Lahore and across Pakistan, delivering structured multi-disciplinary interventions under one coordinated roof.
+            Operating under the non-profit charter of <strong>A&amp;S Welfare Society</strong>, the centre delivers structured multi-disciplinary therapies, professional clinician training, and community acceptance initiatives in Lahore.
           </p>
 
           <div class="founder-qualifications-card">
-            <h4>Key Credentials &amp; Certifications</h4>
+            <h4>Key Credentials &amp; Qualifications</h4>
             <div class="qual-grid">
               <div class="qual-item">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -159,6 +217,10 @@ function buildIndexPage() {
               <div class="qual-item">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 <span>FCPS &amp; MCPS Paediatrics (CPSP)</span>
+              </div>
+              <div class="qual-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Head of Paediatric Dept at WTHC Lahore</span>
               </div>
               <div class="qual-item">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -172,194 +234,144 @@ function buildIndexPage() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 <span>Certified in ADHD Awareness (USA)</span>
               </div>
-              <div class="qual-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>RDI Program (PAS Series, India)</span>
-              </div>
             </div>
             <div style="margin-top: 1.25rem;">
-              <a href="about.html" class="btn btn-secondary btn-sm">Read full biography &amp; vision &rarr;</a>
+              <a href="about.html#founder" class="btn btn-secondary btn-sm">Read Full Biography &amp; Vision &rarr;</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Infinite Marquee Strip -->
-    <section class="marquee-section" aria-label="Evidence-Based Approaches">
-      <div class="marquee-track">
-        <div class="marquee-item"><span class="marquee-badge"></span> ABA Therapy</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Speech &amp; Language</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Occupational Therapy</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Sensory Integration</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> DIRFloortime</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> TEACCH Intervention</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Son-Rise Principles</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> PECS &amp; AAC</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> RDI Relationship Development</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Music Therapy</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Vocational &amp; Handloom</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Inclusive Schooling</div>
-        <!-- Infinite clone -->
-        <div class="marquee-item"><span class="marquee-badge"></span> ABA Therapy</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Speech &amp; Language</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Occupational Therapy</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> Sensory Integration</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> DIRFloortime</div>
-        <div class="marquee-item"><span class="marquee-badge"></span> TEACCH Intervention</div>
-      </div>
-    </section>
-
-    <!-- Services Grid (12 3D Tilt Cards) -->
-    <section class="section" id="services">
+    <!-- 5. Parent Support Section (Coaching, Siblings, Guidance) -->
+    <section class="section section-knowledge-transfer" id="parent-support">
       <div class="container">
-        <div class="section-title-wrap reveal">
-          <span class="section-badge">Our Comprehensive Care</span>
-          <h2 class="section-title">12 Evidence-Based Therapy Services</h2>
-          <p class="section-subtitle">
-            Every child undergoes structured assessment and receives a customized multi-disciplinary intervention plan crafted for tangible daily milestones.
-          </p>
-        </div>
-
-        <div class="services-grid-12">
-          ${SERVICES.map(s => `
-            <a href="${s.slug}.html" class="service-tilt-card reveal">
-              <div class="card-image-box">
-                <img src="${s.image}" alt="${s.title}" class="card-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80';">
-                <div class="img-fallback-panel">${s.title}</div>
+        <div class="parent-power-banner reveal">
+          <div class="parent-power-grid">
+            <div>
+              <span class="section-badge">Caregiver Empowerment</span>
+              <h2 class="parent-power-title" style="color: #FFFFFF; margin-bottom: 1rem;">Power Parent Programs &amp; Sibling Support</h2>
+              <p style="color: #CBDCEE; margin-bottom: 1.5rem; line-height: 1.7;">
+                Parents are a child's foremost advocates and lifelong co-therapists. Our training workshops equip mothers, fathers, and siblings with practical guidance for de-escalating meltdowns, building daily communication routines, and fostering loving, neuro-inclusive family environments.
+              </p>
+              <div class="parent-power-actions" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="parent-trainings.html" class="btn btn-green btn-3d">Explore Parent Programs</a>
+                <a href="sibling-trainings.html" class="btn btn-secondary">Sibling Support Sessions</a>
               </div>
-              <div class="card-content">
-                <h3 class="card-title">${s.title}</h3>
-                <p class="card-text">${s.description.substring(0, 130)}...</p>
-                <span class="card-footer-link">
-                  Learn about ${s.title} 
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </span>
-              </div>
-            </a>
-          `).join('')}
-        </div>
-
-        <div style="text-align: center; margin-top: 3rem;" class="reveal">
-          <a href="programs.html" class="btn btn-primary btn-3d btn-lg">View Full Programs Overview &rarr;</a>
+            </div>
+            <div style="text-align: center;">
+              <img src="assets/img/migrated/563e77_701ea7fec9a543f68a7166194aba6aec.jpg" alt="Parent &amp; Child Training Group" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-height: 260px; margin: 0 auto; width: 100%; object-fit: cover;" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Trainings, Internships & Certificate Courses (Knowledge Transfer) -->
-    <section class="section section-knowledge-transfer" id="trainings">
+    <!-- 6. Free Resources Hub Section (Clear, Focused Highlights) -->
+    <section class="section" id="resources-hub">
       <div class="container">
         <div class="section-title-wrap reveal">
-          <span class="section-badge">Knowledge Transfer</span>
-          <h2 class="section-title">Trainings, Internships &amp; Certificate Courses</h2>
+          <span class="section-badge">Free Community Knowledge</span>
+          <h2 class="section-title">Free Autism Resource Hub</h2>
           <p class="section-subtitle">
-            Building Pakistan’s special education and therapy capacity through clinical internships, accredited certifications, and empowering parent cohorts.
+            Open-access clinical video demonstrations, downloadable visual schedules, research papers, and curated reading lists for families and educators.
           </p>
         </div>
 
         <div class="trainings-grid">
-          ${TRAININGS.map(t => `
-            <div class="training-card reveal">
-              <div class="training-card-img-wrap">
-                <img src="${t.image}" alt="${t.title}" class="training-card-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80';">
-                <span class="training-card-badge">${t.audience.split(' ')[0]}</span>
-              </div>
-              <div class="training-card-body">
-                <span class="training-tag">${t.audience.split(' ')[0]} Program</span>
-                <h3 class="training-title">${t.title}</h3>
-                <p class="training-desc">${t.summary}</p>
-                <div style="margin-top: auto;">
-                  <p style="font-size: 0.82rem; color: var(--color-text-subtle); margin-bottom: 0.75rem;">
-                    <strong>Duration:</strong> ${t.duration}
-                  </p>
-                  <a href="${t.slug}.html" class="btn btn-secondary btn-sm btn-block">Program Details &rarr;</a>
-                </div>
+          <div class="training-card reveal">
+            <div class="training-card-img-wrap">
+              <img src="assets/img/migrated/563e77_b0f2574fbdf04ccdb5a7bb3ceedab97c.jpg" alt="20 Free Video Libraries" class="training-card-img" loading="lazy">
+              <span class="training-card-badge">20 Categories</span>
+            </div>
+            <div class="training-card-body">
+              <h3 class="training-title">20 Free Video Libraries</h3>
+              <p class="training-desc">Step-by-step video archives covering ABA, speech stimulation, sensory diet, functional living, and academic readiness.</p>
+              <div style="margin-top: auto;">
+                <a href="resources.html#video-libraries" class="btn btn-secondary btn-sm btn-block">Watch Video Archives &rarr;</a>
               </div>
             </div>
-          `).join('')}
-        </div>
+          </div>
 
-        <!-- Power Parent Programs Highlight Banner -->
-        <div class="parent-power-banner reveal" id="parent-power">
-          <div class="parent-power-grid">
-            <div>
-              <span class="section-badge">Flagship Community Initiative</span>
-              <h3>Power Parent Programs &amp; Sibling Support</h3>
-              <p>
-                Parents are a child's foremost and lifelong advocates. Our specialized coaching equips mothers and fathers with practical techniques for de-escalating meltdowns, building daily communication, and nurturing loving neuro-inclusive family environments.
-              </p>
-              <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
-                <a href="parent-trainings.html" class="btn btn-green btn-3d">Join Parent Training Cohort</a>
-                <a href="sibling-trainings.html" class="btn btn-secondary">Explore Sibling Programs</a>
+          <div class="training-card reveal">
+            <div class="training-card-img-wrap">
+              <img src="assets/img/migrated/563e77_972ee7cc1f6b4b1d8a6454d97882f1ed.jpg" alt="Books &amp; Handouts" class="training-card-img" loading="lazy">
+              <span class="training-card-badge">Literature</span>
+            </div>
+            <div class="training-card-body">
+              <h3 class="training-title">Books &amp; Clinical Handouts</h3>
+              <p class="training-desc">Curated reading lists and parent guides addressing developmental milestones, behavioral strategies, and autism parenting.</p>
+              <div style="margin-top: auto;">
+                <a href="books.html" class="btn btn-secondary btn-sm btn-block">Browse Books &rarr;</a>
               </div>
             </div>
-            <div style="text-align: center;">
-              <img src="https://static.wixstatic.com/media/563e77_701ea7fec9a543f68a7166194aba6aec~mv2.jpg/v1/crop/x_0,y_30,w_498,h_419/fill/w_561,h_503,al_c,lg_1,q_80,enc_avif,quality_auto/grooooop.jpg" alt="Parent & Child Training Group" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-height: 260px; margin: 0 auto;" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=600&q=80';">
+          </div>
+
+          <div class="training-card reveal">
+            <div class="training-card-img-wrap">
+              <img src="assets/img/migrated/563e77_cf8acaf7ecad470aa37a075f3fc5cd7c.jpg" alt="Research Journals" class="training-card-img" loading="lazy">
+              <span class="training-card-badge">Evidence</span>
+            </div>
+            <div class="training-card-body">
+              <h3 class="training-title">Research Journals &amp; Papers</h3>
+              <p class="training-desc">Peer-reviewed publications and clinical studies on autism prevalence, early interventions, and neurodevelopment.</p>
+              <div style="margin-top: auto;">
+                <a href="journals.html" class="btn btn-secondary btn-sm btn-block">View Research &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="training-card reveal">
+            <div class="training-card-img-wrap">
+              <img src="assets/img/migrated/563e77_02f5ed5587d94fddae1d3085112d5ef0.jpg" alt="Visual Schedules &amp; PECS" class="training-card-img" loading="lazy">
+              <span class="training-card-badge">Printables</span>
+            </div>
+            <div class="training-card-body">
+              <h3 class="training-title">Autism Resource Library</h3>
+              <p class="training-desc">Downloadable visual routine cards, token economy charts, and Picture Exchange Communication System (PECS) templates.</p>
+              <div style="margin-top: auto;">
+                <a href="autism-resource-library.html" class="btn btn-secondary btn-sm btn-block">Download Visuals &rarr;</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Free Video Libraries (Clean, High-Contrast 20 Libraries Grid) -->
-    <section class="section video-section-dark" id="video-libraries">
-      <div class="container">
-        <div class="section-title-wrap reveal">
-          <span class="section-badge">Free Public Knowledge Hub</span>
-          <h2 class="section-title">20 Free Video Libraries</h2>
-          <p class="section-subtitle">
-            Recorded clinical sessions, lectures, and step-by-step demonstrations freely available to parents and practitioners worldwide.
-          </p>
-        </div>
-
-        <div class="videos-grid-20">
-          ${VIDEOS.map((v, index) => `
-            <a href="${v.slug}.html" class="video-library-card reveal" title="${v.title}">
-              <div class="video-card-thumb-wrap">
-                <img src="${v.image}" alt="${v.title}" class="video-card-thumb" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80';">
-                <div class="video-play-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                </div>
-              </div>
-              <div class="video-card-body">
-                <span class="video-card-num">Library #${String(index + 1).padStart(2, '0')}</span>
-                <h3 class="video-card-title">${v.title}</h3>
-                <p class="video-card-topic">${v.topic}</p>
-              </div>
-            </a>
-          `).join('')}
-        </div>
 
         <div style="text-align: center; margin-top: 3rem;" class="reveal">
-          <a href="resources.html" class="btn btn-secondary btn-lg">Explore Full Resources &amp; Handouts &rarr;</a>
+          <a href="resources.html" class="btn btn-primary btn-3d btn-lg">Explore Full Resource Hub &rarr;</a>
         </div>
       </div>
     </section>
 
-    <!-- Contact & Consultation Booking Strip -->
+    <!-- 7. Contact CTA & Consultation Strip -->
     <section class="section" id="consultation">
       <div class="container contact-section-grid">
         <div class="contact-card reveal">
-          <span class="section-badge">Start Your Journey</span>
-          <h2 class="section-title" style="margin-bottom: 0.75rem;">Book a Clinical Consultation</h2>
-          <p style="margin-bottom: 2rem;">
-            Fill out the form below or message us directly on WhatsApp. Our clinical team in Model Town Extension, Lahore will review your request promptly.
+          <span class="section-badge">Get in Touch</span>
+          <h2 class="section-title" style="margin-bottom: 0.75rem;">Need Guidance for Your Child?</h2>
+          <p style="margin-bottom: 1.75rem;">
+            Book an evaluation consultation or reach out to our clinical intake team in Model Town Extension, Lahore.
           </p>
 
-          <form id="home-consultation-form" class="consultation-form">
+          <form class="consultation-form" id="home-consultation-form" novalidate>
+            <!-- Anti-spam Honeypot -->
+            <input type="text" name="_gotcha" style="display:none !important;" tabindex="-1" autocomplete="off" />
+
             <div class="form-group">
-              <label for="parent-name">Parent or Guardian Full Name *</label>
-              <input type="text" id="parent-name" name="name" class="form-control" placeholder="e.g. Fatima Tariq" required>
+              <label for="parent-name">Parent or Guardian Full Name <span class="required-star">*</span></label>
+              <input type="text" id="parent-name" name="name" class="form-control" placeholder="e.g. Fatima Tariq" required />
+              <span class="field-error-msg" aria-live="polite"></span>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div class="form-group">
-                <label for="child-age">Child's Age (Years) *</label>
-                <input type="text" id="child-age" name="age" class="form-control" placeholder="e.g. 4 years" required>
+                <label for="child-age">Child's Age (Years) <span class="required-star">*</span></label>
+                <input type="text" id="child-age" name="age" class="form-control" placeholder="e.g. 4 years" required />
+                <span class="field-error-msg" aria-live="polite"></span>
               </div>
               <div class="form-group">
-                <label for="phone-number">WhatsApp or Phone *</label>
-                <input type="tel" id="phone-number" name="phone" class="form-control" placeholder="0344 404 0074" required>
+                <label for="phone-number">WhatsApp or Phone <span class="required-star">*</span></label>
+                <input type="tel" id="phone-number" name="phone" class="form-control" placeholder="0344 404 0074" required />
+                <span class="field-error-msg" aria-live="polite"></span>
               </div>
             </div>
 
@@ -370,20 +382,30 @@ function buildIndexPage() {
                 <option value="ABA Therapy">ABA Therapy</option>
                 <option value="Speech & Language Therapy">Speech & Language Therapy</option>
                 <option value="Occupational & Sensory Integration">Occupational & Sensory Integration</option>
-                <option value="DIRFloortime">DIRFloortime</option>
+                <option value="DIRFloortime Play Therapy">DIRFloortime Play Therapy</option>
+                <option value="TEACCH Autism Program">TEACCH Autism Program</option>
                 <option value="Parent Power Coaching">Parent Power Coaching</option>
-                <option value="Other">Other Therapy Disciplines</option>
+                <option value="Other Disciplines">Other Therapy Disciplines</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="concerns-notes">Brief Developmental Concerns</label>
-              <textarea id="concerns-notes" name="notes" class="form-control" placeholder="Tell us about speech, eye contact, sensory sensitivity, or behavioral challenges..."></textarea>
+              <label for="concerns-notes">Brief Developmental Concerns / Notes</label>
+              <textarea id="concerns-notes" name="notes" class="form-control" rows="3" placeholder="Tell us about speech, sensory sensitivities, school readiness, or behavioral concerns..."></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-3d btn-block btn-lg">
-              Submit Consultation Request &rarr;
-            </button>
+            <div class="form-actions-stack">
+              <button type="submit" class="btn btn-primary btn-3d btn-block btn-lg submit-btn">
+                <span class="btn-text">Submit Consultation Request &rarr;</span>
+                <span class="btn-spinner" style="display:none;">Submitting...</span>
+              </button>
+              <button type="button" class="btn btn-green btn-block whatsapp-prefill-btn" style="margin-top: 0.75rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right: 6px;"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2Z"/></svg>
+                Or Send Form Details via WhatsApp
+              </button>
+            </div>
+
+            <div class="form-feedback-box" style="display:none;" role="alert"></div>
           </form>
         </div>
 
@@ -396,6 +418,7 @@ function buildIndexPage() {
             <div class="meta-card-content">
               <h4>Center Address</h4>
               <p>${ORG.address}</p>
+              <p style="font-size: 0.85rem; color: var(--color-blue); margin-top: 0.25rem;">${ORG.parentOrg}</p>
             </div>
           </div>
 
@@ -404,9 +427,8 @@ function buildIndexPage() {
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             </div>
             <div class="meta-card-content">
-              <h4>Operating Timing</h4>
+              <h4>Operating Hours</h4>
               <p>${ORG.timing}</p>
-              <p style="font-size: 0.8rem; color: var(--color-green-deep); font-weight: 600;">Closed Sundays</p>
             </div>
           </div>
 
@@ -430,7 +452,7 @@ function buildIndexPage() {
                 <span class="map-status-dot"></span>
                 <strong>Model Town Extension Centre, Lahore</strong>
               </div>
-              <span class="map-badge">Open Mon&ndash;Sat 9AM&ndash;6PM</span>
+              <span class="map-badge">${ORG.timingShort}</span>
             </div>
             <div class="map-embed-frame-wrap">
               <iframe
@@ -447,14 +469,14 @@ function buildIndexPage() {
             <div class="map-footer-bar">
               <div class="map-address-text">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>P-Block, Model Town Extension, Lahore, Punjab, Pakistan</span>
+                <span>${ORG.address}</span>
               </div>
               <div class="map-btn-group">
                 <a href="https://maps.google.com/?q=Model+Town+Extension+Lahore+Pakistan" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm btn-3d">
-                  Directions in Maps &rarr;
+                  Directions &rarr;
                 </a>
-                <a href="tel:+923444040074" class="btn btn-secondary btn-sm">
-                  Call Clinic
+                <a href="tel:${ORG.primaryPhone.replace(/\s+/g, '')}" class="btn btn-secondary btn-sm">
+                  Call Centre
                 </a>
               </div>
             </div>
@@ -465,9 +487,10 @@ function buildIndexPage() {
   `;
 
   const html = renderHtmlEnvelope({
-    title: "HELP Autism Pakistan — Therapy, Training & Awareness Centre Lahore",
-    description: "HELP Autism Pakistan (A project of A&S Welfare Society) is a dedicated therapy, training, and awareness centre for autism, ADHD, and learning differences in Lahore, Pakistan led by Dr Aniqa Sohail.",
+    title: "HELP Autism Pakistan | Autism Therapy, Training & Resources in Lahore",
+    description: "HELP Autism Pakistan — A project of A&S Welfare Society. A dedicated therapy, training and awareness centre for children with autism, ADHD and learning differences in Lahore, Pakistan.",
     activePage: 'home',
+    filename: 'index.html',
     content
   });
 
@@ -500,7 +523,7 @@ function buildAboutPage() {
           </div>
           <div class="subpage-hero-media">
             <div class="subpage-featured-card">
-              <img src="assets/img/dr-aniqa-sohail.jpg" alt="Dr Aniqa Sohail & Center Leadership" class="subpage-featured-img founder-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg';">
+              <img src="assets/img/dr-aniqa-sohail.jpg" alt="Dr Aniqa Sohail &amp; Center Leadership" class="subpage-featured-img founder-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://static.wixstatic.com/media/563e77_28cfd4d786cd4578985fcf0bd0bfa430~mv2.jpg';">
               <div class="subpage-banner-badge">
                 <span class="pulse-dot"></span> Clinical Leadership &middot; Dr Aniqa Sohail
               </div>
@@ -510,7 +533,7 @@ function buildAboutPage() {
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="founder">
       <div class="container">
         <div class="founder-grid" style="align-items: flex-start;">
           <div class="founder-card-wrap reveal">
@@ -605,9 +628,10 @@ function buildAboutPage() {
   `;
 
   const html = renderHtmlEnvelope({
-    title: "About Us & Founder Dr Aniqa Sohail",
+    title: "About Us &amp; Founder Dr Aniqa Sohail",
     description: "Learn about HELP Autism Pakistan, our mission as a project of A&S Welfare Society, and founder Dr Aniqa Sohail's clinical credentials and vision in Lahore.",
     activePage: 'about',
+    filename: 'about.html',
     content
   });
 
@@ -631,7 +655,7 @@ function buildProgramsPage() {
             <span class="section-badge">Comprehensive Clinical Offerings</span>
             <h1 class="subpage-hero-title">Therapies, Trainings &amp; Programs Overview</h1>
             <p class="subpage-tagline">
-              Explore our 12 specialized therapy disciplines, professional healthcare internships, parent power cohorts, and vocational programs.
+              Explore our 12 specialized therapy disciplines, professional healthcare internships, parent power cohorts, and vocational programs in Lahore.
             </p>
             <div class="subpage-hero-actions">
               <a href="#all-services" class="btn btn-primary btn-3d">Explore 12 Therapies</a>
@@ -640,7 +664,7 @@ function buildProgramsPage() {
           </div>
           <div class="subpage-hero-media">
             <div class="subpage-featured-card">
-              <img src="https://static.wixstatic.com/media/563e77_105f7f18e8a744e9a2f643d2b11a6142~mv2.jpg/v1/crop/x_166,y_0,w_930,h_720/fill/w_600,h_400,al_c,q_80,enc_avif,quality_auto/AVJADJDNVNFV.jpg" alt="HELP Autism Pakistan Clinical Programs" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1000&q=80';">
+              <img src="assets/img/migrated/563e77_105f7f18e8a744e9a2f643d2b11a6142.jpg" alt="HELP Autism Pakistan Clinical Programs" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
               <div class="subpage-banner-badge">
                 <span class="pulse-dot"></span> 12 Clinical Disciplines in Lahore
               </div>
@@ -663,19 +687,19 @@ function buildProgramsPage() {
 
         <div class="services-grid-12">
           ${SERVICES.map(s => `
-            <a href="${s.slug}.html" class="service-tilt-card reveal">
+            <article class="service-tilt-card reveal">
               <div class="card-image-box">
-                <img src="${s.image}" alt="${s.title}" class="card-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80';">
+                <img src="${s.image}" alt="${s.title}" class="card-img" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="img-fallback-panel">${s.title}</div>
               </div>
               <div class="card-content">
                 <h3 class="card-title">${s.title}</h3>
                 <p class="card-text">${s.description.substring(0, 130)}...</p>
-                <span class="card-footer-link">
+                <a href="${s.slug}.html" class="card-footer-link" aria-label="View full details on ${s.title}">
                   View Full Details &rarr;
-                </span>
+                </a>
               </div>
-            </a>
+            </article>
           `).join('')}
         </div>
       </div>
@@ -696,7 +720,7 @@ function buildProgramsPage() {
           ${TRAININGS.map(t => `
             <div class="training-card reveal">
               <div class="training-card-img-wrap">
-                <img src="${t.image}" alt="${t.title}" class="training-card-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80';">
+                <img src="${t.image}" alt="${t.title}" class="training-card-img" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <span class="training-card-badge">${t.audience.split(' ')[0]}</span>
               </div>
               <div class="training-card-body">
@@ -729,7 +753,7 @@ function buildProgramsPage() {
               </div>
             </div>
             <div style="text-align: center;">
-              <img src="https://static.wixstatic.com/media/563e77_105f7f18e8a744e9a2f643d2b11a6142~mv2.jpg/v1/crop/x_166,y_0,w_930,h_720/fill/w_598,h_460,al_c,q_80,enc_avif,quality_auto/AVJADJDNVNFV.jpg" alt="Parent and Child Session" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-height: 260px;" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=600&q=80';">
+              <img src="assets/img/migrated/563e77_701ea7fec9a543f68a7166194aba6aec.jpg" alt="Parent and Child Session" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-height: 260px; width: 100%; object-fit: cover;" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
             </div>
           </div>
         </div>
@@ -738,9 +762,10 @@ function buildProgramsPage() {
   `;
 
   const html = renderHtmlEnvelope({
-    title: "All Programs, Therapies & Trainings Overview",
-    description: "Complete overview of the 12 clinical therapy services, 6 training programs, parent power cohorts, and internships at HELP Autism Pakistan.",
+    title: "All Programs, Therapies &amp; Trainings Overview",
+    description: "Complete overview of the 12 clinical therapy services, 6 training programs, parent power cohorts, and internships at HELP Autism Pakistan in Lahore.",
     activePage: 'programs',
+    filename: 'programs.html',
     content
   });
 
@@ -773,7 +798,7 @@ function buildResourcesPage() {
           </div>
           <div class="subpage-hero-media">
             <div class="subpage-featured-card">
-              <img src="https://static.wixstatic.com/media/563e77_17fe3637e6ee448c9ae7fc9038234be2~mv2.jpg/v1/fill/w_600,h_400,al_c,q_80,enc_avif,quality_auto/563e77_17fe3637e6ee448c9ae7fc9038234be2~mv2.jpg" alt="HELP Autism Pakistan Free Resources" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80';">
+              <img src="assets/img/migrated/563e77_02f5ed5587d94fddae1d3085112d5ef0.jpg" alt="HELP Autism Pakistan Free Resources" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
               <div class="subpage-banner-badge">
                 <span class="pulse-dot"></span> Free Open-Access Clinical Library
               </div>
@@ -798,7 +823,7 @@ function buildResourcesPage() {
           ${RESOURCES.map(r => `
             <div class="training-card reveal">
               <div class="training-card-img-wrap">
-                <img src="${r.image}" alt="${r.title}" class="training-card-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80';">
+                <img src="${r.image}" alt="${r.title}" class="training-card-img" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <span class="training-card-badge">Collection</span>
               </div>
               <div class="training-card-body">
@@ -815,7 +840,7 @@ function buildResourcesPage() {
       </div>
     </section>
 
-    <!-- 20 Free Video Libraries (Clean High-Contrast Grid) -->
+    <!-- 20 Free Video Libraries -->
     <section class="section video-section-dark" id="video-libraries">
       <div class="container">
         <div class="section-title-wrap reveal">
@@ -830,7 +855,7 @@ function buildResourcesPage() {
           ${VIDEOS.map((v, index) => `
             <a href="${v.slug}.html" class="video-library-card reveal" title="${v.title}">
               <div class="video-card-thumb-wrap">
-                <img src="${v.image}" alt="${v.title}" class="video-card-thumb" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80';">
+                <img src="${v.image}" alt="${v.title}" class="video-card-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="video-play-icon">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
@@ -848,9 +873,10 @@ function buildResourcesPage() {
   `;
 
   const html = renderHtmlEnvelope({
-    title: "Free Autism Resources & 20 Video Libraries",
+    title: "Free Autism Resources &amp; 20 Video Libraries",
     description: "Browse free autism resources, clinical research journals, download books, and watch 20 video libraries by HELP Autism Pakistan in Lahore.",
     activePage: 'resources',
+    filename: 'resources.html',
     content
   });
 
@@ -883,7 +909,7 @@ function buildContactPage() {
           </div>
           <div class="subpage-hero-media">
             <div class="subpage-featured-card">
-              <img src="https://static.wixstatic.com/media/563e77_417d47225102434daaeec3b8ceea9be8~mv2.jpg/v1/fill/w_600,h_400,al_c,q_80,enc_avif,quality_auto/563e77_417d47225102434daaeec3b8ceea9be8~mv2.jpg" alt="HELP Autism Pakistan Lahore Centre" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80';">
+              <img src="assets/img/migrated/563e77_5be3968018eb4128a44af02222f8420d.jpg" alt="HELP Autism Pakistan Lahore Centre" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
               <div class="subpage-banner-badge">
                 <span class="pulse-dot"></span> P Block, Model Town Ext, Lahore
               </div>
@@ -901,27 +927,32 @@ function buildContactPage() {
             Whether you are seeking an initial diagnosis, ongoing therapy, or parent coaching, our intake coordinators will guide your next steps.
           </p>
 
-          <form id="contact-full-form" class="consultation-form">
+          <form class="consultation-form" id="contact-full-form" novalidate>
+            <!-- Anti-spam Honeypot -->
+            <input type="text" name="_gotcha" style="display:none !important;" tabindex="-1" autocomplete="off" />
+
             <div class="form-group">
-              <label for="contact-name">Parent or Guardian Full Name *</label>
-              <input type="text" id="contact-name" name="name" class="form-control" placeholder="e.g. Tariq Mehmood" required>
+              <label for="contact-name">Parent or Guardian Full Name <span class="required-star">*</span></label>
+              <input type="text" id="contact-name" name="name" class="form-control" placeholder="e.g. Tariq Mehmood" required />
+              <span class="field-error-msg" aria-live="polite"></span>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div class="form-group">
-                <label for="contact-phone">Phone / WhatsApp *</label>
-                <input type="tel" id="contact-phone" name="phone" class="form-control" placeholder="0344 404 0074" required>
+                <label for="contact-phone">Phone / WhatsApp <span class="required-star">*</span></label>
+                <input type="tel" id="contact-phone" name="phone" class="form-control" placeholder="0344 404 0074" required />
+                <span class="field-error-msg" aria-live="polite"></span>
               </div>
               <div class="form-group">
                 <label for="contact-email">Email Address</label>
-                <input type="email" id="contact-email" name="email" class="form-control" placeholder="parent@example.com">
+                <input type="email" id="contact-email" name="email" class="form-control" placeholder="parent@example.com" />
               </div>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div class="form-group">
-                <label for="child-details">Child Age &amp; Gender</label>
-                <input type="text" id="child-details" name="child" class="form-control" placeholder="e.g. 5 years, Male">
+                <label for="child-details">Child Age (Years)</label>
+                <input type="text" id="child-details" name="age" class="form-control" placeholder="e.g. 5 years" />
               </div>
               <div class="form-group">
                 <label for="contact-service">Service of Interest</label>
@@ -942,12 +973,21 @@ function buildContactPage() {
 
             <div class="form-group">
               <label for="contact-message">Tell Us About Your Child's Needs &amp; Goals</label>
-              <textarea id="contact-message" name="message" class="form-control" placeholder="Include any existing diagnoses, school difficulties, speech delays, or sensory triggers..."></textarea>
+              <textarea id="contact-message" name="notes" class="form-control" rows="4" placeholder="Include any existing diagnoses, speech delays, sensory triggers, or school goals..."></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-3d btn-block btn-lg">
-              Send Message to Clinical Team &rarr;
-            </button>
+            <div class="form-actions-stack">
+              <button type="submit" class="btn btn-primary btn-3d btn-block btn-lg submit-btn">
+                <span class="btn-text">Send Message to Clinical Team &rarr;</span>
+                <span class="btn-spinner" style="display:none;">Submitting...</span>
+              </button>
+              <button type="button" class="btn btn-green btn-block whatsapp-prefill-btn" style="margin-top: 0.75rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right: 6px;"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2Z"/></svg>
+                Send via WhatsApp
+              </button>
+            </div>
+
+            <div class="form-feedback-box" style="display:none;" role="alert"></div>
           </form>
         </div>
 
@@ -961,7 +1001,7 @@ function buildContactPage() {
               <h4>Physical Centre Address</h4>
               <p><strong>HELP Autism Pakistan</strong></p>
               <p>${ORG.address}</p>
-              <p style="font-size: 0.85rem; color: var(--color-blue); margin-top: 0.25rem;">A project of A&amp;S Welfare Society</p>
+              <p style="font-size: 0.85rem; color: var(--color-blue); margin-top: 0.25rem;">${ORG.parentOrg}</p>
             </div>
           </div>
 
@@ -972,7 +1012,6 @@ function buildContactPage() {
             <div class="meta-card-content">
               <h4>Working Hours</h4>
               <p>${ORG.timing}</p>
-              <p style="font-size: 0.85rem; color: var(--color-green-deep); font-weight: 600;">Sunday: Closed for deep sanitization</p>
             </div>
           </div>
 
@@ -1006,7 +1045,7 @@ function buildContactPage() {
                 <span class="map-status-dot"></span>
                 <strong>Model Town Extension Centre, Lahore</strong>
               </div>
-              <span class="map-badge">Open Mon&ndash;Sat 9AM&ndash;6PM</span>
+              <span class="map-badge">${ORG.timingShort}</span>
             </div>
             <div class="map-embed-frame-wrap">
               <iframe
@@ -1023,13 +1062,13 @@ function buildContactPage() {
             <div class="map-footer-bar">
               <div class="map-address-text">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>P-Block, Model Town Extension, Lahore, Punjab, Pakistan</span>
+                <span>${ORG.address}</span>
               </div>
               <div class="map-btn-group">
                 <a href="https://maps.google.com/?q=Model+Town+Extension+Lahore+Pakistan" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm btn-3d">
                   Directions in Maps &rarr;
                 </a>
-                <a href="tel:+923444040074" class="btn btn-secondary btn-sm">
+                <a href="tel:${ORG.primaryPhone.replace(/\s+/g, '')}" class="btn btn-secondary btn-sm">
                   Call Clinic
                 </a>
               </div>
@@ -1041,9 +1080,10 @@ function buildContactPage() {
   `;
 
   const html = renderHtmlEnvelope({
-    title: "Contact HELP Autism Pakistan & Directions Lahore",
+    title: "Contact HELP Autism Pakistan &amp; Directions Lahore",
     description: "Contact HELP Autism Pakistan in Model Town Extension, Lahore. Phone: +92 344 404 0074, Email: aniqasohail@gmail.com. Book a clinical consultation.",
     activePage: 'contact',
+    filename: 'contact.html',
     content
   });
 
@@ -1051,7 +1091,7 @@ function buildContactPage() {
 }
 
 // --------------------------------------------------------------------------
-// 6. BUILD 12 SERVICE PAGES (WITH TOP FEATURED HERO BANNER)
+// 6. BUILD 12 SERVICE PAGES
 // --------------------------------------------------------------------------
 function buildServicePages() {
   SERVICES.forEach((service, index) => {
@@ -1079,7 +1119,7 @@ function buildServicePages() {
             </div>
             <div class="subpage-hero-media">
               <div class="subpage-featured-card">
-                <img src="${service.image}" alt="${service.title} at HELP Autism Pakistan" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1000&q=80';">
+                <img src="${service.image}" alt="${service.title} at HELP Autism Pakistan" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="subpage-banner-badge">
                   <span class="pulse-dot"></span> HELP Autism Pakistan Verified
                 </div>
@@ -1142,7 +1182,7 @@ function buildServicePages() {
           <!-- Sidebar Booking Card -->
           <div class="service-sidebar-col reveal">
             <div class="service-sidebar-card">
-              <img src="${service.image}" alt="${service.title} at HELP Autism Pakistan" class="service-sidebar-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80';">
+              <img src="${service.image}" alt="${service.title} at HELP Autism Pakistan" class="service-sidebar-img" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
               <h3 style="margin-bottom: 0.5rem; color: var(--color-navy);">${service.title} Consultation</h3>
               <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">
                 Schedule an initial assessment and personalized roadmap for your child in Lahore.
@@ -1166,9 +1206,10 @@ function buildServicePages() {
     `;
 
     const html = renderHtmlEnvelope({
-      title: `${service.title} — Evidence-Based Autism Therapy Lahore`,
+      title: `${service.title} in Lahore`,
       description: `${service.title} at HELP Autism Pakistan: ${service.tagline}. Evidence-based intervention led by Dr Aniqa Sohail in Lahore, Pakistan.`,
       activePage: 'programs',
+      filename,
       content
     });
 
@@ -1177,7 +1218,7 @@ function buildServicePages() {
 }
 
 // --------------------------------------------------------------------------
-// 7. BUILD 6 TRAINING PAGES (WITH TOP FEATURED HERO BANNER)
+// 7. BUILD 6 TRAINING PAGES
 // --------------------------------------------------------------------------
 function buildTrainingPages() {
   TRAININGS.forEach((training, index) => {
@@ -1205,7 +1246,7 @@ function buildTrainingPages() {
             </div>
             <div class="subpage-hero-media">
               <div class="subpage-featured-card">
-                <img src="${training.image}" alt="${training.title} at HELP Autism Pakistan" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1000&q=80';">
+                <img src="${training.image}" alt="${training.title} at HELP Autism Pakistan" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="subpage-banner-badge">
                   <span class="pulse-dot"></span> Clinical Capacity Building &middot; Lahore
                 </div>
@@ -1244,44 +1285,36 @@ function buildTrainingPages() {
                 Core Modules &amp; Practicum
               </h3>
               <ul>
-                <li><strong>Theoretical Foundation &amp; Behavioral Principles:</strong> Understanding neurodivergent learning profiles, sensory integration, and evidence-based methodologies.</li>
-                <li><strong>Functional Communication &amp; Positive Reinforcement:</strong> Discrete trial teaching, PECS/AAC implementation, and naturalistic developmental strategies.</li>
-                <li><strong>De-escalation &amp; Meltdown Management:</strong> Identifying antecedent triggers, functional behavior assessments, and proactive sensory diet planning.</li>
-                <li><strong>Real-World Home &amp; Classroom Generalization:</strong> Practical hands-on coaching and supervised practicum guided by Dr. Aniqa Sohail.</li>
+                ${training.curriculum.map(c => `<li>${c}</li>`).join('')}
               </ul>
             </div>
 
             <div class="service-info-block">
               <h3>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-sun)" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                Target Audience &amp; Prerequisites
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-sun)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Logistics, Cohort Schedule &amp; Eligibility
               </h3>
-              <p>${training.audience}</p>
-              <p>
-                Prior background in psychology, speech pathology, medicine, or early childhood education is beneficial for certification tracks; parent tracks require only love, commitment, and active participation.
-              </p>
+              <p><strong>Audience:</strong> ${training.audience}</p>
+              <p><strong>Duration:</strong> ${training.duration}</p>
+              <p><strong>Location:</strong> HELP Autism Pakistan Training Hall, Model Town Extension, Lahore (Hybrid virtual sessions available for overseas parents and distant cities).</p>
             </div>
           </div>
 
           <div class="service-sidebar-col reveal">
             <div class="service-sidebar-card">
-              <h3 style="margin-bottom: 0.5rem; color: var(--color-navy);">Program Admission</h3>
-              <div style="margin-bottom: 1.25rem;">
-                <p style="font-size: 0.88rem; margin-bottom: 0.4rem;"><strong>Format:</strong> In-person Clinical Practicum &amp; Seminars</p>
-                <p style="font-size: 0.88rem; margin-bottom: 0.4rem;"><strong>Duration:</strong> ${training.duration}</p>
-                <p style="font-size: 0.88rem; margin-bottom: 0;"><strong>Credential:</strong> Certificate of Completion</p>
-              </div>
-
+              <h3 style="margin-bottom: 0.5rem; color: var(--color-navy);">Join This Cohort</h3>
+              <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">
+                Enroll in the next clinical training batch or schedule a preliminary interview in Lahore.
+              </p>
               <a href="contact.html" class="btn btn-primary btn-3d btn-block" style="margin-bottom: 0.75rem;">
-                Apply for Next Cohort &rarr;
+                Submit Application &rarr;
               </a>
               <a href="${ORG.whatsapp}" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-3d btn-block">
-                Inquire on WhatsApp
+                Chat on WhatsApp
               </a>
-
               <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-muted);">
-                <p style="margin-bottom: 0.4rem;"><strong>Location:</strong> Model Town Ext, Lahore</p>
-                <p style="margin-bottom: 0;"><strong>Phone:</strong> <a href="tel:+923444040074">+92 344 404 0074</a></p>
+                <p><strong>Organized by:</strong> HELP Autism Pakistan</p>
+                <p><strong>Parent Body:</strong> A&amp;S Welfare Society</p>
               </div>
             </div>
           </div>
@@ -1290,9 +1323,10 @@ function buildTrainingPages() {
     `;
 
     const html = renderHtmlEnvelope({
-      title: `${training.title} — Professional Training & Workshops`,
-      description: `${training.title} at HELP Autism Pakistan: ${training.summary}. Clinical training in Lahore led by Dr Aniqa Sohail.`,
-      activePage: 'programs',
+      title: `${training.title} in Lahore`,
+      description: `${training.title} by HELP Autism Pakistan. ${training.summary} Directed by Dr Aniqa Sohail in Lahore, Pakistan.`,
+      activePage: 'trainings',
+      filename,
       content
     });
 
@@ -1301,7 +1335,7 @@ function buildTrainingPages() {
 }
 
 // --------------------------------------------------------------------------
-// 8. BUILD 20 VIDEO LIBRARY PAGES (WITH TOP FEATURED HERO BANNER)
+// 8. BUILD 20 VIDEO LIBRARY PAGES
 // --------------------------------------------------------------------------
 function buildVideoPages() {
   VIDEOS.forEach((video, index) => {
@@ -1319,19 +1353,21 @@ function buildVideoPages() {
           </nav>
           <div class="subpage-hero-grid reveal">
             <div class="subpage-hero-content">
-              <span class="section-badge">Video Archive #${String(index + 1).padStart(2, '0')}</span>
+              <span class="section-badge">Video Library Archive #${String(index + 1).padStart(2, '0')}</span>
               <h1 class="subpage-hero-title">${video.title}</h1>
-              <p class="subpage-tagline">${video.topic}</p>
+              <p class="subpage-tagline">
+                Open-access clinical video demonstrations recorded at HELP Autism Pakistan Centre in Lahore. Topics include ${video.topic}.
+              </p>
               <div class="subpage-hero-actions">
-                <a href="#video-player" class="btn btn-primary btn-3d">Watch Video Demonstration</a>
-                <a href="resources.html#video-libraries" class="btn btn-secondary">All 20 Libraries</a>
+                <a href="#video-player" class="btn btn-primary btn-3d">Watch Video Demos</a>
+                <a href="resources.html" class="btn btn-secondary">All 20 Libraries</a>
               </div>
             </div>
             <div class="subpage-hero-media">
               <div class="subpage-featured-card">
-                <img src="${video.image}" alt="${video.title} Video Demonstration" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1000&q=80';">
+                <img src="${video.image}" alt="${video.title} Video Archive" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="subpage-banner-badge">
-                  <span class="pulse-dot"></span> Clinical Video Demonstration &middot; Lahore
+                  <span class="pulse-dot"></span> Clinical Video Archive &middot; ${video.count}
                 </div>
               </div>
             </div>
@@ -1339,11 +1375,11 @@ function buildVideoPages() {
         </div>
       </section>
 
-      <!-- Pill bar for all 20 video libraries -->
+      <!-- Pill bar for videos -->
       <div class="container">
         <div class="pills-scroll-bar" aria-label="All Video Libraries Navigation">
           ${VIDEOS.map(v => `
-            <a href="${v.slug}.html" class="pill-nav-item ${v.slug === video.slug ? 'active' : ''}">${v.title.replace(' Videos', '')}</a>
+            <a href="${v.slug}.html" class="pill-nav-item ${v.slug === video.slug ? 'active' : ''}">${v.title.replace('Video Library', '').replace('Videos', '').trim()}</a>
           `).join('')}
         </div>
       </div>
@@ -1361,10 +1397,10 @@ function buildVideoPages() {
                     </a>
                     <h3 style="color: #FFFFFF; margin-bottom: 0.5rem; font-size: 1.25rem;">Watch Video Collection: ${video.title}</h3>
                     <p style="color: #9BB3CB; font-size: 0.88rem; max-width: 500px; margin-bottom: 1.25rem;">
-                      Stream full clinical session recordings, therapist lectures, and step-by-step demonstrations.
+                      Stream clinical session recordings, therapist lectures, and step-by-step demonstrations.
                     </p>
                     <a href="${ORG.oldSiteUrl}/${video.slug}" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-3d btn-sm">
-                      Watch now on HELP portal &rarr;
+                      Watch on HELP Portal &rarr;
                     </a>
                   </div>
                 </div>
@@ -1381,10 +1417,10 @@ function buildVideoPages() {
               <div class="service-info-block">
                 <h3>
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-                  What You'll Typically Find in This Library
+                  What You Will Observe in This Library
                 </h3>
                 <p>
-                  This video archive covers real, practical implementation of <strong>${video.title}</strong>, demonstrating techniques tested with neurodiverse children. Rather than pure theory, you observe our clinicians and Dr. Aniqa Sohail illustrating cues, reinforcement timings, physical prompts, and emotional attunement.
+                  This video archive covers practical application of <strong>${video.title}</strong>, demonstrating techniques tested with neurodiverse children. Rather than pure theory, you observe our clinicians and Dr. Aniqa Sohail illustrating cues, reinforcement timings, physical prompts, and emotional attunement.
                 </p>
                 <ul style="margin-top: 1rem;">
                   <li>Direct 1:1 therapist-to-child intervention sessions</li>
@@ -1397,9 +1433,9 @@ function buildVideoPages() {
 
             <div class="service-sidebar-col reveal">
               <div class="service-sidebar-card">
-                <h3 style="margin-bottom: 0.5rem; color: var(--color-navy);">Need Individualized Help?</h3>
+                <h3 style="margin-bottom: 0.5rem; color: var(--color-navy);">Need Individualized Guidance?</h3>
                 <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">
-                  While videos provide powerful conceptual guidance, every autistic child has a unique sensory, behavioral, and communication profile.
+                  While videos provide conceptual guidance, every autistic child has a unique sensory, behavioral, and communication profile.
                 </p>
                 <a href="contact.html" class="btn btn-primary btn-3d btn-block" style="margin-bottom: 0.75rem;">
                   Book a Consultation &rarr;
@@ -1415,9 +1451,10 @@ function buildVideoPages() {
     `;
 
     const html = renderHtmlEnvelope({
-      title: `${video.title} — Free Clinical Video Archives`,
+      title: `${video.title} | Free Video Library`,
       description: `Watch free clinical demonstration videos for ${video.title} at HELP Autism Pakistan. Practical techniques for parents, teachers, and therapists in Lahore.`,
       activePage: 'resources',
+      filename,
       content
     });
 
@@ -1426,7 +1463,7 @@ function buildVideoPages() {
 }
 
 // --------------------------------------------------------------------------
-// 9. BUILD 5 RESOURCE PAGES (WITH TOP FEATURED HERO BANNER)
+// 9. BUILD 5 RESOURCE PAGES
 // --------------------------------------------------------------------------
 function buildResourcePages() {
   RESOURCES.forEach((res, index) => {
@@ -1454,7 +1491,7 @@ function buildResourcePages() {
             </div>
             <div class="subpage-hero-media">
               <div class="subpage-featured-card">
-                <img src="${res.image}" alt="${res.title} Collection" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80';">
+                <img src="${res.image}" alt="${res.title} Collection" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="subpage-banner-badge">
                   <span class="pulse-dot"></span> Open Knowledge &middot; HELP Autism Pakistan
                 </div>
@@ -1520,9 +1557,10 @@ function buildResourcePages() {
     `;
 
     const html = renderHtmlEnvelope({
-      title: `${res.title} — Autism Resources & Downloads`,
+      title: `${res.title} | Autism Resources`,
       description: `${res.title} at HELP Autism Pakistan: ${res.desc}. Curated reference materials and clinical handouts in Lahore.`,
       activePage: 'resources',
+      filename,
       content
     });
 
@@ -1531,76 +1569,117 @@ function buildResourcePages() {
 }
 
 // --------------------------------------------------------------------------
-// 10. GENERATE README.TXT
+// 10. 404.HTML (ERROR PAGE)
+// --------------------------------------------------------------------------
+function build404Page() {
+  const content = `
+    <section class="section" style="padding: 6rem 0; min-height: 65vh; display: flex; align-items: center;">
+      <div class="container" style="text-align: center; max-width: 680px; margin: 0 auto;">
+        <span class="section-badge" style="background: rgba(227, 34, 39, 0.1); color: var(--color-red);">Error 404</span>
+        <h1 class="hero-headline" style="font-size: clamp(2.2rem, 6vw, 3.5rem); margin: 1rem 0;">Page Not Found</h1>
+        <p style="font-size: 1.15rem; color: var(--color-text-muted); line-height: 1.7; margin-bottom: 2.5rem;">
+          The page you are looking for may have been moved, renamed, or is temporarily unavailable. Use the helpful links below to find therapy programs, free resources, or contact our Lahore clinic.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="index.html" class="btn btn-primary btn-3d btn-lg">Return to Home</a>
+          <a href="programs.html" class="btn btn-secondary btn-lg">Explore Services</a>
+          <a href="resources.html" class="btn btn-secondary btn-lg">Free Resources</a>
+          <a href="contact.html" class="btn btn-green btn-3d btn-lg">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  `;
+
+  const html = renderHtmlEnvelope({
+    title: "Page Not Found (404)",
+    description: "The page you requested could not be found. Navigate to HELP Autism Pakistan homepage, services, or contact our Lahore centre.",
+    activePage: '404',
+    filename: '404.html',
+    content
+  });
+
+  saveFile('404.html', html);
+}
+
+// --------------------------------------------------------------------------
+// 11. SITEMAP.XML & ROBOTS.TXT
+// --------------------------------------------------------------------------
+function buildSitemapAndRobots() {
+  const baseUrl = "https://www.helpautismpakistan.com";
+  const pages = [
+    { url: "", changefreq: "weekly", priority: "1.0" },
+    { url: "about.html", changefreq: "monthly", priority: "0.8" },
+    { url: "programs.html", changefreq: "weekly", priority: "0.9" },
+    { url: "resources.html", changefreq: "weekly", priority: "0.9" },
+    { url: "contact.html", changefreq: "monthly", priority: "0.8" },
+    ...SERVICES.map(s => ({ url: `${s.slug}.html`, changefreq: "monthly", priority: "0.8" })),
+    ...TRAININGS.map(t => ({ url: `${t.slug}.html`, changefreq: "monthly", priority: "0.7" })),
+    ...VIDEOS.map(v => ({ url: `${v.slug}.html`, changefreq: "monthly", priority: "0.6" })),
+    ...RESOURCES.map(r => ({ url: `${r.slug}.html`, changefreq: "monthly", priority: "0.7" }))
+  ];
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages.map(p => `  <url>
+    <loc>${baseUrl}/${p.url}</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>${p.changefreq}</changefreq>
+    <priority>${p.priority}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+
+  fs.writeFileSync(path.join(ROOT_DIR, 'sitemap.xml'), sitemapXml, 'utf-8');
+  console.log('Generated: sitemap.xml');
+
+  // Copy to public/sitemap.xml as well
+  fs.writeFileSync(path.join(ROOT_DIR, 'public', 'sitemap.xml'), sitemapXml, 'utf-8');
+
+  const robotsTxt = `User-agent: *
+Allow: /
+
+Sitemap: ${baseUrl}/sitemap.xml
+`;
+
+  fs.writeFileSync(path.join(ROOT_DIR, 'robots.txt'), robotsTxt, 'utf-8');
+  fs.writeFileSync(path.join(ROOT_DIR, 'public', 'robots.txt'), robotsTxt, 'utf-8');
+  console.log('Generated: robots.txt and public/robots.txt');
+}
+
+// --------------------------------------------------------------------------
+// 12. GENERATE README.TXT
 // --------------------------------------------------------------------------
 function buildReadme() {
   const content = `=============================================================================
-HELP AUTISM PAKISTAN — REDESIGNED WEBSITE
+HELP AUTISM PAKISTAN — OFFICIAL PRODUCTION-READY SUITE
 A Project of A&S Welfare Society
 =============================================================================
-Directory of all 48 generated production HTML pages and assets:
+Complete directory of all generated pages and assets:
 
-├── index.html                    (Homepage: 3D Medallion, Stats, Founder, Services, Trainings, Videos, Contact)
-├── about.html                    (About Us: Mission, Dr. Aniqa Sohail biography & credentials, 4 Pillars)
-├── programs.html                 (Programs: 12 Services + 6 Trainings overview)
-├── resources.html                (Resources: Curated collections + 20 Video libraries)
-├── contact.html                  (Contact: Direct lines, Timing, Address, Consultation Form, Google Maps)
-│
-├── (12 Therapy Services)
-│   ├── aba-therapy.html
-│   ├── speech-language-therapy.html
-│   ├── occupational-therapy.html
-│   ├── sensory-integration.html
-│   ├── floortime-approach.html
-│   ├── TEACCH-therapy.html
-│   ├── play-therapy.html
-│   ├── music-therapy.html
-│   ├── functional-living-skills.html
-│   ├── academics-remedial.html
-│   ├── vocational-training.html
-│   └── diagnostic-evaluation.html
-│
-├── (6 Training Programs)
-│   ├── internships.html
-│   ├── parent-trainings.html
-│   ├── hands-on-training.html
-│   ├── sibling-trainings.html
-│   ├── certificate-courses.html
-│   └── community-awareness.html
-│
-├── (20 Video Library Archives)
-│   ├── aba-videos.html
-│   ├── speech-language-videos.html
-│   ├── occupational-therapy-videos.html
-│   ├── sensory-integration-videos.html
-│   ├── floor-time-videos.html
-│   ├── son-rise-videos.html
-│   ├── social-skills-videos.html
-│   ├── academics-remedial-videos.html
-│   ├── functional-living-skills-videos.html
-│   ├── vocational-training-videos.html
-│   ├── play-videos.html
-│   ├── hands-on-trainings-videos.html
-│   ├── cognitive-behavior-videos.html
-│   ├── inclusive-education-videos.html
-│   ├── teacch-intervention-videos.html
-│   ├── pecs-visual-videos.html
-│   ├── peer-mediated-videos.html
-│   ├── parent-power-videos.html
-│   ├── nutrition-supplements-videos.html
-│   └── rdi-videos.html
-│
-├── (5 Resource Collections)
-│   ├── journals.html
-│   ├── books.html
-│   ├── free-consultations.html
-│   ├── autism-resource-library.html
-│   └── photos-library.html
-│
-└── assets/
-    ├── css/style.css            (All responsive styles, variables, 3D effects)
-    ├── js/main.js               (Tilt, parallax, counter, drawer, overlay)
-    └── img/logo.png             (Brand logo)
+Main Hubs:
+- index.html (Homepage: Hero, Intro, 6 Core Therapies, Founder, Parent Support, Resource Highlights, Consultation Form, Google Maps)
+- about.html (About Us: Mission, Dr. Aniqa Sohail biography & credentials, 4 Pillars)
+- programs.html (All 12 Therapy Disciplines + 6 Training Programs overview)
+- resources.html (Resource Hub + 20 Video Libraries)
+- contact.html (Direct Lines, Verified Timings, Address, Form, Google Maps)
+- 404.html (Branded Error Page with return navigation)
+
+Therapy Services (12 Pages):
+${SERVICES.map(s => `- ${s.slug}.html`).join('\n')}
+
+Training Programs (6 Pages):
+${TRAININGS.map(t => `- ${t.slug}.html`).join('\n')}
+
+Video Libraries (20 Pages):
+${VIDEOS.map(v => `- ${v.slug}.html`).join('\n')}
+
+Resource Collections (5 Pages):
+${RESOURCES.map(r => `- ${r.slug}.html`).join('\n')}
+
+SEO & Deployment:
+- sitemap.xml (Comprehensive XML Sitemap)
+- robots.txt (Crawler configuration)
+- MIGRATION_URL_MAP.md (Redirect map from legacy Wix URLs)
+- MANAGEMENT_VERIFICATION.md (Checklist for human/management sign-off)
 `;
 
   saveFile('README.txt', content);
@@ -1609,7 +1688,7 @@ Directory of all 48 generated production HTML pages and assets:
 // --------------------------------------------------------------------------
 // MAIN EXECUTION
 // --------------------------------------------------------------------------
-console.log('--- Generating All 48 Pages for HELP Autism Pakistan ---');
+console.log('--- Generating All 48 Pages + 404 + SEO Assets for HELP Autism Pakistan ---');
 buildIndexPage();
 buildAboutPage();
 buildProgramsPage();
@@ -1619,5 +1698,7 @@ buildServicePages();
 buildTrainingPages();
 buildVideoPages();
 buildResourcePages();
+build404Page();
+buildSitemapAndRobots();
 buildReadme();
-console.log('--- Successfully Built All 48 Pages and Assets ---');
+console.log('--- Successfully Built All Pages and Assets ---');
