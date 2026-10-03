@@ -418,9 +418,6 @@ function renderHeader(activePage = '') {
 
       <div class="header-cta">
         <a href="contact.html" class="btn btn-primary btn-sm btn-3d header-consultation-btn" aria-label="Book a Clinical Consultation">Book a Consultation</a>
-        <a href="${ORG.whatsapp}" target="_blank" rel="noopener noreferrer" class="header-whatsapp-icon" aria-label="Chat on WhatsApp with HELP Autism Pakistan">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2Z"/></svg>
-        </a>
         <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -611,7 +608,7 @@ function renderHtmlEnvelope({
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": schemaType,
+    "@type": ["MedicalBusiness", "MedicalOrganization"],
     "name": "HELP Autism Pakistan",
     "alternateName": "A&S Welfare Society - HELP Autism Pakistan",
     "url": "https://www.helpautismpakistan.com/",

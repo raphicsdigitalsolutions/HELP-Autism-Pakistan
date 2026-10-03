@@ -593,23 +593,9 @@ button {
   min-width: 0;
 }
 
+/* Top header WhatsApp icon is removed to prevent duplicate icon with bottom-right floating FAB */
 .header-whatsapp-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #25D366;
-  color: #FFFFFF !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
-}
-
-.header-whatsapp-icon:hover {
-  transform: scale(1.08);
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.45);
+  display: none !important;
 }
 
 /* Mobile Toggle Hamburger */
@@ -2096,6 +2082,12 @@ textarea.form-control {
   background: rgba(227, 34, 39, 0.1);
   border: 1px solid var(--color-red);
   color: #8C0E12;
+}
+
+.form-info-alert {
+  background: rgba(29, 114, 184, 0.08);
+  border: 1px solid var(--color-blue);
+  color: var(--color-navy);
 }
 
 .btn-spinner {

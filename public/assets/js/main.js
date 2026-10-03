@@ -537,32 +537,53 @@
             });
 
             if (!res.ok) throw new Error('Server returned ' + res.status);
+
+            // Live Production Success State
+            form.reset();
+            if (feedbackBox) {
+              feedbackBox.style.display = 'block';
+              feedbackBox.className = 'form-feedback-box form-success-alert';
+              feedbackBox.innerHTML = `
+                <strong>Thank you, ${nameVal}!</strong><br>
+                Your consultation request has been successfully transmitted to our clinical intake coordinators in Model Town Extension, Lahore. We will contact you at <strong>${phoneVal}</strong>.<br>
+                <div style="margin-top: 0.75rem;">
+                  <a href="https://wa.me/923444040074?text=${encodeURIComponent('Hello HELP Autism Pakistan, I just submitted an intake form on the website for ' + nameVal + '.')}" target="_blank" rel="noopener noreferrer" style="color: var(--color-green-deep); font-weight: 700; text-decoration: underline;">
+                    Click here to confirm directly on WhatsApp &rarr;
+                  </a>
+                </div>
+              `;
+            }
           } else {
-            // Staging / Management Review Graceful Simulation
-            // Stores locally so submission is never lost
+            // Staging / Demo Environment (No live backend endpoint configured)
             try {
               const existing = JSON.parse(localStorage.getItem('help_consultations') || '[]');
               existing.push(payload);
               localStorage.setItem('help_consultations', JSON.stringify(existing));
             } catch {}
-            // Simulate natural 600ms latency
-            await new Promise(r => setTimeout(r, 600));
-          }
+            // Simulate natural latency
+            await new Promise(r => setTimeout(r, 500));
 
-          // 4. Success State
-          form.reset();
-          if (feedbackBox) {
-            feedbackBox.style.display = 'block';
-            feedbackBox.className = 'form-feedback-box form-success-alert';
-            feedbackBox.innerHTML = `
-              <strong>Thank you, ${nameVal}!</strong><br>
-              Your consultation request has been recorded. Dr. Aniqa Sohail and our clinical intake coordinators in Model Town Extension, Lahore will contact you shortly at <strong>${phoneVal}</strong>.<br>
-              <div style="margin-top: 0.75rem;">
-                <a href="https://wa.me/923444040074?text=${encodeURIComponent('Hello HELP Autism Pakistan, I just submitted an intake form on the website for ' + nameVal + '.')}" target="_blank" rel="noopener noreferrer" style="color: var(--color-green-deep); font-weight: 700; text-decoration: underline;">
-                  Click here to confirm directly on WhatsApp &rarr;
-                </a>
-              </div>
-            `;
+            form.reset();
+            if (feedbackBox) {
+              feedbackBox.style.display = 'block';
+              feedbackBox.className = 'form-feedback-box form-info-alert';
+              const serviceVal = serviceInput?.value || 'Consultation';
+              const notesVal = notesInput?.value.trim() || '';
+              feedbackBox.innerHTML = `
+                <strong>Staging / Demo Mode Notice:</strong><br>
+                Your consultation inquiry for <strong>${nameVal}</strong> has been validated and saved locally in your browser storage.<br>
+                <div style="margin-top: 0.45rem; font-size: 0.88rem; opacity: 0.95;">
+                  <em>Notice: A production backend API endpoint (<code>window.HELP_FORM_ENDPOINT</code>) has not yet been connected to this website, so this inquiry has not been transmitted to the clinic.</em>
+                </div>
+                <div style="margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid rgba(8,36,63,0.15);">
+                  <strong>To reach Dr. Aniqa Sohail and our clinical team directly right now:</strong><br>
+                  <a href="https://wa.me/923444040074?text=${encodeURIComponent('Hello Dr. Aniqa Sohail & HELP Autism Pakistan Team, I would like to book a clinical consultation for ' + nameVal + ' (Child Age: ' + ageVal + '). Service: ' + serviceVal + (notesVal ? '. Notes: ' + notesVal : '') + '.')}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-accent" style="margin-top: 0.6rem; display: inline-flex; align-items: center; gap: 0.45rem;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2Z"/></svg>
+                    Send Request Directly on WhatsApp &rarr;
+                  </a>
+                </div>
+              `;
+            }
           }
         } catch (error) {
           console.error('Consultation form error:', error);
