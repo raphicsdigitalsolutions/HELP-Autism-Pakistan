@@ -1,4 +1,13 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/services", "destination": "/programs.html" },
+    { "source": "/therapies", "destination": "/programs.html" },
+    { "source": "/trainings", "destination": "/programs.html" },
+    { "source": "/courses", "destination": "/certificate-courses.html" },
+    { "source": "/parent-power", "destination": "/parent-trainings.html" }
+  ]
 }
