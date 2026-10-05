@@ -688,8 +688,8 @@ function buildProgramsPage() {
         <div class="services-grid-12">
           ${SERVICES.map(s => `
             <article class="service-tilt-card reveal">
-              <div class="card-image-box">
-                <img src="${s.image}" alt="${s.title}" class="card-img" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+              <div class="card-image-box ${s.image && s.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'has-contain-img' : ''}">
+                <img src="${s.image}" alt="${s.title}" class="card-img ${s.image && s.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'img-contain-uncropped' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="img-fallback-panel">${s.title}</div>
               </div>
               <div class="card-content">
@@ -854,8 +854,8 @@ function buildResourcesPage() {
         <div class="videos-grid-20">
           ${VIDEOS.map((v, index) => `
             <a href="${v.slug}.html" class="video-library-card reveal" title="${v.title}">
-              <div class="video-card-thumb-wrap">
-                <img src="${v.image}" alt="${v.title}" class="video-card-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+              <div class="video-card-thumb-wrap ${v.image && v.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'has-contain-img' : ''}">
+                <img src="${v.image}" alt="${v.title}" class="video-card-thumb ${v.image && v.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'img-contain-uncropped' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="video-play-icon">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
@@ -1118,8 +1118,8 @@ function buildServicePages() {
               </div>
             </div>
             <div class="subpage-hero-media">
-              <div class="subpage-featured-card">
-                <img src="${service.image}" alt="${service.title} at HELP Autism Pakistan" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+              <div class="subpage-featured-card ${service.image && service.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'has-contain-img' : ''}">
+                <img src="${service.image}" alt="${service.title} at HELP Autism Pakistan" class="subpage-featured-img ${service.image && service.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'img-contain-uncropped' : ''}" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="subpage-banner-badge">
                   <span class="pulse-dot"></span> HELP Autism Pakistan Verified
                 </div>
@@ -1182,7 +1182,7 @@ function buildServicePages() {
           <!-- Sidebar Booking Card -->
           <div class="service-sidebar-col reveal">
             <div class="service-sidebar-card">
-              <img src="${service.image}" alt="${service.title} at HELP Autism Pakistan" class="service-sidebar-img" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+              <img src="${service.image}" alt="${service.title} at HELP Autism Pakistan" class="service-sidebar-img ${service.image && service.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'img-contain-uncropped' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
               <h3 style="margin-bottom: 0.5rem; color: var(--color-navy);">${service.title} Consultation</h3>
               <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">
                 Schedule an initial assessment and personalized roadmap for your child in Lahore.
@@ -1364,8 +1364,8 @@ function buildVideoPages() {
               </div>
             </div>
             <div class="subpage-hero-media">
-              <div class="subpage-featured-card">
-                <img src="${video.image}" alt="${video.title} Video Archive" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+              <div class="subpage-featured-card ${video.image && video.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'has-contain-img' : ''}">
+                <img src="${video.image}" alt="${video.title} Video Archive" class="subpage-featured-img ${video.image && video.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db') ? 'img-contain-uncropped' : ''}" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="subpage-banner-badge">
                   <span class="pulse-dot"></span> Clinical Video Archive &middot; ${video.count}
                 </div>
