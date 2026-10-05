@@ -2046,6 +2046,18 @@ img[src*="563e77_8db66caf4c454eafae9391d77fbdd2db"],
   box-shadow: var(--shadow-lg);
 }
 
+/* Responsive Multi-column Form Grid */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.form-grid-2 > * {
+  min-width: 0;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -2409,6 +2421,16 @@ textarea.form-control {
   flex-direction: column;
   gap: 12px;
   z-index: 1500;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Smart Hide when Contact Form is active / in-view or keyboard is open */
+.floating-actions.hidden-on-form,
+.floating-actions.keyboard-open {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateX(85px) scale(0.85) !important;
 }
 
 .fab-btn {
@@ -3029,14 +3051,37 @@ html.js .reveal.active {
     width: 100% !important;
   }
 
-  /* Forms & inputs (prevents iOS auto-zoom) */
+  /* Forms & inputs (prevents iOS auto-zoom & horizontal blowout) */
   .form-control, input, select, textarea {
     font-size: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+
+  .form-grid-2 {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .form-grid-2 .form-group {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
 
   .contact-card {
-    padding: 1.5rem 1.25rem !important;
+    padding: 1.5rem 1.15rem !important;
     border-radius: var(--radius-lg) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .meta-info-card {

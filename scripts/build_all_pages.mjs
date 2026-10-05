@@ -362,7 +362,7 @@ function buildIndexPage() {
               <span class="field-error-msg" aria-live="polite"></span>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-grid-2">
               <div class="form-group">
                 <label for="child-age">Child's Age (Years) <span class="required-star">*</span></label>
                 <input type="text" id="child-age" name="age" class="form-control" placeholder="e.g. 4 years" required />
@@ -937,7 +937,7 @@ function buildContactPage() {
               <span class="field-error-msg" aria-live="polite"></span>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-grid-2">
               <div class="form-group">
                 <label for="contact-phone">Phone / WhatsApp <span class="required-star">*</span></label>
                 <input type="tel" id="contact-phone" name="phone" class="form-control" placeholder="0344 404 0074" required />
@@ -949,7 +949,7 @@ function buildContactPage() {
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-grid-2">
               <div class="form-group">
                 <label for="child-details">Child Age (Years)</label>
                 <input type="text" id="child-details" name="age" class="form-control" placeholder="e.g. 5 years" />

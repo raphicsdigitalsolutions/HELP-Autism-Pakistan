@@ -34,7 +34,8 @@
       initStatCounters,
       initScrollReveal,
       initConsultationForms,
-      initImageFallbacks
+      initImageFallbacks,
+      initFloatingActionsSmartDodge
     ];
 
     modules.forEach(fn => {
@@ -628,6 +629,50 @@
         }
       });
     });
+  }
+
+  /* -------------------------------------------------------------------------
+     11. FLOATING ACTIONS SMART DODGE
+     Prevents round WhatsApp/Call buttons from overlapping form submit buttons
+     or keyboard on mobile viewports.
+     ------------------------------------------------------------------------- */
+  function initFloatingActionsSmartDodge() {
+    const fabContainer = document.querySelector('.floating-actions');
+    if (!fabContainer) return;
+
+    // 1. Hide immediately when on-screen virtual keyboard is active
+    document.addEventListener('focusin', (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+        fabContainer.classList.add('keyboard-open');
+      }
+    });
+
+    document.addEventListener('focusout', (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+        fabContainer.classList.remove('keyboard-open');
+      }
+    });
+
+    // 2. Hide when user scrolls to any consultation form, contact card, or submit button
+    const formTargets = document.querySelectorAll(
+      '.contact-card, .consultation-form, #consultation, .form-actions-stack'
+    );
+
+    if (formTargets.length > 0 && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        const isNearForm = entries.some(entry => entry.isIntersecting);
+        if (isNearForm) {
+          fabContainer.classList.add('hidden-on-form');
+        } else {
+          fabContainer.classList.remove('hidden-on-form');
+        }
+      }, {
+        threshold: 0.08,
+        rootMargin: '40px 0px -40px 0px'
+      });
+
+      formTargets.forEach(target => observer.observe(target));
+    }
   }
 
 })();
