@@ -9,6 +9,7 @@ import {
   renderHtmlEnvelope,
   ROOT_DIR
 } from './template_engine.mjs';
+import { GALLERY_CATEGORIES, GALLERY_PHOTOS } from './gallery_data.mjs';
 
 function saveFile(filename, html) {
   const filePath = path.join(ROOT_DIR, filename);
@@ -338,6 +339,50 @@ function buildIndexPage() {
 
         <div style="text-align: center; margin-top: 3rem;" class="reveal">
           <a href="resources.html" class="btn btn-primary btn-3d btn-lg">Explore Full Resource Hub &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6B. Inside HELP Autism Pakistan (Photo Gallery Preview) -->
+    <section class="section" id="life-at-help" style="background: #F4F8FD; padding: 4.5rem 0;">
+      <div class="container">
+        <div class="section-title-wrap reveal" style="text-align: center;">
+          <span class="section-badge">Inside HELP Autism Pakistan</span>
+          <h2 class="section-title">Life at HELP Autism Pakistan</h2>
+          <p class="section-subtitle" style="margin: 0 auto 2.5rem; max-width: 680px;">
+            A glimpse into clinical therapy sessions, hands-on learning classrooms, vocational handloom weaving, and inclusive sports events in Lahore.
+          </p>
+        </div>
+
+        <div class="home-gallery-preview-grid">
+          ${[
+            GALLERY_PHOTOS.find(p => p.id === 1),
+            GALLERY_PHOTOS.find(p => p.id === 2),
+            GALLERY_PHOTOS.find(p => p.id === 29),
+            GALLERY_PHOTOS.find(p => p.id === 34),
+            GALLERY_PHOTOS.find(p => p.id === 16),
+            GALLERY_PHOTOS.find(p => p.id === 42)
+          ].filter(Boolean).map(photo => `
+            <a href="photos-library.html" class="gallery-card reveal" title="${photo.title}">
+              <div class="gallery-card-thumb-wrap">
+                <img src="${photo.src}" alt="${photo.alt}" class="gallery-card-thumb" loading="lazy">
+                <span class="gallery-card-badge">${photo.categoryLabel}</span>
+                <span class="gallery-card-zoom-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                </span>
+              </div>
+              <div class="gallery-card-body">
+                <h3 class="gallery-card-title">${photo.title}</h3>
+                <p class="gallery-card-caption">${photo.caption}</p>
+              </div>
+            </a>
+          `).join('')}
+        </div>
+
+        <div style="text-align: center; margin-top: 2.75rem;" class="reveal">
+          <a href="photos-library.html" class="btn btn-primary btn-3d btn-lg">
+            View Full Photo Gallery (${GALLERY_PHOTOS.length} Photos) &rarr;
+          </a>
         </div>
       </div>
     </section>
@@ -1546,6 +1591,140 @@ function buildVideoPages() {
 function buildResourcePages() {
   RESOURCES.forEach((res, index) => {
     const filename = `${res.slug}.html`;
+
+    if (res.slug === 'photos-library') {
+      const content = `
+      <section class="subpage-hero">
+        <div class="container">
+          <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-sep">/</span>
+            <a href="resources.html">Resources</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">Photos &amp; Facilities Gallery</span>
+          </nav>
+          <div class="subpage-hero-grid reveal">
+            <div class="subpage-hero-content">
+              <span class="section-badge">Official Organization Archive</span>
+              <h1 class="subpage-hero-title">HELP Autism Pakistan Photo Gallery</h1>
+              <p class="subpage-tagline">
+                An authentic photographic journey through our specialized clinical therapy sessions, inclusive classrooms, hands-on teacher trainings, vocational handloom weaving, sports galas, and Model Town Extension facilities in Lahore.
+              </p>
+              <div class="subpage-hero-actions">
+                <a href="#photo-gallery" class="btn btn-primary btn-3d">Browse All Photos &darr;</a>
+                <a href="contact.html" class="btn btn-secondary">Visit Our Centre</a>
+              </div>
+            </div>
+            <div class="subpage-hero-media">
+              <div class="subpage-featured-card">
+                <img src="assets/img/social/facilities/help-centre-reception-01.jpg" alt="HELP Autism Pakistan Centre Facilities Reception" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+                <div class="subpage-banner-badge">
+                  <span class="pulse-dot"></span> Model Town Extension Centre, Lahore &middot; 46 Curated Photos
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pill bar for resources -->
+      <div class="container">
+        <div class="pills-scroll-bar" aria-label="All Resources Navigation">
+          ${RESOURCES.map(r => `
+            <a href="${r.slug}.html" class="pill-nav-item ${r.slug === res.slug ? 'active' : ''}">${r.title.split(' ')[0]}</a>
+          `).join('')}
+        </div>
+      </div>
+
+      <section class="section" style="padding-top: 1.5rem;" id="photo-gallery">
+        <div class="container">
+          <!-- Gallery Category Filter Tabs -->
+          <div class="gallery-filters" role="tablist" aria-label="Photo Gallery Filters">
+            ${GALLERY_CATEGORIES.map((cat, idx) => `
+              <button type="button" class="gallery-filter-btn ${idx === 0 ? 'active' : ''}" data-filter="${cat.id}" role="tab" aria-selected="${idx === 0 ? 'true' : 'false'}">
+                ${cat.label} ${cat.id === 'all' ? `(${GALLERY_PHOTOS.length})` : `(${GALLERY_PHOTOS.filter(p => p.category === cat.id).length})`}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- 46 Authentic Photos Grid -->
+          <div class="gallery-grid" id="main-gallery-grid">
+            ${GALLERY_PHOTOS.map((photo) => `
+              <div class="gallery-card reveal" data-category="${photo.category}" data-category-label="${photo.categoryLabel}" data-full-src="${photo.src}" data-title="${photo.title}" data-caption="${photo.caption}" role="button" tabindex="0" aria-label="View photo: ${photo.title}">
+                <div class="gallery-card-thumb-wrap">
+                  <img src="${photo.src}" alt="${photo.alt}" class="gallery-card-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+                  <span class="gallery-card-badge">${photo.categoryLabel}</span>
+                  <span class="gallery-card-zoom-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                  </span>
+                </div>
+                <div class="gallery-card-body">
+                  <h3 class="gallery-card-title">${photo.title}</h3>
+                  <p class="gallery-card-caption">${photo.caption}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Bottom Consultation Strip -->
+          <div style="background: #F4F8FD; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 3rem 2rem; margin-top: 4rem; text-align: center;" class="reveal">
+            <span class="section-badge" style="margin-bottom: 0.75rem;">Experience Our Facilities in Person</span>
+            <h2 style="font-size: 1.5rem; color: var(--color-navy); margin-bottom: 0.75rem;">Schedule an On-Site Centre Tour &amp; Evaluation</h2>
+            <p style="color: var(--color-text-muted); max-width: 620px; margin: 0 auto 1.5rem; line-height: 1.6;">
+              Observe our sensory gym, speech therapy pods, handloom weaving workstations, and developmental classrooms in Model Town Extension, Lahore.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+              <a href="contact.html" class="btn btn-primary btn-3d btn-lg">Book Clinical Consultation &rarr;</a>
+              <a href="${ORG.whatsapp}" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-3d btn-lg">Chat with Director on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accessible Modal Lightbox Dialog -->
+      <div class="lightbox-modal" id="gallery-lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Photo Viewer">
+        <div class="lightbox-backdrop"></div>
+        <div class="lightbox-container">
+          <div class="lightbox-dialog">
+            <button type="button" class="lightbox-btn lightbox-close" aria-label="Close photo viewer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <button type="button" class="lightbox-btn lightbox-prev" aria-label="Previous photo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button type="button" class="lightbox-btn lightbox-next" aria-label="Next photo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            <div class="lightbox-img-wrap">
+              <img src="" alt="" class="lightbox-img">
+            </div>
+            <div class="lightbox-caption-box">
+              <div class="lightbox-title"></div>
+              <p class="lightbox-desc"></p>
+              <div class="lightbox-meta-bar">
+                <span class="lightbox-category" style="color: var(--color-accent-sun); font-weight: 700;"></span>
+                <span>&bull;</span>
+                <span class="lightbox-counter"></span>
+                <span>&bull;</span>
+                <span>HELP Autism Pakistan Official Archive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      `;
+
+      const html = renderHtmlEnvelope({
+        title: "Photos & Facilities Gallery | Official Archive",
+        description: "Explore the official photo gallery of HELP Autism Pakistan in Lahore. Authentic clinical sessions, sensory gym, vocational handloom, teacher workshops, and community events.",
+        activePage: 'resources',
+        filename,
+        content
+      });
+
+      saveFile(filename, html);
+      return;
+    }
 
     const content = `
       <section class="subpage-hero">

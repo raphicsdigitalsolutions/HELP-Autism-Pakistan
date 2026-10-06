@@ -36,7 +36,9 @@
       initConsultationForms,
       initImageFallbacks,
       initFloatingActionsSmartDodge,
-      initVideoGallerySwitcher
+      initVideoGallerySwitcher,
+      initPhotoGalleryFilters,
+      initPhotoGalleryLightbox
     ];
 
     modules.forEach(fn => {
@@ -723,6 +725,177 @@
         }
       });
     });
+  }
+
+  /* -------------------------------------------------------------------------
+     13. PHOTO GALLERY CATEGORY FILTERS
+     ------------------------------------------------------------------------- */
+  function initPhotoGalleryFilters() {
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    const cards = document.querySelectorAll('.gallery-card');
+
+    if (filterBtns.length === 0 || cards.length === 0) return;
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetCategory = btn.getAttribute('data-filter') || 'all';
+
+        // Update active class on buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter cards
+        cards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          if (targetCategory === 'all' || cardCategory === targetCategory) {
+            card.classList.remove('is-hidden');
+          } else {
+            card.classList.add('is-hidden');
+          }
+        });
+      });
+    });
+  }
+
+  /* -------------------------------------------------------------------------
+     14. ACCESSIBLE PHOTO GALLERY LIGHTBOX
+     ------------------------------------------------------------------------- */
+  function initPhotoGalleryLightbox() {
+    const modal = document.getElementById('gallery-lightbox-modal');
+    if (!modal) return;
+
+    const cards = document.querySelectorAll('.gallery-card');
+    const backdrop = modal.querySelector('.lightbox-backdrop');
+    const closeBtn = modal.querySelector('.lightbox-close');
+    const prevBtn = modal.querySelector('.lightbox-prev');
+    const nextBtn = modal.querySelector('.lightbox-next');
+    const imgEl = modal.querySelector('.lightbox-img');
+    const titleEl = modal.querySelector('.lightbox-title');
+    const descEl = modal.querySelector('.lightbox-desc');
+    const counterEl = modal.querySelector('.lightbox-counter');
+    const categoryEl = modal.querySelector('.lightbox-category');
+
+    let visibleCards = [];
+    let currentIndex = 0;
+    let lastActiveElement = null;
+
+    const getVisibleCards = () => {
+      return Array.from(cards).filter(c => !c.classList.contains('is-hidden'));
+    };
+
+    const updateLightbox = (index) => {
+      visibleCards = getVisibleCards();
+      if (visibleCards.length === 0) return;
+
+      if (index < 0) index = visibleCards.length - 1;
+      if (index >= visibleCards.length) index = 0;
+      currentIndex = index;
+
+      const card = visibleCards[currentIndex];
+      const src = card.getAttribute('data-full-src') || card.querySelector('img')?.src;
+      const title = card.getAttribute('data-title') || '';
+      const caption = card.getAttribute('data-caption') || '';
+      const category = card.getAttribute('data-category-label') || '';
+      const alt = card.querySelector('img')?.alt || title;
+
+      if (imgEl) {
+        imgEl.src = src;
+        imgEl.alt = alt;
+      }
+      if (titleEl) titleEl.textContent = title;
+      if (descEl) descEl.textContent = caption;
+      if (categoryEl) categoryEl.textContent = category;
+      if (counterEl) {
+        counterEl.textContent = `Photo ${currentIndex + 1} of ${visibleCards.length}`;
+      }
+    };
+
+    const openLightbox = (index) => {
+      lastActiveElement = document.activeElement;
+      document.body.classList.add('lightbox-open');
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      updateLightbox(index);
+      if (closeBtn) closeBtn.focus();
+    };
+
+    const closeLightbox = () => {
+      document.body.classList.remove('lightbox-open');
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+        lastActiveElement.focus();
+      }
+    };
+
+    cards.forEach(card => {
+      const handleTrigger = () => {
+        visibleCards = getVisibleCards();
+        const cardIndex = visibleCards.indexOf(card);
+        if (cardIndex !== -1) {
+          openLightbox(cardIndex);
+        }
+      };
+
+      card.addEventListener('click', handleTrigger);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleTrigger();
+        }
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (backdrop) backdrop.addEventListener('click', closeLightbox);
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        updateLightbox(currentIndex - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        updateLightbox(currentIndex + 1);
+      });
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('is-open')) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeLightbox();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        updateLightbox(currentIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        updateLightbox(currentIndex + 1);
+      }
+    });
+
+    // Mobile touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    modal.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    modal.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 45) {
+        if (diff > 0) {
+          updateLightbox(currentIndex - 1); // Swiped right -> prev
+        } else {
+          updateLightbox(currentIndex + 1); // Swiped left -> next
+        }
+      }
+    }, { passive: true });
   }
 
 })();
