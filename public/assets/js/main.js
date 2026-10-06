@@ -35,7 +35,8 @@
       initScrollReveal,
       initConsultationForms,
       initImageFallbacks,
-      initFloatingActionsSmartDodge
+      initFloatingActionsSmartDodge,
+      initVideoGallerySwitcher
     ];
 
     modules.forEach(fn => {
@@ -673,6 +674,54 @@
 
       formTargets.forEach(target => observer.observe(target));
     }
+  }
+
+  /* -------------------------------------------------------------------------
+     12. VIDEO GALLERY SWITCHER
+     Allows switching videos inside the responsive YouTube embed
+     ------------------------------------------------------------------------- */
+  function initVideoGallerySwitcher() {
+    const cards = document.querySelectorAll('.video-selectable-card');
+    const iframe = document.getElementById('main-video-player-frame');
+    const titleEl = document.getElementById('active-video-title');
+    const ytLinkEl = document.getElementById('active-yt-link');
+
+    if (!iframe || cards.length === 0) return;
+
+    cards.forEach(card => {
+      const activate = () => {
+        const videoId = card.getAttribute('data-video-id');
+        const title = card.getAttribute('data-title');
+        const url = card.getAttribute('data-url') || ('https://www.youtube.com/watch?v=' + videoId);
+
+        if (!videoId) return;
+
+        // Update iframe source with privacy and autoplay
+        iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+
+        // Update title and YouTube link
+        if (titleEl && title) titleEl.textContent = title;
+        if (ytLinkEl) ytLinkEl.href = url;
+
+        // Update active class
+        cards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+
+        // Smooth scroll to player if needed
+        const player = document.getElementById('embedded-video-player');
+        if (player) {
+          player.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      };
+
+      card.addEventListener('click', activate);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate();
+        }
+      });
+    });
   }
 
 })();

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { VIDEO_CATEGORIES, OFFICIAL_CHANNEL_URL, OFFICIAL_CHANNEL_HANDLE } from './video_library_data.mjs';
 
 const ROOT_DIR = process.cwd();
 
@@ -18,6 +19,7 @@ const ORG = {
   primaryPhone: "+92 344 404 0074",
   email: "aniqasohail@gmail.com",
   whatsapp: "https://wa.me/923444040074",
+  youtube: "https://www.youtube.com/@aniqasohail9327/videos",
   linkedin: "https://www.linkedin.com/company/help-autism-pakistan/",
   facebook: "https://www.facebook.com/helpautismpakistan",
   tiktok: "https://www.tiktok.com/@helpautismaniqaso",
@@ -307,28 +309,7 @@ const TRAININGS = [
   }
 ];
 
-const VIDEOS = [
-  { slug: "aba-videos", title: "ABA Therapy Video Library", count: "18 Videos", topic: "Discrete trial training, prompting, reinforcement schedules", image: "assets/img/migrated/563e77_b0f2574fbdf04ccdb5a7bb3ceedab97c.jpg" },
-  { slug: "speech-therapy-videos", title: "Speech & Language Videos", count: "16 Videos", topic: "Vocal stimulation, articulation, AAC device introduction", image: "assets/img/migrated/563e77_597da98f4020401984548bd891f6ab2a.jpg" },
-  { slug: "occupational-therapy-videos", title: "Occupational Therapy Videos", count: "14 Videos", topic: "Fine motor grasps, obstacle courses, balance stability", image: "assets/img/migrated/563e77_ec6b93cb205147aaab5e36275f3ed35b.jpg" },
-  { slug: "safety-training-videos", title: "Safety Training Videos", count: "10 Videos", topic: "Road safety, wandering prevention, home childproofing", image: "assets/img/migrated/563e77_97b16ce0afd046d182433ff4ed30bbb7.jpg" },
-  { slug: "academic-videos", title: "Academic & Pre-School Videos", count: "12 Videos", topic: "Tracing, sorting, visual schedules, circle time stamina", image: "assets/img/migrated/563e77_c32c408948ba43dea8a70ad13bc8ab5a.jpg" },
-  { slug: "functional-living-skills-videos", title: "Functional Living Skills Videos", count: "15 Videos", topic: "Toothbrushing, dressing, spoon feeding, toilet training", image: "assets/img/migrated/563e77_8db66caf4c454eafae9391d77fbdd2db.jpg" },
-  { slug: "vocational-videos", title: "Vocational & Handloom Videos", count: "8 Videos", topic: "Loom threading, shuttle weaving, artisanal packaging", image: "assets/img/migrated/563e77_937517a01dac42c9bbd9f351defc7a50.jpg" },
-  { slug: "floortime-videos", title: "Floortime Demonstration Videos", count: "12 Videos", topic: "Shared attention circles, child-led play attunement", image: "assets/img/migrated/563e77_d970b83bf9144abeb372cfe514d7f0da.jpg" },
-  { slug: "social-skills-videos", title: "Social Skills Video Library", count: "11 Videos", topic: "Peer turn-taking, greeting protocols, joint attention", image: "assets/img/migrated/563e77_7458ee94d2504105a2a4e343a32091d2.jpg" },
-  { slug: "play-videos", title: "Play Therapy Video Library", count: "13 Videos", topic: "Pretend play, symbolic toys, cooperative playground play", image: "assets/img/migrated/563e77_aaeafb64c7f8459596d5729bfe6ad571.jpg" },
-  { slug: "hands-on-trainings-videos", title: "Hands-on Trainings Videos", count: "14 Videos", topic: "Clinician workshops, prompt fading, error correction", image: "assets/img/migrated/563e77_105f7f18e8a744e9a2f643d2b11a6142.jpg" },
-  { slug: "cognitive-behavior-videos", title: "Cognitive Behavior Videos", count: "9 Videos", topic: "Emotional scaling, calming corners, self-talk strategies", image: "assets/img/migrated/563e77_cf8acaf7ecad470aa37a075f3fc5cd7c.jpg" },
-  { slug: "inclusive-education-videos", title: "Inclusive Education Videos", count: "10 Videos", topic: "Mainstream classroom accommodations, shadow aides", image: "assets/img/migrated/563e77_972ee7cc1f6b4b1d8a6454d97882f1ed.jpg" },
-  { slug: "teacch-intervention-videos", title: "TEACCH Intervention Videos", count: "12 Videos", topic: "Left-to-right work systems, visual work bins", image: "assets/img/migrated/563e77_105f7f18e8a744e9a2f643d2b11a6142.jpg" },
-  { slug: "pecs-visual-videos", title: "PECS & Visual Communication Videos", count: "15 Videos", topic: "Phase 1 to 4 exchanges, sentence strips, attribute icons", image: "assets/img/migrated/563e77_02f5ed5587d94fddae1d3085112d5ef0.jpg" },
-  { slug: "peer-mediated-videos", title: "Peer-Mediated Intervention Videos", count: "7 Videos", topic: "Neurotypical peer buddies, play modeling, recess inclusion", image: "assets/img/migrated/563e77_6acd79dbeb87462583f06f3926fdc79c.jpg" },
-  { slug: "parent-power-videos", title: "Parent Power Training Videos", count: "17 Videos", topic: "De-escalating tantrums, sensory bedtime routines, home setup", image: "assets/img/migrated/563e77_701ea7fec9a543f68a7166194aba6aec.jpg" },
-  { slug: "nutrition-supplements-videos", title: "Nutrition & Supplements Videos", count: "8 Videos", topic: "Picky eating desensitization, gut-brain axis, feeding therapy", image: "assets/img/migrated/563e77_7f5e3032284f4e88a0477e6c2273653b.jpg" },
-  { slug: "facilitated-communication-videos", title: "Assistive Communication Videos", count: "9 Videos", topic: "High-tech AAC, communication boards, symbol keys", image: "assets/img/migrated/563e77_f0290c14fa044fec8dc5c031044e90f3.jpg" },
-  { slug: "rdi-videos", title: "RDI & Relationship Videos", count: "11 Videos", topic: "Guided participation, dynamic appraisal, social referencing", image: "assets/img/migrated/563e77_597da98f4020401984548bd891f6ab2a.jpg" }
-];
+const VIDEOS = VIDEO_CATEGORIES;
 
 const RESOURCES = [
   { slug: "journals", title: "Research Journals & Clinical Papers", desc: "Peer-reviewed scientific publications on autism prevalence, behavioral interventions, and neurological research.", image: "assets/img/migrated/563e77_cf8acaf7ecad470aa37a075f3fc5cd7c.jpg" },

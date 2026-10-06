@@ -1341,6 +1341,108 @@ function buildVideoPages() {
   VIDEOS.forEach((video, index) => {
     const filename = `${video.slug}.html`;
 
+    const hasVerified = video.verifiedVideos && video.verifiedVideos.length > 0;
+    const primaryVideo = hasVerified ? video.verifiedVideos[0] : null;
+
+    const videoPlayerHtml = hasVerified ? `
+              <!-- Verified Official YouTube Player -->
+              <div class="video-player-box" id="embedded-video-player">
+                <div class="video-embed-wrapper">
+                  <iframe
+                    id="main-video-player-frame"
+                    src="https://www.youtube.com/embed/${primaryVideo.videoId}?rel=0"
+                    title="${primaryVideo.title} - HELP Autism Pakistan"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                  </iframe>
+                </div>
+                <div class="video-caption-strip">
+                  <div class="video-caption-meta">
+                    <strong id="active-video-title" style="color: #FFFFFF; font-size: 0.95rem; display: block; margin-bottom: 0.25rem;">
+                      ${primaryVideo.title}
+                    </strong>
+                    <span style="font-size: 0.82rem; color: #9BB3CB;">
+                      &bull; Official YouTube Video &middot; HELP Autism Pakistan (@aniqasohail9327)
+                    </span>
+                  </div>
+                  <div class="video-caption-btns">
+                    <a id="active-yt-link" href="https://www.youtube.com/watch?v=${primaryVideo.videoId}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-white btn-sm" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;" title="Watch directly on YouTube">
+                      Watch on YouTube
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-left:4px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                    <a href="${ORG.whatsapp}" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-sm" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;">
+                      Ask Dr. Aniqa &rarr;
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              ${video.verifiedVideos.length > 1 ? `
+              <!-- Multi-Video Interactive Collection -->
+              <div class="video-collection-wrap reveal" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                  <h3 style="font-size: 1.15rem; color: var(--color-navy); margin: 0;">
+                    Videos in this Category (${video.verifiedVideos.length})
+                  </h3>
+                  <span style="font-size: 0.82rem; color: var(--color-text-muted); font-weight: 600;">
+                    Click any video below to play directly above
+                  </span>
+                </div>
+                <div class="video-cards-grid">
+                  ${video.verifiedVideos.map((v, i) => `
+                    <div class="video-selectable-card ${i === 0 ? 'active' : ''}" data-video-id="${v.videoId}" data-title="${v.title}" data-url="https://www.youtube.com/watch?v=${v.videoId}" role="button" tabindex="0" aria-label="Play ${v.title}">
+                      <div class="video-card-thumb-frame">
+                        <img src="https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg" alt="${v.title}" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+                        <span class="video-play-badge">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        </span>
+                      </div>
+                      <div class="video-card-meta">
+                        <h5>${v.title}</h5>
+                        <span class="video-tag">${v.badge || 'Official Demonstration'}</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              ` : ''}
+    ` : `
+              <!-- Curated Fallback Card (No verified video on channel yet) -->
+              <div class="video-player-box">
+                <div class="video-pending-card">
+                  <div class="video-pending-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                  </div>
+                  <span class="section-badge" style="background: rgba(255, 179, 0, 0.15); color: #FFB300; margin-bottom: 0.75rem;">
+                    Video Resources in Preparation
+                  </span>
+                  <h3 style="color: #FFFFFF; font-size: 1.35rem; margin-bottom: 0.75rem;">
+                    ${video.title} Recordings
+                  </h3>
+                  <p style="color: #CBDCEE; font-size: 0.92rem; max-width: 520px; margin: 0 auto 1.5rem; line-height: 1.6;">
+                    Video resources for this program are currently being prepared. Clinical demonstration recordings for <strong>${video.title}</strong> are being curated and scheduled for upload to our official YouTube channel (<strong>@aniqasohail9327</strong>).
+                  </p>
+                  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+                    <a href="${ORG.youtube}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-3d btn-sm">
+                      Visit Official YouTube Channel &rarr;
+                    </a>
+                    <a href="https://wa.me/923444040074?text=${encodeURIComponent('Hello Dr. Aniqa, I am inquiring about clinical video demonstrations for ' + video.title)}" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-3d btn-sm">
+                      Request Clinical Demos on WhatsApp
+                    </a>
+                  </div>
+                </div>
+                <div class="video-caption-strip">
+                  <span style="font-size: 0.85rem; color: #CBDCEE;">
+                    &bull; Official Video Archive &middot; HELP Autism Pakistan, Model Town Ext, Lahore
+                  </span>
+                  <a href="${ORG.whatsapp}" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; color: var(--color-accent-sun); font-weight: 700;">
+                    Inquire with clinical coordinator &rarr;
+                  </a>
+                </div>
+              </div>
+    `;
+
     const content = `
       <section class="subpage-hero">
         <div class="container">
@@ -1388,31 +1490,7 @@ function buildVideoPages() {
         <div class="container">
           <div class="service-detail-grid">
             <div class="service-main-col reveal">
-              <!-- Video Screen Placeholder / Player Card -->
-              <div class="video-player-box">
-                <div class="video-screen-aspect">
-                  <div class="video-screen-content">
-                    <a href="${ORG.oldSiteUrl}/${video.slug}" target="_blank" rel="noopener noreferrer" class="video-play-btn-large" aria-label="Watch video session on original portal">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    </a>
-                    <h3 style="color: #FFFFFF; margin-bottom: 0.5rem; font-size: 1.25rem;">Watch Video Collection: ${video.title}</h3>
-                    <p style="color: #9BB3CB; font-size: 0.88rem; max-width: 500px; margin-bottom: 1.25rem;">
-                      Stream clinical session recordings, therapist lectures, and step-by-step demonstrations.
-                    </p>
-                    <a href="${ORG.oldSiteUrl}/${video.slug}" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-3d btn-sm">
-                      Watch on HELP Portal &rarr;
-                    </a>
-                  </div>
-                </div>
-                <div class="video-caption-strip">
-                  <span style="font-size: 0.85rem; color: #CBDCEE;">
-                    &bull; Recorded at HELP Autism Pakistan Therapy Centre, Lahore
-                  </span>
-                  <a href="${ORG.whatsapp}" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; color: var(--color-accent-sun); font-weight: 700;">
-                    Ask Dr. Aniqa a question about this video &rarr;
-                  </a>
-                </div>
-              </div>
+              ${videoPlayerHtml}
 
               <div class="service-info-block">
                 <h3>
@@ -1531,9 +1609,14 @@ function buildResourcePages() {
                 <p style="color: var(--color-text-muted); max-width: 580px; margin: 0 auto 1.5rem;">
                   Download handouts, view verified external reading materials, or access our complete digital library hosted on the HELP archive portal.
                 </p>
-                <a href="${ORG.oldSiteUrl}/${res.slug}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-3d btn-lg">
-                  Open Digital Resource Archive &rarr;
-                </a>
+                <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                  <a href="contact.html" class="btn btn-primary btn-3d btn-lg">
+                    Request Digital Resource Pack &rarr;
+                  </a>
+                  <a href="${ORG.whatsapp}" target="_blank" rel="noopener noreferrer" class="btn btn-green btn-3d btn-lg">
+                    Inquire on WhatsApp
+                  </a>
+                </div>
               </div>
             </div>
 
