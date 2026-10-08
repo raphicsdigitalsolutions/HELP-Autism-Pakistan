@@ -486,10 +486,14 @@ function buildIndexPage() {
             </div>
             <div class="meta-card-content">
               <h4>Direct Phone Lines</h4>
-              <p>
+              <p style="margin-bottom: 0.35rem;">
+                <strong>Mobile / WhatsApp:</strong><br>
                 <a href="tel:+923444040074"><strong>+92 344 404 0074</strong></a> &middot;
-                <a href="tel:+923006752325">+92 300 675 2325</a> &middot;
-                <a href="tel:+924235165661">+92 42 35165661</a> (Landline: 042-35165661)
+                <a href="tel:+923006752325">+92 300 675 2325</a>
+              </p>
+              <p style="margin-bottom: 0;">
+                <strong>Landline (Lahore):</strong><br>
+                <a href="tel:+924235165661"><strong>+92 42 35165661</strong></a> (042-35165661)
               </p>
             </div>
           </div>
@@ -1072,9 +1076,15 @@ function buildContactPage() {
             </div>
             <div class="meta-card-content">
               <h4>Direct Telephone &amp; Mobile</h4>
-              <p><a href="tel:+923444040074"><strong>+92 344 404 0074</strong></a> (Direct WhatsApp)</p>
-              <p><a href="tel:+923006752325">+92 300 675 2325</a></p>
-              <p><a href="tel:+924235165661">+92 42 35165661</a> (Lahore Landline: 042-35165661)</p>
+              <p style="margin-bottom: 0.35rem;">
+                <strong>Mobile &amp; WhatsApp:</strong><br>
+                <a href="tel:+923444040074"><strong>+92 344 404 0074</strong></a> (Direct WhatsApp)<br>
+                <a href="tel:+923006752325">+92 300 675 2325</a>
+              </p>
+              <p style="margin-bottom: 0; padding-top: 0.4rem; border-top: 1px dashed rgba(26, 111, 196, 0.2);">
+                <strong>Landline (Lahore):</strong><br>
+                <a href="tel:+924235165661"><strong>+92 42 35165661</strong></a> (042-35165661)
+              </p>
             </div>
           </div>
 
