@@ -895,6 +895,8 @@ button {
 .medallion-container {
   width: 320px;
   height: 320px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
   position: relative;
   transform-style: preserve-3d;
   transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
@@ -906,7 +908,11 @@ button {
 .medallion-disc {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
+  box-sizing: border-box;
   background: linear-gradient(145deg, #FFFFFF, #EAF1FA);
   border: 10px solid #FFFFFF;
   box-shadow:
@@ -950,8 +956,10 @@ button {
 .medallion-logo {
   width: 240px;
   height: 240px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
   position: relative;
   z-index: 2;
   transform: translateZ(15px);
@@ -2782,11 +2790,22 @@ html.js .reveal.active {
     transform: none !important;
     position: relative !important;
     z-index: 5 !important;
+    aspect-ratio: 1 / 1 !important;
+    flex-shrink: 0 !important;
   }
 
   .medallion-disc {
     transform: none !important;
-    position: relative !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
     z-index: 1 !important;
   }
 
@@ -2794,6 +2813,10 @@ html.js .reveal.active {
     transform: none !important;
     position: relative !important;
     z-index: 2 !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
   }
 
   .floating-chip {
@@ -3105,12 +3128,23 @@ html.js .reveal.active {
     z-index: 5 !important;
     width: 240px !important;
     height: 240px !important;
+    aspect-ratio: 1 / 1 !important;
+    flex-shrink: 0 !important;
     margin: 0.5rem auto !important;
   }
 
   .medallion-disc {
     transform: none !important;
-    position: relative !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
     z-index: 1 !important;
     border-width: 8px !important;
     box-shadow:
@@ -3125,6 +3159,10 @@ html.js .reveal.active {
     z-index: 2 !important;
     width: 175px !important;
     height: 175px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
   }
 
   /* Floating 3D Chips on Mobile: Statically layered above medallion disc and logo */
@@ -3405,11 +3443,23 @@ html.js .reveal.active {
   .medallion-container {
     width: 210px !important;
     height: 210px !important;
+    aspect-ratio: 1 / 1 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .medallion-disc {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
   }
 
   .medallion-logo {
     width: 155px !important;
     height: 155px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
   }
 
   .floating-chip {
@@ -3479,11 +3529,23 @@ html.js .reveal.active {
   .medallion-container {
     width: 190px !important;
     height: 190px !important;
+    aspect-ratio: 1 / 1 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .medallion-disc {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
   }
 
   .medallion-logo {
     width: 140px !important;
     height: 140px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
   }
 
   .floating-chip {
@@ -3539,12 +3601,24 @@ html.js .reveal.active {
   .medallion-container {
     width: 180px !important;
     height: 180px !important;
+    aspect-ratio: 1 / 1 !important;
+    flex-shrink: 0 !important;
     margin: 0.5rem auto !important;
+  }
+
+  .medallion-disc {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
   }
 
   .medallion-logo {
     width: 130px !important;
     height: 130px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
   }
 
   .floating-chip {
