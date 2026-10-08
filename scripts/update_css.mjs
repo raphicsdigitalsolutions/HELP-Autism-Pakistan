@@ -1785,15 +1785,21 @@ button {
   background: linear-gradient(135deg, #0A3568 0%, #08243F 100%) !important;
 }
 
-/* Uncropped / Full Display Fix for Certificate Presentation & Specific Media */
+/* Uncropped / Full Display Fix for Certificate Presentation & Teacher Training Media */
+img[src*="certificate-award-ceremony-01"],
+img[src*="teacher-training-series-01"],
 img[src*="563e77_8db66caf4c454eafae9391d77fbdd2db"],
 .img-contain-uncropped,
-.certificate-award-img {
+.certificate-award-img,
+.teacher-training-uncropped-img {
   object-fit: contain !important;
   object-position: center center !important;
-  background: #08243F !important;
+  background-color: #08243F !important;
 }
 
+/* Subpage Hero Featured Cards (certificate-courses.html, hands-on-trainings.html) */
+.subpage-featured-card:has(img[src*="certificate-award-ceremony-01"]),
+.subpage-featured-card:has(img[src*="teacher-training-series-01"]),
 .subpage-featured-card:has(img[src*="563e77_8db66caf4c454eafae9391d77fbdd2db"]),
 .subpage-featured-card:has(.img-contain-uncropped),
 .subpage-featured-card.has-contain-img {
@@ -1803,16 +1809,75 @@ img[src*="563e77_8db66caf4c454eafae9391d77fbdd2db"],
   justify-content: center !important;
 }
 
+.subpage-featured-card:has(img[src*="certificate-award-ceremony-01"]) .subpage-featured-img,
+.subpage-featured-card:has(img[src*="teacher-training-series-01"]) .subpage-featured-img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: #08243F !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Training Cards (programs.html) */
+.training-card-img-wrap:has(img[src*="certificate-award-ceremony-01"]),
+.training-card-img-wrap:has(img[src*="teacher-training-series-01"]),
+.training-card-img-wrap:has(.img-contain-uncropped),
+.training-card-img-wrap.has-contain-img {
+  background: #08243F !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 220px !important;
+}
+
+.training-card-img[src*="certificate-award-ceremony-01"],
+.training-card-img[src*="teacher-training-series-01"],
+.training-card-img.img-contain-uncropped {
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: #08243F !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Gallery Thumbnails (photos-library.html, index.html) */
+.gallery-card-thumb-wrap:has(img[src*="certificate-award-ceremony-01"]),
+.gallery-card-thumb-wrap:has(img[src*="teacher-training-series-01"]),
+.gallery-card-thumb-wrap:has(.img-contain-uncropped),
+.gallery-card-thumb-wrap.uncropped-thumb-wrap {
+  background: #08243F !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.gallery-card-thumb[src*="certificate-award-ceremony-01"],
+.gallery-card-thumb[src*="teacher-training-series-01"],
+.gallery-card-thumb.uncropped-contain-img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: #08243F !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Service & Sidebar Cards */
+.card-image-box:has(img[src*="certificate-award-ceremony-01"]),
+.card-image-box:has(img[src*="teacher-training-series-01"]),
 .card-image-box:has(img[src*="563e77_8db66caf4c454eafae9391d77fbdd2db"]),
 .card-image-box:has(.img-contain-uncropped) {
   background: #08243F !important;
 }
 
+.video-card-thumb-wrap:has(img[src*="certificate-award-ceremony-01"]),
+.video-card-thumb-wrap:has(img[src*="teacher-training-series-01"]),
 .video-card-thumb-wrap:has(img[src*="563e77_8db66caf4c454eafae9391d77fbdd2db"]),
 .video-card-thumb-wrap:has(.img-contain-uncropped) {
   background: #08243F !important;
 }
 
+.service-sidebar-img[src*="certificate-award-ceremony-01"],
+.service-sidebar-img[src*="teacher-training-series-01"],
 .service-sidebar-img[src*="563e77_8db66caf4c454eafae9391d77fbdd2db"],
 .service-sidebar-img.img-contain-uncropped {
   height: auto !important;

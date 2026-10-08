@@ -362,10 +362,12 @@ function buildIndexPage() {
             GALLERY_PHOTOS.find(p => p.id === 34),
             GALLERY_PHOTOS.find(p => p.id === 16),
             GALLERY_PHOTOS.find(p => p.id === 42)
-          ].filter(Boolean).map(photo => `
+          ].filter(Boolean).map(photo => {
+            const isUncropped = photo.src.includes('certificate-award-ceremony-01') || photo.src.includes('teacher-training-series-01') || photo.src.includes('563e77_8db66caf4c454eafae9391d77fbdd2db');
+            return `
             <a href="photos-library.html" class="gallery-card reveal" title="${photo.title}">
-              <div class="gallery-card-thumb-wrap">
-                <img src="${photo.src}" alt="${photo.alt}" class="gallery-card-thumb" loading="lazy">
+              <div class="gallery-card-thumb-wrap ${isUncropped ? 'uncropped-thumb-wrap' : ''}">
+                <img src="${photo.src}" alt="${photo.alt}" class="gallery-card-thumb ${isUncropped ? 'uncropped-contain-img' : ''}" loading="lazy">
                 <span class="gallery-card-badge">${photo.categoryLabel}</span>
                 <span class="gallery-card-zoom-icon" aria-hidden="true">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -376,7 +378,8 @@ function buildIndexPage() {
                 <p class="gallery-card-caption">${photo.caption}</p>
               </div>
             </a>
-          `).join('')}
+          `;
+          }).join('')}
         </div>
 
         <div style="text-align: center; margin-top: 2.75rem;" class="reveal">
@@ -486,7 +489,7 @@ function buildIndexPage() {
               <p>
                 <a href="tel:+923444040074"><strong>+92 344 404 0074</strong></a> &middot;
                 <a href="tel:+923006752325">+92 300 675 2325</a> &middot;
-                <a href="tel:+9235165661">+92 35165661</a>
+                <a href="tel:+924235165661">+92 42 35165661</a> (Landline: 042-35165661)
               </p>
             </div>
           </div>
@@ -762,10 +765,12 @@ function buildProgramsPage() {
         </div>
 
         <div class="trainings-grid">
-          ${TRAININGS.map(t => `
+          ${TRAININGS.map(t => {
+            const isUncropped = t.image && (t.image.includes('certificate-award-ceremony-01') || t.image.includes('teacher-training-series-01') || t.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db'));
+            return `
             <div class="training-card reveal">
-              <div class="training-card-img-wrap">
-                <img src="${t.image}" alt="${t.title}" class="training-card-img" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+              <div class="training-card-img-wrap ${isUncropped ? 'has-contain-img' : ''}">
+                <img src="${t.image}" alt="${t.title}" class="training-card-img ${isUncropped ? 'img-contain-uncropped' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <span class="training-card-badge">${t.audience.split(' ')[0]}</span>
               </div>
               <div class="training-card-body">
@@ -780,7 +785,8 @@ function buildProgramsPage() {
                 </div>
               </div>
             </div>
-          `).join('')}
+          `;
+          }).join('')}
         </div>
 
         <!-- Parent Power Anchor -->
@@ -1068,7 +1074,7 @@ function buildContactPage() {
               <h4>Direct Telephone &amp; Mobile</h4>
               <p><a href="tel:+923444040074"><strong>+92 344 404 0074</strong></a> (Direct WhatsApp)</p>
               <p><a href="tel:+923006752325">+92 300 675 2325</a></p>
-              <p><a href="tel:+9235165661">+92 35165661</a> (Landline)</p>
+              <p><a href="tel:+924235165661">+92 42 35165661</a> (Lahore Landline: 042-35165661)</p>
             </div>
           </div>
 
@@ -1080,6 +1086,25 @@ function buildContactPage() {
               <h4>Email Communications</h4>
               <p><a href="mailto:${ORG.email}">${ORG.email}</a></p>
               <p style="font-size: 0.82rem; color: var(--color-text-subtle);">Direct inbox of Dr. Aniqa Sohail</p>
+            </div>
+          </div>
+
+          <!-- Official Social Media Handles Card -->
+          <div class="meta-info-card">
+            <div class="meta-icon-circle" style="background: rgba(26, 111, 196, 0.1); color: var(--color-blue);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </div>
+            <div class="meta-card-content">
+              <h4>Official Social Media Handles</h4>
+              <p style="font-size: 0.84rem; color: var(--color-text-subtle); margin-bottom: 0.5rem;">Connect with Dr. Aniqa Sohail &amp; HELP Autism Pakistan across verified channels:</p>
+              <div style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.88rem;">
+                <div><strong>YouTube:</strong> <a href="${ORG.youtube}" target="_blank" rel="noopener noreferrer">@aniqasohail9327</a> (Official Videos)</div>
+                <div><strong>Facebook:</strong> <a href="${ORG.facebook}" target="_blank" rel="noopener noreferrer">@helpautismpakistan</a></div>
+                <div><strong>Instagram:</strong> <a href="${ORG.instagram}" target="_blank" rel="noopener noreferrer">@helpautismpakistan</a></div>
+                <div><strong>LinkedIn:</strong> <a href="${ORG.linkedin}" target="_blank" rel="noopener noreferrer">HELP Autism Pakistan</a></div>
+                <div><strong>TikTok:</strong> <a href="${ORG.tiktok}" target="_blank" rel="noopener noreferrer">@helpautismaniqaso</a></div>
+                <div><strong>WhatsApp:</strong> <a href="${ORG.whatsapp}" target="_blank" rel="noopener noreferrer">+92 344 404 0074</a></div>
+              </div>
             </div>
           </div>
 
@@ -1290,8 +1315,8 @@ function buildTrainingPages() {
               </div>
             </div>
             <div class="subpage-hero-media">
-              <div class="subpage-featured-card">
-                <img src="${training.image}" alt="${training.title} at HELP Autism Pakistan" class="subpage-featured-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+              <div class="subpage-featured-card ${training.image && (training.image.includes('certificate-award-ceremony-01') || training.image.includes('teacher-training-series-01') || training.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db')) ? 'has-contain-img' : ''}">
+                <img src="${training.image}" alt="${training.title} at HELP Autism Pakistan" class="subpage-featured-img ${training.image && (training.image.includes('certificate-award-ceremony-01') || training.image.includes('teacher-training-series-01') || training.image.includes('563e77_8db66caf4c454eafae9391d77fbdd2db')) ? 'img-contain-uncropped' : ''}" loading="eager" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                 <div class="subpage-banner-badge">
                   <span class="pulse-dot"></span> Clinical Capacity Building &middot; Lahore
                 </div>
@@ -1649,10 +1674,12 @@ function buildResourcePages() {
 
           <!-- 46 Authentic Photos Grid -->
           <div class="gallery-grid" id="main-gallery-grid">
-            ${GALLERY_PHOTOS.map((photo) => `
+            ${GALLERY_PHOTOS.map((photo) => {
+              const isUncropped = photo.src.includes('certificate-award-ceremony-01') || photo.src.includes('teacher-training-series-01') || photo.src.includes('563e77_8db66caf4c454eafae9391d77fbdd2db');
+              return `
               <div class="gallery-card reveal" data-category="${photo.category}" data-category-label="${photo.categoryLabel}" data-full-src="${photo.src}" data-title="${photo.title}" data-caption="${photo.caption}" role="button" tabindex="0" aria-label="View photo: ${photo.title}">
-                <div class="gallery-card-thumb-wrap">
-                  <img src="${photo.src}" alt="${photo.alt}" class="gallery-card-thumb" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
+                <div class="gallery-card-thumb-wrap ${isUncropped ? 'uncropped-thumb-wrap' : ''}">
+                  <img src="${photo.src}" alt="${photo.alt}" class="gallery-card-thumb ${isUncropped ? 'uncropped-contain-img' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/img/logo.png';">
                   <span class="gallery-card-badge">${photo.categoryLabel}</span>
                   <span class="gallery-card-zoom-icon" aria-hidden="true">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -1663,7 +1690,8 @@ function buildResourcePages() {
                   <p class="gallery-card-caption">${photo.caption}</p>
                 </div>
               </div>
-            `).join('')}
+            `;
+            }).join('')}
           </div>
 
           <!-- Bottom Consultation Strip -->
