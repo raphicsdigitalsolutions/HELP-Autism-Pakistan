@@ -96,7 +96,7 @@ for (const location of locations) {
 }
 
 const mainJs = read(path.join(repoRoot,"assets/js/main.js"));
-if (!mainJs.includes("handleWhatsAppInquiry") || !mainJs.includes("https://wa.me/923444040074") || !mainJs.includes("You must press the")) {
+if (!mainJs.includes("handleWhatsAppInquiry") || !mainJs.includes("CLINIC_WHATSAPP_DIGITS = '923444040074'") || !mainJs.includes("https://wa.me/${CLINIC_WHATSAPP_DIGITS}?text=") || !mainJs.includes("You must press the")) {
   fail("WhatsApp-first inquiry and explicit Send confirmation are not present in main.js");
 }
 if (/localStorage\.setItem\s*\(\s*['"]help_consultations['"]/.test(mainJs)) {
