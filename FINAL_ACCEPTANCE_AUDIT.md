@@ -11,7 +11,7 @@
 
 ## Executive Summary & Audit Methodology
 
-This independent acceptance audit evaluated the HELP Autism Pakistan web application against strict production-readiness criteria. The inspection tested both the deployed Vercel preview deployment (`help-autism-pakistan-liart.vercel.app`) and the workspace codebase.
+This release-hardening report distinguishes automated source/build checks from manual live-browser checks. It must not claim all end-user behaviours passed unless the latest Vercel deployment and the human acceptance checklist both pass. The inspection tested both the deployed Vercel preview deployment (`help-autism-pakistan-liart.vercel.app`) and the workspace codebase.
 
 Testing evaluated:
 1. Live HTTP response codes across all 49 pages.
@@ -130,37 +130,27 @@ During the audit and verification cycle, four concrete defects were identified, 
 
 ---
 
-## 3. Failed and Still Unresolved
+## 3. Corrected in the Release Hardening Pass
 
-### 3.1 Semantic Video Category Mismatches (Flagged for Clinical Review)
-An audit of all 20 video-library categories against actual YouTube channel content identified three categories where mapped videos diverge from clinical autism therapy topics:
+### 3.1 Canonical URL and Redirect Strategy
 
-1. **Category 4 — Safety Training (`safety-training-videos.html`):**
-   - **Currently Mapped Videos:**
-     - `0WzaRoetEWU`: *"Neonatal Resuscitation Workshop organised by Dr Aniqa Sohail 5th December 23"*
-     - `iEAm8tMwMKY`: *"Basic Neonatal Resuscitation Workshop organised by Dr Aniqa Sohail Head of Pediatrics WTHC"*
-     - `Nw2PIkqBe9c`: *"Basic Neonatal Resuscitation Workshop 5th December 23 at WTHC"*
-   - **Finding:** While these are authentic recordings of Dr. Aniqa Sohail teaching at Wapda Teaching Hospital Complex (WTHC), they depict hospital neonatal CPR and infant resuscitation for healthcare professionals. They do **not** cover autism-specific child safety (such as elopement/wandering prevention, water safety, sensory emergency protocols, or home safety).
-   - **Recommended Action:** Management should record or upload autism safety demonstrations, or relabel this category to reflect "Pediatric Clinical & Emergency Training."
+- The site keeps explicit `.html` page URLs for canonicals, internal links, and sitemap entries.
+- `vercel.json` sets `cleanUrls: false` so Vercel does not silently redirect canonical `.html` URLs to extensionless paths.
+- Permanent redirects are declared for extensionless route aliases and the legacy Wix routes mapped in `MIGRATION_URL_MAP.md`.
+- The build-time release verifier validates configuration, redirect destinations, canonical URLs, sitemap entries, and local file references. The actual status code from the deployed URL must still be checked after deployment.
 
-2. **Category 10 — Play Therapy (`play-videos.html`):**
-   - **Currently Mapped Videos:**
-     - `siBcw3sJUcQ`: *"Winter Fair Preparations HELP AUTISM PAKISTAN with Dr Aniqa Sohail # DrAniqaHaider"*
-     - `8TwPwTpZw_8`: *"Highlights of Sports Gala 25 HELP Autism Pakistan #ISAL School #Autism #sports #games"*
-   - **Finding:** These videos depict event craft preparations (making decorations for a winter fair) and outdoor sports day competitions. Neither video demonstrates clinical 1:1 or small-group play therapy (e.g., DIRFloortime symbolic play, reciprocal play routines, or therapeutic games).
-   - **Recommended Action:** Label videos as "Community Play & Event Activities" or replace with structured play therapy session recordings.
+### 3.2 Video Category Accuracy
 
-3. **Category 12 — Cognitive Behavior Therapy (`cognitive-behavior-videos.html`):**
-   - **Currently Mapped Video:**
-     - `dwj1Q5l0Lu8`: *"Resilience counts in . Help Autism Pakistan"*
-   - **Finding:** This video is an inspirational community celebration clip rather than a structured demonstration of cognitive-behavioral techniques or emotional regulation protocols.
-   - **Recommended Action:** Add clinical CBT or emotional regulation training recordings.
+- The neonatal resuscitation videos are labeled **Pediatric Emergency Response**, not autism-specific child-safety instruction.
+- Winter-fair and sports-gala videos are labeled **Community Play & Events**, not clinical play-therapy demonstrations.
+- The inspirational resilience clip is labeled **Community Resilience & Wellbeing**, not a CBT demonstration.
+- Ten of the twenty categories still do not have a verified dedicated video; their empty state remains intentional. No video IDs have been fabricated.
 
-### 3.2 Staging vs. Repository Asset Synchronization
-- **Finding:** The public Vercel staging deployment (`https://help-autism-pakistan-liart.vercel.app/`) builds from the remote GitHub repository branch (`raphicsdigitalsolutions/HELP-Autism-Pakistan`). Local workspace commits and freshly curated media assets must be pushed to GitHub to trigger Vercel's automated git-deployment webhook and update the public URL.
-- **Status:** Requires repository push access to complete remote deployment sync.
+### 3.3 Gallery Source Inventory
 
----
+- A source manifest and gallery audit have been added using the source-platform and source-URL fields already present in `scripts/gallery_data.mjs`.
+- Generic organisation homepage URLs are documented as generic references, not treated as proof of a direct social post.
+- Individual image provenance and guardian-consent sign-off remain organisational responsibilities; see `IMAGE_GALLERY_AUDIT.md`.
 
 ## 4. Not Tested or Not Verifiable
 
@@ -177,23 +167,20 @@ Due to environmental boundaries, the following external operations cannot be ver
 
 ---
 
-## 5. Backend and Production-Launch Blockers
-
-The following items are critical blockers that must be addressed prior to final production launch on `helpautismpakistan.com`:
+## 5. Remaining Production-Launch Blockers
 
 | Blocker ID | Severity | Item | Details & Required Resolution |
 |---|---|---|---|
-| **BLK-01** | **RESOLVED** | **Consultation Intake Workflow** | **Transitioned to WhatsApp-first inquiry workflow.** Inquiries are validated in-browser and transferred directly to the clinic's official WhatsApp (+92 344 404 0074) with a pre-filled message. Parents are clearly notified that transmission completes only upon tapping Send in WhatsApp. Browser `localStorage` retention of family and pediatric records has been eliminated. No external database or backend credentials required. |
-| **BLK-02** | **HIGH** | **DNS & Domain Transition** | Canonical URLs and structured data target `https://www.helpautismpakistan.com/`. Prior to public launch, DNS records (A / CNAME) must be transitioned from the legacy Wix hosting to Vercel/production hosting, with SSL certificate provisioning confirmed. |
-| **BLK-03** | **MEDIUM** | **GitHub Push & Staging Deployment** | Workspace updates (including landline formatting, mobile logo circle fixes, WhatsApp intake workflow, and asset bundle directories) must be pushed to `https://github.com/raphicsdigitalsolutions/HELP-Autism-Pakistan` to update the deployed Vercel instance. |
-| **BLK-04** | **LOW** | **Clinical Video Content Approval** | Management sign-off is required for the semantic video category mappings noted in Section 3.1. |
+| **BLK-01** | **HIGH** | **Custom Domain & DNS Cutover** | `helpautismpakistan.com` is not attached to this Vercel project yet. Management must approve the cutover; preserve email MX/TXT/SPF/DKIM/DMARC records and confirm SSL after DNS changes. |
+| **BLK-02** | **MEDIUM** | **Gallery Provenance & Consent** | The 46-photo source inventory is documented, but generic archive/homepage URLs do not establish photo-level provenance. Management must confirm publication authority and guardian consent for identifiable children, and remove unapproved assets. |
+| **BLK-03** | **LOW** | **Clinical Video Availability** | Ten categories have no verified dedicated video. They show a preparation/empty state rather than invented videos. Upload relevant approved recordings when available. |
+| **BLK-04** | **LOW** | **Manual Browser Acceptance** | Automated source/build checks cannot confirm actual parent WhatsApp delivery, physical clinic operations, or every handset/browser. Complete the short staging checklist in Vercel after deployment. |
 
----
 
 ## Conclusion & Readiness Verdict
 
-- **Static Architecture, Performance & Code Quality:** **PASSED** (100% build pass, zero TypeScript/linter errors, zero broken links).
-- **SEO & Accessibility Compliance:** **PASSED** (Full metadata, schema, skip links, and alt coverage).
-- **Mobile Responsive Layouts & Styling:** **PASSED** (Logo circle distortion resolved across all breakpoints).
+- **Static Architecture & Automated Release Checks:** **GATED BY BUILD** (the new prebuild verifier must pass in the latest Vercel build; do not infer success until the deployment reports READY).
+- **SEO URL Strategy:** **CONFIGURATION ALIGNED** (explicit .html canonicals/sitemap paired with cleanUrls=false and permanent redirects; verify live response codes after deployment).
+- **Mobile Responsive Layouts & Styling:** **SOURCE FIXES PRESENT**; perform post-deployment browser/device acceptance before declaring visual QA complete.
 - **Consultation Intake Workflow:** **PASSED & OPERATIONAL** (WhatsApp-first client flow verified with zero client storage of sensitive medical data).
-- **Production DNS Cutover:** **PENDING** management domain transition.
+- **Production DNS Cutover:** **PENDING** management domain transition and email DNS preservation.

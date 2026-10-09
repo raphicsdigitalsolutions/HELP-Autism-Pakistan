@@ -47,12 +47,13 @@ export const VIDEO_CATEGORIES = [
   {
     id: 4,
     slug: "safety-training-videos",
-    title: "Safety Training Videos",
-    categoryName: "Safety Training",
-    count: "3 Official Videos",
-    topic: "Neonatal resuscitation, pediatric emergency response, health safety",
+    title: "Pediatric Emergency Response Videos",
+    categoryName: "Pediatric Emergency Response",
+    count: "3 Official Workshop Videos",
+    topic: "Archived neonatal resuscitation and pediatric emergency response workshops for healthcare professionals",
     image: "assets/img/migrated/563e77_97b16ce0afd046d182433ff4ed30bbb7.jpg",
     status: "VERIFIED",
+    notes: "These recordings cover neonatal resuscitation and pediatric clinical emergency training for healthcare professionals. They are not autism-specific home-safety, elopement, or water-safety instructions.",
     verifiedVideos: [
       {
         videoId: "0WzaRoetEWU",
@@ -209,30 +210,31 @@ export const VIDEO_CATEGORIES = [
   {
     id: 10,
     slug: "play-videos",
-    title: "Play Therapy Video Library",
-    categoryName: "Play Therapy",
-    count: "2 Official Videos",
-    topic: "Pretend play, cooperative playground games, group celebrations",
+    title: "Community Play & Events Video Library",
+    categoryName: "Community Play & Events",
+    count: "2 Official Event Videos",
+    topic: "Winter fair preparations, sports gala activities, and inclusive community participation",
     image: "assets/img/migrated/563e77_aaeafb64c7f8459596d5729bfe6ad571.jpg",
     status: "VERIFIED",
+    notes: "These are community event and sports videos, not dedicated clinical play-therapy demonstrations. The category name reflects the actual footage.",
     verifiedVideos: [
       {
         videoId: "siBcw3sJUcQ",
         title: "Winter Fair Preparations HELP AUTISM PAKISTAN with Dr Aniqa Sohail # DrAniqaHaider",
         youtubeUrl: "https://www.youtube.com/watch?v=siBcw3sJUcQ",
         thumbnailUrl: "https://i.ytimg.com/vi/siBcw3sJUcQ/hqdefault.jpg",
-        description: "Children and therapists preparing festival stalls, sensory crafts, and joyful cooperative play routines.",
-        badge: "Festival Play Activity",
-        matchConfidence: "Medium-High"
+        description: "Footage of winter fair preparations at HELP Autism Pakistan. Presented as a community event, not as a clinical play-therapy demonstration.",
+        badge: "Community Event",
+        matchConfidence: "High (Event Content)"
       },
       {
         videoId: "8TwPwTpZw_8",
         title: "Highlights of Sports Gala 25 HELP Autism Pakistan #ISAL School #Autism #sports #games",
         youtubeUrl: "https://www.youtube.com/watch?v=8TwPwTpZw_8",
         thumbnailUrl: "https://i.ytimg.com/vi/8TwPwTpZw_8/hqdefault.jpg",
-        description: "Outdoor movement games, structured team play, and motor obstacle challenges.",
-        badge: "Structured Game Play",
-        matchConfidence: "Medium"
+        description: "Sports Gala highlights showing group movement and inclusive community participation; this is not a clinical play-therapy demonstration.",
+        badge: "Sports & Community",
+        matchConfidence: "High (Event Content)"
       }
     ]
   },
@@ -278,21 +280,22 @@ export const VIDEO_CATEGORIES = [
   {
     id: 12,
     slug: "cognitive-behavior-videos",
-    title: "Cognitive Behavior Videos",
-    categoryName: "Cognitive Behavior",
-    count: "1 Official Video",
-    topic: "Emotional regulation, resilience, psychological coping",
+    title: "Community Resilience & Wellbeing Video",
+    categoryName: "Community Resilience & Wellbeing",
+    count: "1 Official Community Video",
+    topic: "Community messaging about resilience and wellbeing; not a structured CBT instruction",
     image: "assets/img/migrated/563e77_cf8acaf7ecad470aa37a075f3fc5cd7c.jpg",
     status: "VERIFIED",
+    notes: "This inspirational resilience video is not a substitute for structured cognitive behavioural therapy instruction. The category name reflects the actual available content.",
     verifiedVideos: [
       {
         videoId: "dwj1Q5l0Lu8",
         title: "Resilience counts in . Help Autism Pakistan ",
         youtubeUrl: "https://www.youtube.com/watch?v=dwj1Q5l0Lu8",
         thumbnailUrl: "https://i.ytimg.com/vi/dwj1Q5l0Lu8/hqdefault.jpg",
-        description: "Exploring psychological resilience, emotional perseverance, and coping mechanisms for neurodiverse youth.",
-        badge: "Emotional Resilience",
-        matchConfidence: "Medium"
+        description: "An inspirational community clip about resilience; it does not demonstrate structured cognitive behavioural therapy techniques.",
+        badge: "Resilience & Wellbeing",
+        matchConfidence: "High (Topic Label)"
       }
     ]
   },

@@ -37,13 +37,13 @@ Total Videos on Official Channel: 20
 
 ---
 
-## 4. Safety Training
+## 4. Pediatric Emergency Response
 - Website page: `safety-training-videos.html`
 - YouTube video title: Neonatal Resuscitation Workshop organised by Dr Aniqa Sohail 5th December 23
 - YouTube video ID: `0WzaRoetEWU`
 - YouTube URL: [https://www.youtube.com/watch?v=0WzaRoetEWU](https://www.youtube.com/watch?v=0WzaRoetEWU)
-- Match confidence: Medium
-- Notes: Clinical emergency safety protocols and pediatric vital resuscitation workshop led by Dr. Aniqa Sohail. Additional video demonstrations included:
+- Match confidence: High (accurate subject label)
+- Notes: These are neonatal resuscitation and pediatric emergency-response workshops for healthcare professionals. They are not autism-specific child-safety lessons; the website label now accurately describes the footage. Additional video demonstrations included:
   - Video 2: `iEAm8tMwMKY` — "Basic Neonatal Resuscitation Workshop organised by Dr Aniqa Sohail Head of Pediatrics WTHC"
   - Video 3: `Nw2PIkqBe9c` — "Basic Neonatal Resuscitation Workshop 5th December 23 at WTHC"
 
@@ -102,13 +102,13 @@ Total Videos on Official Channel: 20
 
 ---
 
-## 10. Play Therapy
+## 10. Community Play & Event Activities
 - Website page: `play-videos.html`
 - YouTube video title: Winter Fair Preparations HELP AUTISM PAKISTAN with Dr Aniqa Sohail # DrAniqaHaider
 - YouTube video ID: `siBcw3sJUcQ`
 - YouTube URL: [https://www.youtube.com/watch?v=siBcw3sJUcQ](https://www.youtube.com/watch?v=siBcw3sJUcQ)
-- Match confidence: Medium-High
-- Notes: Sensory play, joyful cooperative event preparation, group games, and motor activity. Additional video in collection:
+- Match confidence: High (accurate event label)
+- Notes: These videos show winter-fair preparation and sports-gala activities. They are not represented as dedicated clinical play-therapy sessions. Additional video in collection:
   - Video 2: `8TwPwTpZw_8` — "Highlights of Sports Gala 25 HELP Autism Pakistan #ISAL School #Autism #sports #games" (Structured outdoor motor play).
 
 ---
@@ -125,13 +125,13 @@ Total Videos on Official Channel: 20
 
 ---
 
-## 12. Cognitive Behavior
+## 12. Community Resilience & Wellbeing
 - Website page: `cognitive-behavior-videos.html`
 - YouTube video title: Resilience counts in . Help Autism Pakistan 
 - YouTube video ID: `dwj1Q5l0Lu8`
 - YouTube URL: [https://www.youtube.com/watch?v=dwj1Q5l0Lu8](https://www.youtube.com/watch?v=dwj1Q5l0Lu8)
-- Match confidence: Medium
-- Notes: Psychological resilience, emotional coping, and developmental determination in neurodivergent support.
+- Match confidence: High (accurate topic label)
+- Notes: This is an inspirational resilience/community clip, not a structured cognitive-behavioural therapy demonstration.
 
 ---
 

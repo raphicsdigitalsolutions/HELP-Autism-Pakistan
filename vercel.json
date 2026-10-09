@@ -1,13 +1,394 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/services", "destination": "/programs.html" },
-    { "source": "/therapies", "destination": "/programs.html" },
-    { "source": "/trainings", "destination": "/programs.html" },
-    { "source": "/courses", "destination": "/certificate-courses.html" },
-    { "source": "/parent-power", "destination": "/parent-trainings.html" }
+  "redirects": [
+    {
+      "source": "/404",
+      "destination": "/404.html",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html",
+      "permanent": true
+    },
+    {
+      "source": "/programs",
+      "destination": "/programs.html",
+      "permanent": true
+    },
+    {
+      "source": "/resources",
+      "destination": "/resources.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html",
+      "permanent": true
+    },
+    {
+      "source": "/aba-therapy",
+      "destination": "/aba-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/speech-language-therapy",
+      "destination": "/speech-language-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/occupational-therapy",
+      "destination": "/occupational-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/sensory-therapy",
+      "destination": "/sensory-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/floortime-approach",
+      "destination": "/floortime-approach.html",
+      "permanent": true
+    },
+    {
+      "source": "/teacch-therapy",
+      "destination": "/teacch-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/play-therapy",
+      "destination": "/play-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/music-therapy",
+      "destination": "/music-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/functional-living-skills",
+      "destination": "/functional-living-skills.html",
+      "permanent": true
+    },
+    {
+      "source": "/academics-school-training",
+      "destination": "/academics-school-training.html",
+      "permanent": true
+    },
+    {
+      "source": "/vocational-therapy",
+      "destination": "/vocational-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/diagnostic-evaluation",
+      "destination": "/diagnostic-evaluation.html",
+      "permanent": true
+    },
+    {
+      "source": "/internship-programs",
+      "destination": "/internship-programs.html",
+      "permanent": true
+    },
+    {
+      "source": "/parent-trainings",
+      "destination": "/parent-trainings.html",
+      "permanent": true
+    },
+    {
+      "source": "/hands-on-trainings",
+      "destination": "/hands-on-trainings.html",
+      "permanent": true
+    },
+    {
+      "source": "/sibling-trainings",
+      "destination": "/sibling-trainings.html",
+      "permanent": true
+    },
+    {
+      "source": "/certificate-courses",
+      "destination": "/certificate-courses.html",
+      "permanent": true
+    },
+    {
+      "source": "/community-awareness",
+      "destination": "/community-awareness.html",
+      "permanent": true
+    },
+    {
+      "source": "/aba-videos",
+      "destination": "/aba-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/speech-therapy-videos",
+      "destination": "/speech-therapy-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/occupational-therapy-videos",
+      "destination": "/occupational-therapy-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/safety-training-videos",
+      "destination": "/safety-training-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/academic-videos",
+      "destination": "/academic-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/functional-living-skills-videos",
+      "destination": "/functional-living-skills-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/vocational-videos",
+      "destination": "/vocational-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/floortime-videos",
+      "destination": "/floortime-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/social-skills-videos",
+      "destination": "/social-skills-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/play-videos",
+      "destination": "/play-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/hands-on-trainings-videos",
+      "destination": "/hands-on-trainings-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/cognitive-behavior-videos",
+      "destination": "/cognitive-behavior-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/inclusive-education-videos",
+      "destination": "/inclusive-education-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/teacch-intervention-videos",
+      "destination": "/teacch-intervention-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/pecs-visual-videos",
+      "destination": "/pecs-visual-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/peer-mediated-videos",
+      "destination": "/peer-mediated-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/parent-power-videos",
+      "destination": "/parent-power-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/nutrition-supplements-videos",
+      "destination": "/nutrition-supplements-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/facilitated-communication-videos",
+      "destination": "/facilitated-communication-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/rdi-videos",
+      "destination": "/rdi-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/journals",
+      "destination": "/journals.html",
+      "permanent": true
+    },
+    {
+      "source": "/books",
+      "destination": "/books.html",
+      "permanent": true
+    },
+    {
+      "source": "/free-consultations",
+      "destination": "/free-consultations.html",
+      "permanent": true
+    },
+    {
+      "source": "/autism-resource-library",
+      "destination": "/autism-resource-library.html",
+      "permanent": true
+    },
+    {
+      "source": "/photos-library",
+      "destination": "/photos-library.html",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/programs.html",
+      "permanent": true
+    },
+    {
+      "source": "/therapies",
+      "destination": "/programs.html",
+      "permanent": true
+    },
+    {
+      "source": "/trainings",
+      "destination": "/programs.html",
+      "permanent": true
+    },
+    {
+      "source": "/courses",
+      "destination": "/certificate-courses.html",
+      "permanent": true
+    },
+    {
+      "source": "/parent-power",
+      "destination": "/parent-trainings.html",
+      "permanent": true
+    },
+    {
+      "source": "/speech-therapy",
+      "destination": "/speech-language-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/sensory-integration",
+      "destination": "/sensory-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/floortime",
+      "destination": "/floortime-approach.html",
+      "permanent": true
+    },
+    {
+      "source": "/teacch",
+      "destination": "/teacch-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/academics",
+      "destination": "/academics-school-training.html",
+      "permanent": true
+    },
+    {
+      "source": "/vocational-handloom",
+      "destination": "/vocational-therapy.html",
+      "permanent": true
+    },
+    {
+      "source": "/internships",
+      "destination": "/internship-programs.html",
+      "permanent": true
+    },
+    {
+      "source": "/parent-training",
+      "destination": "/parent-trainings.html",
+      "permanent": true
+    },
+    {
+      "source": "/hands-on-training",
+      "destination": "/hands-on-trainings.html",
+      "permanent": true
+    },
+    {
+      "source": "/sibling-support",
+      "destination": "/sibling-trainings.html",
+      "permanent": true
+    },
+    {
+      "source": "/speech-videos",
+      "destination": "/speech-therapy-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/ot-videos",
+      "destination": "/occupational-therapy-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/safety-videos",
+      "destination": "/safety-training-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/functional-videos",
+      "destination": "/functional-living-skills-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/functional-skills",
+      "destination": "/functional-living-skills-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/hands-on-videos",
+      "destination": "/hands-on-trainings-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/cbt-videos",
+      "destination": "/cognitive-behavior-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/teacch-videos",
+      "destination": "/teacch-intervention-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/pecs-videos",
+      "destination": "/pecs-visual-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/nutrition-videos",
+      "destination": "/nutrition-supplements-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/assistive-comm-videos",
+      "destination": "/facilitated-communication-videos.html",
+      "permanent": true
+    },
+    {
+      "source": "/consultations",
+      "destination": "/free-consultations.html",
+      "permanent": true
+    },
+    {
+      "source": "/resource-library",
+      "destination": "/autism-resource-library.html",
+      "permanent": true
+    },
+    {
+      "source": "/photos",
+      "destination": "/photos-library.html",
+      "permanent": true
+    }
   ]
 }

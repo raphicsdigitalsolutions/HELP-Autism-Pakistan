@@ -4,7 +4,7 @@
 **Repository:** [https://github.com/raphicsdigitalsolutions/HELP-Autism-Pakistan](https://github.com/raphicsdigitalsolutions/HELP-Autism-Pakistan)  
 **Official YouTube Channel:** [https://www.youtube.com/@aniqasohail9327/videos](https://www.youtube.com/@aniqasohail9327/videos)  
 **Channel Handle:** `@aniqasohail9327`  
-**Audit Date:** 2026-10-06  
+**Audit Date:** 2026-10-09  
 **Architecture:** Static HTML / CSS / Vanilla JavaScript (GitHub Pages & Vercel compliant)
 
 ---
@@ -16,15 +16,15 @@
 | 1 | ABA Therapy | `aba-videos.html` | NO VERIFIED VIDEO FOUND | NO VERIFIED VIDEO FOUND | No (In Curation Fallback) | None (0) | Yes (100% Fluid 16:9) | NO VERIFIED VIDEO |
 | 2 | Speech & Language | `speech-therapy-videos.html` | NO VERIFIED VIDEO FOUND | NO VERIFIED VIDEO FOUND | No (In Curation Fallback) | None (0) | Yes (100% Fluid 16:9) | NO VERIFIED VIDEO |
 | 3 | Occupational Therapy | `occupational-therapy-videos.html` | NO VERIFIED VIDEO FOUND | NO VERIFIED VIDEO FOUND | No (In Curation Fallback) | None (0) | Yes (100% Fluid 16:9) | NO VERIFIED VIDEO |
-| 4 | Safety Training | `safety-training-videos.html` | Neonatal Resuscitation Workshop organised by Dr Aniqa Sohail 5th December 23 *(+2 additional videos)* | `0WzaRoetEWU` *(also `iEAm8tMwMKY`, `Nw2PIkqBe9c`)* | Yes (YouTube iframe + 3 interactive cards) | None (0) | Yes (100% Fluid 16:9) | PASS |
+| 4 | Pediatric Emergency Response | `safety-training-videos.html` | Neonatal resuscitation workshops *(3 videos)* | `0WzaRoetEWU`, `iEAm8tMwMKY`, `Nw2PIkqBe9c` | Yes (responsive YouTube iframe + 3 cards) | None (0) | Yes | Correctly labeled; clinical emergency training, not autism-specific home safety |
 | 5 | Academic & Pre-School | `academic-videos.html` | Greening Arts HELP AUTISM PAKISTAN 16th September 23 | `HEXFDgy6Sbg` | Yes (YouTube iframe player) | None (0) | Yes (100% Fluid 16:9) | PASS |
 | 6 | Functional Living Skills | `functional-living-skills-videos.html` | functional adaptive living skills | `FjgBpP81mps` | Yes (YouTube iframe player) | None (0) | Yes (100% Fluid 16:9) | PASS |
 | 7 | Vocational & Handloom | `vocational-videos.html` | vocational skills *(+ Asad's Woven Wonders)* | `yRLGlFVu434` *(also `bvIPD88qaB8`)* | Yes (YouTube iframe + 2 interactive cards) | None (0) | Yes (100% Fluid 16:9) | PASS |
 | 8 | Floortime Demonstration | `floortime-videos.html` | NO VERIFIED VIDEO FOUND | NO VERIFIED VIDEO FOUND | No (In Curation Fallback) | None (0) | Yes (100% Fluid 16:9) | NO VERIFIED VIDEO |
 | 9 | Social Skills | `social-skills-videos.html` | Highlights of Sports Gala 25 HELP Autism Pakistan #ISAL School #Autism #sports #games *(+2 additional videos)* | `8TwPwTpZw_8` *(also `z8oW9MxQp-0`, `xNIiVMKMa60`)* | Yes (YouTube iframe + 3 interactive cards) | None (0) | Yes (100% Fluid 16:9) | PASS |
-| 10 | Play Therapy | `play-videos.html` | Winter Fair Preparations HELP AUTISM PAKISTAN with Dr Aniqa Sohail # DrAniqaHaider *(+1 additional video)* | `siBcw3sJUcQ` *(also `8TwPwTpZw_8`)* | Yes (YouTube iframe + 2 interactive cards) | None (0) | Yes (100% Fluid 16:9) | PASS |
+| 10 | Community Play & Events | `play-videos.html` | Winter fair preparations and Sports Gala | `siBcw3sJUcQ`, `8TwPwTpZw_8` | Yes (responsive YouTube iframe + 2 cards) | None (0) | Yes | Correctly labeled as community/event footage, not clinical play therapy |
 | 11 | Hands-on Trainings | `hands-on-trainings-videos.html` | Teacher Training Series at HELP Autism Pakistan with Dr Aniqa Sohail *(+2 additional videos)* | `phLOlIfiHJE` *(also `ba0VZYkT4A0`, `8EvMpKqN9So`)* | Yes (YouTube iframe + 3 interactive cards) | None (0) | Yes (100% Fluid 16:9) | PASS |
-| 12 | Cognitive Behavior | `cognitive-behavior-videos.html` | Resilience counts in . Help Autism Pakistan | `dwj1Q5l0Lu8` | Yes (YouTube iframe player) | None (0) | Yes (100% Fluid 16:9) | PASS |
+| 12 | Community Resilience & Wellbeing | `cognitive-behavior-videos.html` | Resilience counts in . Help Autism Pakistan | `dwj1Q5l0Lu8` | Yes (responsive YouTube iframe) | None (0) | Yes | Correctly labeled as inspirational community content, not CBT instruction |
 | 13 | Inclusive Education | `inclusive-education-videos.html` | Inclusive Education and Autism with Dr Aniqa Sohail 27th April 2024 . Seminar at PSRD Lahore *(+1 additional video)* | `s4VLDk0riIg` *(also `3x6hcQdedNU`)* | Yes (YouTube iframe + 2 interactive cards) | None (0) | Yes (100% Fluid 16:9) | PASS |
 | 14 | TEACCH Intervention | `teacch-intervention-videos.html` | NO VERIFIED VIDEO FOUND | NO VERIFIED VIDEO FOUND | No (In Curation Fallback) | None (0) | Yes (100% Fluid 16:9) | NO VERIFIED VIDEO |
 | 15 | PECS & Visual Communication | `pecs-visual-videos.html` | NO VERIFIED VIDEO FOUND | NO VERIFIED VIDEO FOUND | No (In Curation Fallback) | None (0) | Yes (100% Fluid 16:9) | NO VERIFIED VIDEO |
@@ -49,6 +49,10 @@
 - **Obsolete Wix Video Destination Links in Code:** 0
 
 ---
+
+### Content-category correction
+
+The former labels `Safety Training`, `Play Therapy`, and `Cognitive Behavior` overstated the subject matter of some available footage. They are now labeled `Pediatric Emergency Response`, `Community Play & Events`, and `Community Resilience & Wellbeing`. This avoids presenting event recordings or an inspirational clip as autism-specific safety guidance, clinical play therapy, or a CBT lesson.
 
 ## 3. Responsive & Accessibility Audit
 
