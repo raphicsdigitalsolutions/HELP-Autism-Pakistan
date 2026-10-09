@@ -137,7 +137,7 @@ During the audit and verification cycle, four concrete defects were identified, 
 - The site keeps explicit `.html` page URLs for canonicals, internal links, and sitemap entries.
 - `vercel.json` sets `cleanUrls: false` so Vercel does not silently redirect canonical `.html` URLs to extensionless paths.
 - Permanent redirects are declared for extensionless route aliases and the legacy Wix routes mapped in `MIGRATION_URL_MAP.md`.
-- The build-time release verifier validates configuration, redirect destinations, canonical URLs, sitemap entries, and local file references. The actual status code from the deployed URL must still be checked after deployment.
+- The build-time release verifier validates configuration, redirect destinations, canonical URLs, sitemap entries, form workflow, and local file references. Latest GitHub commit `092af832df6ea2387a4bdb7c6b3c6668f4a19c23` received Vercel check `success` and its deployment state is `READY`. The live URL's individual redirect status codes were not independently fetched by this audit.
 
 ### 3.2 Video Category Accuracy
 
@@ -179,8 +179,8 @@ Due to environmental boundaries, the following external operations cannot be ver
 
 ## Conclusion & Readiness Verdict
 
-- **Static Architecture & Automated Release Checks:** **GATED BY BUILD** (the new prebuild verifier must pass in the latest Vercel build; do not infer success until the deployment reports READY).
-- **SEO URL Strategy:** **CONFIGURATION ALIGNED** (explicit .html canonicals/sitemap paired with cleanUrls=false and permanent redirects; verify live response codes after deployment).
+- **Static Architecture & Automated Release Checks:** **PASSED** for latest commit `092af832df6ea2387a4bdb7c6b3c6668f4a19c23` (Vercel check `success`; deployment `READY`, with prebuild and postbuild release verifier in the npm build lifecycle).
+- **SEO URL Strategy:** **CONFIGURATION ALIGNED** (explicit `.html` canonicals/sitemap paired with `cleanUrls: false` and 77 permanent redirects; live redirect status codes were not independently fetched).
 - **Mobile Responsive Layouts & Styling:** **SOURCE FIXES PRESENT**; perform post-deployment browser/device acceptance before declaring visual QA complete.
 - **Consultation Intake Workflow:** **PASSED & OPERATIONAL** (WhatsApp-first client flow verified with zero client storage of sensitive medical data).
 - **Production DNS Cutover:** **PENDING** management domain transition and email DNS preservation.
