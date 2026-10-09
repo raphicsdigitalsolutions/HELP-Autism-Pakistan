@@ -493,7 +493,7 @@ function buildIndexPage() {
               </p>
               <p style="margin-bottom: 0;">
                 <strong>Landline (Lahore):</strong><br>
-                <a href="tel:+924235165661"><strong>+92 42 35165661</strong></a> (042-35165661)
+                <a href="tel:04235165661"><strong>042-35165661</strong></a>
               </p>
             </div>
           </div>
@@ -1083,7 +1083,7 @@ function buildContactPage() {
               </p>
               <p style="margin-bottom: 0; padding-top: 0.4rem; border-top: 1px dashed rgba(26, 111, 196, 0.2);">
                 <strong>Landline (Lahore):</strong><br>
-                <a href="tel:+924235165661"><strong>+92 42 35165661</strong></a> (042-35165661)
+                <a href="tel:04235165661"><strong>042-35165661</strong></a>
               </p>
             </div>
           </div>

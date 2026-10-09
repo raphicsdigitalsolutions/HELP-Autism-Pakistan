@@ -15,11 +15,11 @@ const ORG = {
   address: "P Block, Model Town Extension, Lahore, Pakistan",
   timing: "Monday to Saturday, 9:00 am – 5:00 pm (Sunday Closed)",
   timingShort: "Mon–Sat 9:00 AM – 5:00 PM",
-  phones: ["+92 344 404 0074", "+92 300 675 2325", "+92 42 35165661"],
+  phones: ["+92 344 404 0074", "+92 300 675 2325", "042-35165661"],
   primaryPhone: "+92 344 404 0074",
-  landlinePhone: "+92 42 35165661",
-  landlineDisplay: "+92 42 35165661",
-  landlineLocal: "(042) 3516-5661",
+  landlinePhone: "042-35165661",
+  landlineDisplay: "042-35165661",
+  landlineLocal: "042-35165661",
   email: "aniqasohail@gmail.com",
   whatsapp: "https://wa.me/923444040074",
   youtube: "https://www.youtube.com/@aniqasohail9327/videos",
@@ -531,7 +531,7 @@ function renderFooter() {
         </p>
         <p class="contact-line">
           <strong>Landline (Lahore):</strong><br>
-          <a href="tel:+924235165661">+92 42 35165661</a> (042-35165661)
+          <a href="tel:04235165661">042-35165661</a>
         </p>
         <p class="contact-line">
           <strong>Email:</strong><br>

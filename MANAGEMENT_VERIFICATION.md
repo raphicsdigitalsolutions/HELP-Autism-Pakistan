@@ -20,7 +20,7 @@ Before launching the redesigned website to public production, please review and 
 ## 3. Contact Numbers & Direct Hotlines
 - [ ] **Primary WhatsApp Hotline:** `+92 344 404 0074`
 - [ ] **Secondary Mobile Line:** `+92 300 675 2325`
-- [x] **Landline Telephone:** `+92 42 35165661` / `(042) 3516-5661` (Lahore Area Code 042 verified and formatted across site).
+- [x] **Landline Telephone:** `042-35165661` (Lahore landline formatted with 042 prefix across site on dedicated line without brackets).
 
 ## 4. Official Email Address
 - [ ] **Primary Clinical Email:** `aniqasohail@gmail.com`
