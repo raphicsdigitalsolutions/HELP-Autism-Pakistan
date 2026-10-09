@@ -106,6 +106,28 @@ During the audit and verification cycle, four concrete defects were identified, 
   - Added `.footer-brand` flex styling with `align-items: center` and a dedicated `.footer-logo` declaration (56x56px, circular border-radius, `object-fit: contain`, white background card).
 - **Status:** **VERIFIED & FIXED**.
 
+### Defect 5: Consultation Form Workflow — Transition to Honest WhatsApp-First Intake & Elimination of Silent Storage
+- **Condition Found:**
+  - Forms on `index.html` and `contact.html` utilized a misleading submit button that mimicked backend submission when no API was configured.
+  - Form submissions silently retained sensitive family and child data (parent names, telephone numbers, child ages, and free-text notes) in browser `localStorage` (`help_consultations`).
+  - No safeguards cautioned parents against submitting sensitive psychiatric records or medical diagnostic history over unencrypted public web inputs.
+  - The UI lacked a transparent 2-step explanation clarifying that inquiries are only received by clinic coordinators once the user taps "Send" inside WhatsApp.
+- **Resolution:**
+  - **Replaced Submit Flow:** Transformed primary action buttons to **`Continue to WhatsApp &rarr;`** (`.btn-green.btn-3d`) featuring the official WhatsApp emblem across homepage and contact pages.
+  - **Removed Silent `localStorage` Persistence:** Completely stripped all `localStorage.setItem` logic across all scripts. Added automatic purge on initialization (`localStorage.removeItem('help_consultations')`) to guarantee zero retention of family or pediatric records in browser caches.
+  - **Client-Side Validation Enforced:**
+    - Parent / Guardian Name: required, minimum 2 characters.
+    - Phone / WhatsApp: required, minimum 9 digits (handles local Pakistani `03xx...` and international `+92...`).
+    - Child Age: required with explicit error prompt.
+    - Invalid fields trigger `.is-invalid` borders and visible `.field-error-msg` spans with auto-focus on the first offending field.
+  - **URL-Encoded WhatsApp Click-to-Chat Generation:** Built a clean, structured inquiry message targeting official clinic WhatsApp `+92 344 404 0074` (`https://wa.me/923444040074?text=...`) and WhatsApp Web desktop fallback (`https://web.whatsapp.com/send?phone=923444040074&text=...`), verified to encode spaces, special punctuation, and Urdu characters (`فاطمہ طارق`).
+  - **Explicit 2-Step Communication Notice:** Displayed a prominent step-2 notification banner stating clearly:
+    > *"Important Notice: Your inquiry has not yet been transmitted to the clinic. You must press the Send button inside WhatsApp to deliver your inquiry."*
+  - **Sensitive Data Minimization & Privacy Notices:** Form notes are capped at 180 characters to discourage bulk pasting of confidential evaluations. Added explicit on-form privacy guidance:
+    > *"Privacy Notice: Please do not enter detailed medical records, diagnostic reports, or sensitive clinical history in this web form. Full clinical files and history are reviewed confidentially directly with Dr. Aniqa Sohail during clinical intake."*
+  - **Direct Fallback Links:** Kept direct WhatsApp (`+92 344 404 0074`) and Lahore landline (`042-35165661`) links visible in the form actions stack and status feedback card.
+- **Status:** **VERIFIED & FIXED** on mobile and desktop viewports.
+
 ---
 
 ## 3. Failed and Still Unresolved
@@ -161,9 +183,9 @@ The following items are critical blockers that must be addressed prior to final 
 
 | Blocker ID | Severity | Item | Details & Required Resolution |
 |---|---|---|---|
-| **BLK-01** | **HIGH** | **Live Consultation Intake API** | The consultation form currently functions in **client-side demo mode**. Inquiries are validated and stored in browser `localStorage`, with an immediate WhatsApp handoff link. **Inquiries are NOT transmitted to an administrative backend.** To enable automated email/database intake, configure `window.HELP_FORM_ENDPOINT` to an external API (e.g. Formspree, Firebase Functions, or an Express proxy server). |
+| **BLK-01** | **RESOLVED** | **Consultation Intake Workflow** | **Transitioned to WhatsApp-first inquiry workflow.** Inquiries are validated in-browser and transferred directly to the clinic's official WhatsApp (+92 344 404 0074) with a pre-filled message. Parents are clearly notified that transmission completes only upon tapping Send in WhatsApp. Browser `localStorage` retention of family and pediatric records has been eliminated. No external database or backend credentials required. |
 | **BLK-02** | **HIGH** | **DNS & Domain Transition** | Canonical URLs and structured data target `https://www.helpautismpakistan.com/`. Prior to public launch, DNS records (A / CNAME) must be transitioned from the legacy Wix hosting to Vercel/production hosting, with SSL certificate provisioning confirmed. |
-| **BLK-03** | **MEDIUM** | **GitHub Push & Staging Deployment** | Workspace updates (including landline formatting, mobile logo circle fixes, and asset bundle directories) must be pushed to `https://github.com/raphicsdigitalsolutions/HELP-Autism-Pakistan` to update the deployed Vercel instance. |
+| **BLK-03** | **MEDIUM** | **GitHub Push & Staging Deployment** | Workspace updates (including landline formatting, mobile logo circle fixes, WhatsApp intake workflow, and asset bundle directories) must be pushed to `https://github.com/raphicsdigitalsolutions/HELP-Autism-Pakistan` to update the deployed Vercel instance. |
 | **BLK-04** | **LOW** | **Clinical Video Content Approval** | Management sign-off is required for the semantic video category mappings noted in Section 3.1. |
 
 ---
@@ -173,5 +195,5 @@ The following items are critical blockers that must be addressed prior to final 
 - **Static Architecture, Performance & Code Quality:** **PASSED** (100% build pass, zero TypeScript/linter errors, zero broken links).
 - **SEO & Accessibility Compliance:** **PASSED** (Full metadata, schema, skip links, and alt coverage).
 - **Mobile Responsive Layouts & Styling:** **PASSED** (Logo circle distortion resolved across all breakpoints).
-- **Automated Form Delivery:** **BLOCKED** until backend endpoint (`window.HELP_FORM_ENDPOINT`) or email relay is connected.
+- **Consultation Intake Workflow:** **PASSED & OPERATIONAL** (WhatsApp-first client flow verified with zero client storage of sensitive medical data).
 - **Production DNS Cutover:** **PENDING** management domain transition.

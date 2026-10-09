@@ -387,16 +387,34 @@
   }
 
   /* -------------------------------------------------------------------------
-     9. PRODUCTION-SAFE CONSULTATION FORM HANDLER
+     9. WHATSAPP-FIRST CONSULTATION INQUIRY WORKFLOW (CLINICAL INTAKE)
      ------------------------------------------------------------------------- */
   function initConsultationForms() {
     const forms = document.querySelectorAll('.consultation-form');
     if (!forms.length) return;
 
-    // Production Endpoint Configuration
-    // To connect a live backend (Express / Firebase / Formspree / SendGrid):
-    // Set `window.HELP_FORM_ENDPOINT = 'https://api.yourdomain.com/consultations'` in an external script or .env.
-    const FORM_ENDPOINT = window.HELP_FORM_ENDPOINT || null;
+    // Official clinic WhatsApp numbers & contact handles
+    const CLINIC_WHATSAPP_DIGITS = '923444040074';
+    const CLINIC_WHATSAPP_DISPLAY = '+92 344 404 0074';
+    const CLINIC_LANDLINE_DISPLAY = '042-35165661';
+
+    // Privacy protection: Ensure no sensitive family or child data remains in localStorage
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.removeItem('help_consultations');
+      }
+    } catch (_) {}
+
+    // HTML escape helper for secure rendering
+    const escapeHtml = (str) => {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    };
 
     forms.forEach(form => {
       const nameInput = form.querySelector('[name="name"]');
@@ -419,6 +437,7 @@
           if (!errSpan) {
             errSpan = document.createElement('span');
             errSpan.className = 'field-error-msg';
+            errSpan.setAttribute('aria-live', 'polite');
             parent.appendChild(errSpan);
           }
           errSpan.textContent = msg;
@@ -436,52 +455,55 @@
         }
       };
 
-      // Realtime validation cleanup on input
+      // Realtime validation cleanup on input / change
       [nameInput, phoneInput, ageInput].forEach(inp => {
         if (inp) {
           inp.addEventListener('input', () => clearFieldError(inp));
+          inp.addEventListener('change', () => clearFieldError(inp));
         }
       });
 
-      // WhatsApp Quick Action button (formats entered data into courteous message)
-      if (whatsappBtn) {
-        whatsappBtn.addEventListener('click', () => {
-          const parentName = nameInput?.value.trim() || 'Parent';
-          const childAge = ageInput?.value.trim() || 'Not specified';
-          const service = serviceInput?.value || 'Consultation Assessment';
-          const notes = notesInput?.value.trim() || 'I would like to inquire regarding clinical consultation.';
+      // Construct courteous, structured inquiry message with minimal clinical disclosures
+      const buildInquiryMessage = (parentName, phoneVal, childAge, serviceVal, sanitizedNotes) => {
+        const lines = [
+          'Assalam-o-Alaikum / Hello Dr. Aniqa Sohail & HELP Autism Pakistan Team,',
+          '',
+          'I would like to inquire about scheduling a clinical consultation at your Model Town Extension centre in Lahore.',
+          '',
+          `• Parent / Guardian: ${parentName}`,
+          `• Contact / Callback: ${phoneVal}`,
+          `• Child's Age: ${childAge || 'Not specified'}`,
+          `• Service of Interest: ${serviceVal || 'Clinical Consultation Assessment'}`
+        ];
 
-          const text = 
-            `Hello Dr. Aniqa Sohail & HELP Autism Pakistan Team,\n\n` +
-            `I would like to inquire about a clinical consultation.\n` +
-            `• Parent Name: ${parentName}\n` +
-            `• Child's Age: ${childAge}\n` +
-            `• Service of Interest: ${service}\n` +
-            `• Concerns / Notes: ${notes}\n\n` +
-            `Please let me know how to schedule our appointment in Lahore. Thank you!`;
+        if (sanitizedNotes) {
+          lines.push(`• Brief Focus / Note: ${sanitizedNotes}`);
+        }
 
-          const encoded = encodeURIComponent(text);
-          window.open(`https://wa.me/923444040074?text=${encoded}`, '_blank');
-        });
-      }
+        lines.push('');
+        lines.push('Please let me know appointment availability and intake procedure. Thank you!');
+        return lines.join('\n');
+      };
 
-      // Main Form Submit Handler
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+      // Unified WhatsApp inquiry handler
+      const handleWhatsAppInquiry = (e) => {
+        if (e && e.preventDefault) e.preventDefault();
 
         // 1. Spam honeypot check
         if (honeypot && honeypot.value.trim() !== '') {
-          console.warn('Spam submission detected by honeypot.');
+          console.warn('Submission filtered by honeypot.');
           return;
         }
 
         // 2. Client-side field validation
         let isValid = true;
+        let firstInvalid = null;
 
         const nameVal = nameInput ? nameInput.value.trim() : '';
         if (!nameVal || nameVal.length < 2) {
-          setFieldError(nameInput, 'Please provide the parent or guardian full name.');
+          setFieldError(nameInput, 'Please provide the parent or guardian full name (minimum 2 characters).');
           isValid = false;
+          if (!firstInvalid) firstInvalid = nameInput;
         } else {
           clearFieldError(nameInput);
         }
@@ -489,125 +511,98 @@
         const phoneVal = phoneInput ? phoneInput.value.trim() : '';
         const phoneDigits = phoneVal.replace(/[^0-9]/g, '');
         if (!phoneVal || phoneDigits.length < 9) {
-          setFieldError(phoneInput, 'Please provide a valid phone or WhatsApp number (min 9 digits).');
+          setFieldError(phoneInput, 'Please provide a valid phone or WhatsApp number (minimum 9 digits).');
           isValid = false;
+          if (!firstInvalid) firstInvalid = phoneInput;
         } else {
           clearFieldError(phoneInput);
         }
 
         const ageVal = ageInput ? ageInput.value.trim() : '';
-        if (!ageVal) {
-          setFieldError(ageInput, 'Please provide your child\'s age.');
-          isValid = false;
-        } else {
-          clearFieldError(ageInput);
+        if (ageInput && (ageInput.hasAttribute('required') || !ageVal)) {
+          if (!ageVal) {
+            setFieldError(ageInput, 'Please provide your child\'s age (e.g. 4 years).');
+            isValid = false;
+            if (!firstInvalid) firstInvalid = ageInput;
+          } else {
+            clearFieldError(ageInput);
+          }
         }
 
         if (!isValid) {
           if (feedbackBox) {
             feedbackBox.style.display = 'block';
             feedbackBox.className = 'form-feedback-box form-error-alert';
-            feedbackBox.textContent = 'Please correct the highlighted fields above.';
+            feedbackBox.innerHTML = '<strong>Please correct the highlighted fields above</strong> before continuing to WhatsApp.';
+          }
+          if (firstInvalid) {
+            firstInvalid.focus();
           }
           return;
         }
 
-        // 3. UI Loading State
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          const btnText = submitBtn.querySelector('.btn-text');
-          const btnSpinner = submitBtn.querySelector('.btn-spinner');
-          if (btnText) btnText.style.display = 'none';
-          if (btnSpinner) btnSpinner.style.display = 'inline-block';
+        // 3. Sensitive Information Minimization:
+        // Cap notes length to prevent parents from pasting sensitive diagnostic/medical records into web forms
+        let sanitizedNotes = notesInput ? notesInput.value.trim().replace(/\s+/g, ' ') : '';
+        if (sanitizedNotes.length > 180) {
+          sanitizedNotes = sanitizedNotes.slice(0, 177) + '...';
         }
 
-        const payload = {
-          name: nameVal,
-          phone: phoneVal,
-          age: ageVal,
-          service: serviceInput?.value || 'Consultation',
-          notes: notesInput?.value.trim() || '',
-          timestamp: new Date().toISOString(),
-          sourceUrl: window.location.href
-        };
+        const serviceVal = serviceInput ? serviceInput.value : 'Clinical Consultation';
 
-        try {
-          if (FORM_ENDPOINT) {
-            // Live Server Endpoint POST
-            const res = await fetch(FORM_ENDPOINT, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-            });
+        // 4. Generate URL-encoded WhatsApp click-to-chat links (supporting UTF-8 spaces, Urdu & punctuation)
+        const inquiryText = buildInquiryMessage(nameVal, phoneVal, ageVal, serviceVal, sanitizedNotes);
+        const encodedText = encodeURIComponent(inquiryText);
 
-            if (!res.ok) throw new Error('Server returned ' + res.status);
+        const waUniversalUrl = `https://wa.me/${CLINIC_WHATSAPP_DIGITS}?text=${encodedText}`;
+        const waWebUrl = `https://web.whatsapp.com/send?phone=${CLINIC_WHATSAPP_DIGITS}&text=${encodedText}`;
 
-            // Live Production Success State
-            form.reset();
-            if (feedbackBox) {
-              feedbackBox.style.display = 'block';
-              feedbackBox.className = 'form-feedback-box form-success-alert';
-              feedbackBox.innerHTML = `
-                <strong>Thank you, ${nameVal}!</strong><br>
-                Your consultation request has been successfully transmitted to our clinical intake coordinators in Model Town Extension, Lahore. We will contact you at <strong>${phoneVal}</strong>.<br>
-                <div style="margin-top: 0.75rem;">
-                  <a href="https://wa.me/923444040074?text=${encodeURIComponent('Hello HELP Autism Pakistan, I just submitted an intake form on the website for ' + nameVal + '.')}" target="_blank" rel="noopener noreferrer" style="color: var(--color-green-deep); font-weight: 700; text-decoration: underline;">
-                    Click here to confirm directly on WhatsApp &rarr;
+        // 5. Open official WhatsApp chat in new window
+        window.open(waUniversalUrl, '_blank', 'noopener,noreferrer');
+
+        // 6. Explicit 2-step verification notice: Never claim clinic received until parent presses "Send"
+        if (feedbackBox) {
+          feedbackBox.style.display = 'block';
+          feedbackBox.className = 'form-feedback-box form-info-alert';
+          feedbackBox.innerHTML = `
+            <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+              <span style="font-size: 1.6rem; line-height: 1;" aria-hidden="true">💬</span>
+              <div style="flex: 1;">
+                <strong style="display: block; font-size: 1.05rem; color: var(--color-navy); margin-bottom: 0.35rem;">
+                  Step 2 of 2: Please Tap or Click &ldquo;Send&rdquo; inside WhatsApp
+                </strong>
+                <p style="margin-bottom: 0.5rem; font-size: 0.92rem; color: var(--color-text);">
+                  A pre-filled consultation inquiry has been prepared for <strong>${escapeHtml(nameVal)}</strong> addressed to Dr. Aniqa Sohail and our clinical intake coordinators (${CLINIC_WHATSAPP_DISPLAY}).
+                </p>
+                <div style="background: rgba(230, 81, 0, 0.08); border-left: 3px solid #E65100; padding: 0.6rem 0.85rem; border-radius: 4px; margin: 0.65rem 0; font-size: 0.88rem; color: #8A3B00; line-height: 1.5;">
+                  <strong>Important Notice:</strong> Your inquiry has <strong>not yet been transmitted</strong> to the clinic. You must press the <strong>Send</strong> button inside WhatsApp to deliver your inquiry.
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem;">
+                  <a href="${waUniversalUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-green" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2Z"/></svg>
+                    Re-open WhatsApp App &rarr;
+                  </a>
+                  <a href="${waWebUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+                    Open WhatsApp Web (Desktop) &rarr;
                   </a>
                 </div>
-              `;
-            }
-          } else {
-            // Staging / Demo Environment (No live backend endpoint configured)
-            try {
-              const existing = JSON.parse(localStorage.getItem('help_consultations') || '[]');
-              existing.push(payload);
-              localStorage.setItem('help_consultations', JSON.stringify(existing));
-            } catch {}
-            // Simulate natural latency
-            await new Promise(r => setTimeout(r, 500));
-
-            form.reset();
-            if (feedbackBox) {
-              feedbackBox.style.display = 'block';
-              feedbackBox.className = 'form-feedback-box form-info-alert';
-              const serviceVal = serviceInput?.value || 'Consultation';
-              const notesVal = notesInput?.value.trim() || '';
-              feedbackBox.innerHTML = `
-                <strong>Staging / Demo Mode Notice:</strong><br>
-                Your consultation inquiry for <strong>${nameVal}</strong> has been validated and saved locally in your browser storage.<br>
-                <div style="margin-top: 0.45rem; font-size: 0.88rem; opacity: 0.95;">
-                  <em>Notice: A production backend API endpoint (<code>window.HELP_FORM_ENDPOINT</code>) has not yet been connected to this website, so this inquiry has not been transmitted to the clinic.</em>
-                </div>
-                <div style="margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid rgba(8,36,63,0.15);">
-                  <strong>To reach Dr. Aniqa Sohail and our clinical team directly right now:</strong><br>
-                  <a href="https://wa.me/923444040074?text=${encodeURIComponent('Hello Dr. Aniqa Sohail & HELP Autism Pakistan Team, I would like to book a clinical consultation for ' + nameVal + ' (Child Age: ' + ageVal + '). Service: ' + serviceVal + (notesVal ? '. Notes: ' + notesVal : '') + '.')}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-accent" style="margin-top: 0.6rem; display: inline-flex; align-items: center; gap: 0.45rem;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2Z"/></svg>
-                    Send Request Directly on WhatsApp &rarr;
-                  </a>
-                </div>
-              `;
-            }
-          }
-        } catch (error) {
-          console.error('Consultation form error:', error);
-          if (feedbackBox) {
-            feedbackBox.style.display = 'block';
-            feedbackBox.className = 'form-feedback-box form-error-alert';
-            feedbackBox.innerHTML = `
-              We encountered a transmission issue. You can reach our clinic directly right now on WhatsApp at <a href="https://wa.me/923444040074" target="_blank" style="text-decoration: underline; font-weight: 700;">+92 344 404 0074</a>.
-            `;
-          }
-        } finally {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            const btnText = submitBtn.querySelector('.btn-text');
-            const btnSpinner = submitBtn.querySelector('.btn-spinner');
-            if (btnText) btnText.style.display = 'inline-block';
-            if (btnSpinner) btnSpinner.style.display = 'none';
-          }
+                <p style="margin-top: 0.75rem; margin-bottom: 0; font-size: 0.82rem; color: var(--color-text-subtle);">
+                  If WhatsApp did not open automatically, click the buttons above, message directly at <a href="https://wa.me/${CLINIC_WHATSAPP_DIGITS}" target="_blank" rel="noopener noreferrer" style="color: var(--color-green-deep); font-weight: 600;">${CLINIC_WHATSAPP_DISPLAY}</a>, or call our Lahore clinic at <a href="tel:04235165661" style="color: var(--color-navy); font-weight: 600;">${CLINIC_LANDLINE_DISPLAY}</a>.
+                </p>
+              </div>
+            </div>
+          `;
+          feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-      });
+      };
+
+      // Wire submit event
+      form.addEventListener('submit', handleWhatsAppInquiry);
+
+      // Wire any secondary whatsapp button
+      if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', handleWhatsAppInquiry);
+      }
     });
   }
 

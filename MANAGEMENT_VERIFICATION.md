@@ -18,7 +18,7 @@ Before launching the redesigned website to public production, please review and 
 - [ ] *Confirmation:* Please confirm if any new certifications should be appended or if any wording requires refinement.
 
 ## 3. Contact Numbers & Direct Hotlines
-- [ ] **Primary WhatsApp Hotline:** `+92 344 404 0074`
+- [x] **Primary WhatsApp Hotline & Intake:** `+92 344 404 0074` (Validated and wired as the official WhatsApp-first inquiry destination across homepage and contact forms with explicit 2-step confirmation and zero browser storage of sensitive child data).
 - [ ] **Secondary Mobile Line:** `+92 300 675 2325`
 - [x] **Landline Telephone:** `042-35165661` (Lahore landline formatted with 042 prefix across site on dedicated line without brackets).
 

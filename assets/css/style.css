@@ -333,6 +333,19 @@ button {
   box-shadow: 0 2px 0 #0D3F7A, 0 4px 10px rgba(26, 111, 196, 0.3);
 }
 
+.btn-green {
+  background: var(--color-green);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 166, 80, 0.25);
+}
+
+.btn-green:hover {
+  background: #009346;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(0, 166, 80, 0.35);
+}
+
 .btn-green.btn-3d {
   background: var(--color-green);
   color: #FFFFFF !important;
@@ -2385,6 +2398,31 @@ textarea.form-control {
   background: rgba(29, 114, 184, 0.08);
   border: 1px solid var(--color-blue);
   color: var(--color-navy);
+}
+
+.form-privacy-note {
+  font-size: 0.82rem;
+  color: var(--color-text-subtle);
+  margin-top: 0.45rem;
+  line-height: 1.45;
+  background: #F4F8FC;
+  border-left: 3px solid var(--color-blue);
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+}
+
+.form-direct-fallback {
+  margin-top: 0.85rem;
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--color-text-subtle);
+  line-height: 1.5;
+}
+
+.form-direct-fallback a {
+  color: var(--color-blue);
+  text-decoration: underline;
+  font-weight: 600;
 }
 
 .btn-spinner {

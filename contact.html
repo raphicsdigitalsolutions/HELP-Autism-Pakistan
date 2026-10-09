@@ -304,8 +304,9 @@
 
             <div class="form-grid-2">
               <div class="form-group">
-                <label for="child-details">Child Age (Years)</label>
-                <input type="text" id="child-details" name="age" class="form-control" placeholder="e.g. 5 years" />
+                <label for="child-details">Child Age (Years) <span class="required-star">*</span></label>
+                <input type="text" id="child-details" name="age" class="form-control" placeholder="e.g. 5 years" required />
+                <span class="field-error-msg" aria-live="polite"></span>
               </div>
               <div class="form-group">
                 <label for="contact-service">Service of Interest</label>
@@ -326,21 +327,23 @@
 
             <div class="form-group">
               <label for="contact-message">Tell Us About Your Child's Needs &amp; Goals</label>
-              <textarea id="contact-message" name="notes" class="form-control" rows="4" placeholder="Include any existing diagnoses, speech delays, sensory triggers, or school goals..."></textarea>
+              <textarea id="contact-message" name="notes" class="form-control" rows="4" placeholder="Briefly describe your consultation goals (please do not paste private diagnostic reports or medical history)..."></textarea>
+              <p class="form-privacy-note">
+                <strong>Privacy Notice:</strong> Please do not enter detailed medical records, diagnostic reports, or sensitive clinical history in this web form. Full clinical files and history are reviewed confidentially directly with Dr. Aniqa Sohail during clinical intake.
+              </p>
             </div>
 
             <div class="form-actions-stack">
-              <button type="submit" class="btn btn-primary btn-3d btn-block btn-lg submit-btn">
-                <span class="btn-text">Send Message to Clinical Team &rarr;</span>
-                <span class="btn-spinner" style="display:none;">Submitting...</span>
+              <button type="submit" class="btn btn-green btn-3d btn-block btn-lg submit-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2Z"/></svg>
+                <span class="btn-text">Continue to WhatsApp &rarr;</span>
               </button>
-              <button type="button" class="btn btn-green btn-block whatsapp-prefill-btn" style="margin-top: 0.75rem;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right: 6px;"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2Z"/></svg>
-                Send via WhatsApp
-              </button>
+              <div class="form-direct-fallback">
+                Direct Clinic WhatsApp: <a href="https://wa.me/923444040074" target="_blank" rel="noopener noreferrer">+92 344 404 0074</a> &middot; Lahore Landline: <a href="tel:04235165661">042-35165661</a>
+              </div>
             </div>
 
-            <div class="form-feedback-box" style="display:none;" role="alert"></div>
+            <div class="form-feedback-box" style="display:none;" role="status" aria-live="polite"></div>
           </form>
         </div>
 
