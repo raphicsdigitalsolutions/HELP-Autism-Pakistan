@@ -792,7 +792,8 @@
       currentIndex = index;
 
       const card = visibleCards[currentIndex];
-      const src = card.getAttribute('data-full-src') || card.querySelector('img')?.src;
+      const thumbImg = card.querySelector('img');
+      const src = thumbImg?.currentSrc || thumbImg?.src || card.getAttribute('data-full-src') || '';
       const title = card.getAttribute('data-title') || '';
       const caption = card.getAttribute('data-caption') || '';
       const category = card.getAttribute('data-category-label') || '';
